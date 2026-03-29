@@ -14,6 +14,9 @@ while (1) {
     fgets(girdi, 256, stdin);
     girdi[strcspn(girdi, "\n")] = 0;
     char *komut = strtok(girdi, " ");
+    if (komut == NULL) {
+        continue;
+    }
     char *arguman = strtok(NULL, " ");
     if (strcmp(komut, "pati") == 0) {
         printf("Miyavv!");
@@ -58,7 +61,7 @@ while (1) {
         }
         FILE* ofile = fopen(arguman, "r");
         if (ofile == NULL) {
-            printf("Acmaya calistigin dosya bombos? Kalbin gibi :)");
+            printf("Acmaya calistigin dosya bombos? Kalbin gibi :)\n");
             continue;
         }
 
@@ -68,8 +71,25 @@ while (1) {
         fclose(ofile);
         printf("\n");
     };
+
+    if (strcmp(komut, "mamakabi") == 0) {
+        char girdi1[256];
+        FILE* ofile = fopen("/proc/meminfo","r");
+
+        if (ofile == NULL) {
+            printf("MAMAM YOK CALDİLAR D:\n");
+            continue;
+        }
+
+        while (fgets(girdi1, 256, ofile) != NULL) {
+            printf("%s", girdi1);
+        }
+        fclose(ofile);
+        printf("\n");
+    };
+
     if (strcmp(komut, "yardim") == 0) {
-        printf("\nKomutlar;\npati = Supriz komutu\nuname = Sistem bilgisi\ncat = dosya okur\ntemizle = ekrani temizler\nls = klasorleri listeler\n");
+        printf("\nKomutlar;\npati = Supriz komutu\nuname = Sistem bilgisi\ncat = dosya okur\ntemizle = ekrani temizler\nls = klasorleri listeler\nmamakabi = RAM bilgisi\n");
     };
     }
     }
