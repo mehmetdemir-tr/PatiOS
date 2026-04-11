@@ -27,7 +27,7 @@ Bu proje **GPL v3** lisansı ile yayınlanmıştır.
 *   Proje kapalı kaynak kodlu hale getirilemez.
 
 ### FORK!
-![Selam](https://github.com/mehmetdemir-tr/Pati/blob/main/FAHH.png)
+![Selam](https://github.com/mehmetdemir-tr/Pati/blob/main/fork.png)
 ---
 *Geliştirici: [mehmetdemir-tr](https://github.com/mehmetdemir-tr)*.
 ---
