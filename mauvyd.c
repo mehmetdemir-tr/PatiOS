@@ -41,6 +41,7 @@ for (int i = 0; i < n; i++) {
     char dosyayolu[256] = {0};
     char *args[] = {NULL, NULL};
     int bekle = 0;
+    int izle = 0;
     while (fgets(dosya, 256, pcgfile) != NULL) {
             char kopya[256];
             strcpy(kopya, dosya);
@@ -57,8 +58,12 @@ for (int i = 0; i < n; i++) {
             if (strcmp(okuyucu, "bekle") == 0) {
                 bekle = 1;
             }
+
+            if (strcmp(okuyucu, "izle") == 0) {
+                izle = 1;
+            }
       };
-      pid = fork(); // ÇATALLAMA ZAMANII! (Şaka amaçlı yorum satırı, silmeyin!1)
+      pid = fork(); // ÇATALLAMA ZAMANII!
 
     if (pid == -1) {
         perror("Catal kirildi :( (fork failed)");
@@ -73,9 +78,14 @@ for (int i = 0; i < n; i++) {
         printf("Cocuk Islem > ben sunu baslatacagim: %s\n", dosyayolu);
         execv(dosyayolu, args);
         perror("YANIYOM ANAAMMM!");
+        exit(EXIT_FAILURE);
         }
 free(namelist[i]);
 }
 free(namelist);
 while(wait(NULL) > 0);
+// Invoking the programs
+// Example: hello.ppg
+// system("")
+//.. böyle devam ediyor
 }
