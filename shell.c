@@ -72,10 +72,10 @@ int main(void) {
         }
         else if (strcmp(komut, "acil-durum") == 0) {
             printf("\n\n");
-            printf("       Acil Yeniden Baslatma Protokolu\n");
-            printf("     Bu komut/buton'u sadece acil durumlarda\n");
-            printf("    kullanin, gerekmedikce kullanmaniz sistemi bozabilir.\n");
-            printf("       Devam Etmek Istiyormusunuz? (E/H): ");
+            printf("                                                 Acil Yeniden Baslatma Protokolu\n");
+            printf("                                        Bu komut/buton'u sadece acil durumlarda\n");
+            printf("                                 kullanin, gerekmedikce kullanmaniz sistemi bozabilir.\n");
+            printf("                                                  Devam Etmek Istiyormusunuz? (E/H): ");
             fflush(stdout);
             char onay[10];
             fgets(onay, 10, stdin);
@@ -114,6 +114,20 @@ int main(void) {
                 wait(NULL);
             } else {
                 perror("fork basarisiz");
+            }
+        }
+        else if (strcmp(komut, "2048") == 0) {
+            pid_t two_pid = fork();
+            if (two_pid == 0) {
+                setenv("TERMINFO", "/usr/lib/terminfo", 1);
+                setenv("TERM", "xterm", 1);
+                char *args[] = {"/bin/2048", NULL};
+                execv("/bin/2048", args);
+            } else if (two_pid > 0) {
+                wait(NULL);
+                system("reset");
+            } else {
+                printf("fork hatası!\n");
             }
         }
         else if (strcmp(komut, "karabas") == 0) {
@@ -196,8 +210,8 @@ int main(void) {
             printf("  ls       = Klasorleri listeler\n");
             printf("  mamakabi = RAM bilgisi\n");
             printf("  psc      = Guvenlik kontrol sistemi\n");
+            printf("  2048     = Oyun zamanii!\n");
             printf("  karabas  = Calisan processleri listeler\n");
-            printf("  acil-durum = Sistemde sorun ciktiginda sync etmeden yeniden baslatir.\n");
             printf("  cikis    = Sistemi kapat\n\n");
         }
         else {
