@@ -13,6 +13,11 @@ int main() {
     int status;
     struct dirent **namelist;
     int n = scandir("/dev/pcgconfigs", &namelist, NULL, alphasort);
+    if (n < 0) {
+        perror("[UYARI]: pcgconfigs acilamadi, sistem devam ediyor");
+        while(wait(NULL) > 0);
+        return 0;
+    }
     printf("----------------------------------------\n");
     printf("----- MAUVYD Configuration Startup -----\n");
     printf("-------------Mounting FS..--------------\n");
@@ -46,10 +51,14 @@ for (int i = 0; i < n; i++) {
             char kopya[256];
             strcpy(kopya, dosya);
             char *okuyucu = strtok(kopya, " =");
+            if (okuyucu == NULL) continue;
             // char *okuyucu = strtok(dosya, " ="); 
             if (strcmp(okuyucu, "konumu") == 0) {
                 char *gecici = strtok(NULL, " =");
-                strcpy(dosyayolu, gecici);
+                if (gecici != NULL) {
+                    strncpy(dosyayolu, gecici, sizeof(dosyayolu)-1);
+                    dosyayolu[sizeof(dosyayolu) - 1] = '\0';
+                }
                 args[0] = dosyayolu;
                 dosyayolu[strcspn(dosyayolu, "\n")] = 0;
                 printf("%s\n", dosyayolu);
@@ -63,6 +72,7 @@ for (int i = 0; i < n; i++) {
                 izle = 1;
             }
       };
+      fclose(pcgfile);
       pid = fork(); // ÇATALLAMA ZAMANII!
 
     if (pid == -1) {
