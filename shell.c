@@ -49,7 +49,7 @@ int main(void) {
             printf("\n");
         }
         else if (strcmp(komut, "uname") == 0) {
-            printf("Pati-0.1 by Mehmet Demir. Kod adi: Cilek (Strawberry)\n");
+            printf("Pati-1.0 by Mehmet Demir. Kod adi: Cilek (Strawberry)\n");
         }
         else if (strcmp(komut, "cikis") == 0) {
             reboot(RB_POWER_OFF);
