@@ -7,6 +7,11 @@
 #include <libgen.h>
 #include <sys/reboot.h>
 #include <sys/wait.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <netdb.h>
+#include <fcntl.h>
 
 int main(void) {
     while (1) {
@@ -24,11 +29,49 @@ int main(void) {
         if (strcmp(komut, "pati") == 0) {
             printf("Miyavv!\n");
         }
+        else if (strcmp(komut, "miyav") == 0) {
+            if (arguman == NULL) {
+                printf("Kullanim: miyav <adres>\n");
+                continue;
+            }
+
+            struct addrinfo *sonuc;
+            int ret = getaddrinfo(arguman, NULL, NULL, &sonuc);
+            if (ret != 0) {
+                printf("miyav: adres cozumlenemedi: %s\n", arguman);
+                continue;
+            }
+
+            int soket = socket(AF_INET, SOCK_STREAM, 0);
+            if (soket < 0) {
+                printf("miyav: soket acilamadi\n");
+                freeaddrinfo(sonuc);
+                continue;
+            }
+            struct timeval timeout;
+            timeout.tv_sec = 2;
+            timeout.tv_usec = 0;
+            setsockopt(soket, SOL_SOCKET, SO_SNDTIMEO, &timeout, sizeof(timeout));
+
+            struct sockaddr_in hedef;
+            hedef.sin_family = AF_INET;
+            hedef.sin_port = htons(53);
+            hedef.sin_addr = ((struct sockaddr_in *)sonuc->ai_addr)->sin_addr;
+
+            if (connect(soket, (struct sockaddr *)&hedef, sizeof(hedef)) == 0) {
+                printf("miyav: %s ulasilabilir, kedy mutlu! :)\n", arguman);
+            } else {
+                printf("miyav: %s cevap vermiyor... kedy uzgun :(\n", arguman);
+            }
+
+            close(soket);
+            freeaddrinfo(sonuc);
+        }
         else if (strcmp(komut, "temizle") == 0) {
             for (int i = 0; i < 50; i++) {
                 printf("\n");
-                printf("Ekran Gumletildi!\n")
             }
+            printf("Ekran Gumletildi!\n");
         }
         else if (strcmp(komut, "ls") == 0) {
             struct dirent *entry;
@@ -51,7 +94,22 @@ int main(void) {
         else if (strcmp(komut, "uname") == 0) {
             printf("Pati-1.0 by Mehmet Demir. Kod adi: Cilek (Strawberry)\n");
         }
+        else if (strcmp(komut, "touch") == 0) {
+            if (arguman == NULL) {
+                printf("Kullanim: touch <dosya_adi>\n");
+                continue;
+            }
+            int fd = creat(arguman, 0644);
+            if (fd != -1) {
+                printf("Dosya olusturuldu: %s\n", arguman);
+                close(fd);
+                sync();
+            } else {
+                perror("touch hatasi");
+            }
+        }
         else if (strcmp(komut, "cikis") == 0) {
+            sync();
             reboot(RB_POWER_OFF);
         }
         else if (strcmp(komut, "cat") == 0) {
@@ -269,7 +327,9 @@ int main(void) {
             printf("  psc      = Guvenlik kontrol sistemi\n");
             printf("  2048     = Oyun zamanii!\n");
             printf("  karabas  = Calisan processleri listeler\n");
+            printf("  miyav = miyav <adres> (ping)\n");
             printf("  libreturks  = ahem...\n");
+            printf("  touch = dosya olusturur\n");
             printf("  cikis    = Sistemi kapat\n\n");
         }
         else {
