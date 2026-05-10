@@ -3,7 +3,7 @@
 
 int main() {
     FILE *f = fopen("/proc/meminfo", "r");
-    if (!f) { printf("MAMAM YOK CALDİLAR D:\n"); return 1; }
+    if (!f) { printf("MAMAM YOK CALDİLAR BANA MAMA VERMEYE NE DERSİN? D:\n"); return 1; }
 
     char satir[256];
     unsigned long toplam = 0, kullanilabilir = 0, bos = 0, takas_toplam = 0, takas_bos = 0;
