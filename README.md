@@ -3,7 +3,7 @@
 # Pati Mobile OS
 
 **Pati**, Linux Çekirdeği (Kernel) tabanlı olarak geliştirilen deneysel bir mobil işletim sistemi projesidir.
-**Kod Adı:** `strawberry-çilek`
+**Kod Adı:** `pineapple-ananas`
 
 ## Öne Çıkan Özellikler
 *   **Karabaş Servisi:** `pati-services` bünyesinde çalışan özel proses izleme servisi.
@@ -48,14 +48,6 @@ Bu proje **GPL v3** lisansı ile yayınlanmıştır.
 ![Patifetch](https://raw.githubusercontent.com/mehmetdemir-tr/Pati/main/screenshots/mamakabi.jpeg)
 
 *`mamakabi` — RAM bilgisi*
-
-![2048](https://raw.githubusercontent.com/mehmetdemir-tr/Pati/main/screenshots/2048.jpeg)
-
-*2048 oyunu*
-
-![Vilez](https://raw.githubusercontent.com/mehmetdemir-tr/Pati/main/screenshots/vilez.jpeg)
-
-*ASCII art easter egg*
 
 
 
