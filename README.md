@@ -1,6 +1,6 @@
 ## Pati Mobile OS (ARM64) based on Linux Kernel
-Linux Çekirdeği (Kernel) tabanlı olarak geliştirilen bir mobil işletim sistemi projesidir.
-Sürüm: 2.6-Karpuz
+* Linux Çekirdeği (Kernel) tabanlı olarak geliştirilen bir mobil işletim sistemi projesidir.
+* Sürüm: 2.6-Karpuz
 
 ## Katkıda Bulunma
 Projeye katkı sağlamak isterseniz, lütfen **Issues** sekmesi üzerinden yeni bir konu açın.
