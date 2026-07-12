@@ -29,6 +29,22 @@ Bu proje **GPL v3** lisansı ile yayınlanmıştır.
 - Linux Dağıtımları (Örneğin Debian, Pardus)
 - Termux (Android)
 
+## Raspberry Pi 3/4/5
+* SD kartı MBR düzeni ile formatlıyoruz
+* SD kartta 512mb lık bir FAT32 bölümü oluşturuyoruz
+* **_https://github.com/raspberrypi/firmware_** reposumu indirip boot klasör içeriğini FAT32 bölümüne taşıyoruz
+* Bu repodan ZIP dosyasını indirdikten sonra arşivi ayıklayıp initramfs'in adını initramfs.gz olacak şekilde ayıklayıp FAT32 bölümüne taşıyoruz
+* FAT32 bölümde cmdline.txt isimli bir metin dosyası oluşturuyoruz. İçeriğe `console=serial0,115200 console=tty1 rdinit=/init` yazıp kaydediyoruz.
+* FAT32 bölümünde config.txt isimli bir dosya açıp aşağıdakileri yazıp kaydediyoruz.
+```
+display_auto_detect=1
+initramfs initramfs.gz followkernel
+disable_fw_kms_setup=1
+arm_64bit=1
+arm_boost=1
+``` 
+
+
 ## Ekran Görüntüleri (Legacy):
 ![Pati Shell](https://raw.githubusercontent.com/mehmetdemir-tr/Pati/main/screenshots/genel.jpeg)
 
