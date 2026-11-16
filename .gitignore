@@ -1,0 +1,16 @@
+# Derleme cikislari
+rootfs/
+build/
+*.o
+*.img
+initramfs.cpio.gz
+
+# pati-commands icinde yalnizca kaynak kod gecer
+pati-commands/*
+!pati-commands/*.c
+!pati-commands/mauvyd-headers/
+!pati-commands/pati-headers/
+
+# Cihaza/kurulumlara ozel dosyalar (depo disinda tutulur)
+Pati21-Kernel-Snapdragon
+fish-shell/
