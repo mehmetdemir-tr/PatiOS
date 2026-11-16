@@ -1,9 +1,8 @@
-# PatiOS-Core
-## Durum: Arşivlenmiş
+# PatiOS - Linux Tabanlı ARM64 üzerine inşa edilen bir dağıtım.
 [![Language: C](https://img.shields.io/badge/Language-C-A8B9CC.svg)](https://ibm.com)
 [![AI Assisted](https://img.shields.io/badge/AI_Assisted-orange)](#)
 
-**PatiOS-Core**, sistem yöneticisi, kabuk ve servis araçları gibi temel sistem bileşenleri %100 C ile yazılmış, Linux kernel'i üzerinde çalışan bir Linux From Scratch (LFS) dağıtım çatısıdır.
+**PatiOS**, sistem yöneticisi, kabuk ve servis araçları gibi temel sistem bileşenleri %100 C ile yazılmış, Linux kernel'i üzerinde çalışan bir Linux From Scratch (LFS) dağıtımıdır.
 
 * **Geliştirme Motoru:** Kendi özel Linux dağıtımınızı derlemek ve genişletmek için yardımcı ekosistem aracı olan **[KedyBox](https://github.com/mehmetdemir-tr/KedyBox)** reposunu kullanabilirsiniz.
 * **Kod Adı:** `watermelon-karpuz`
@@ -12,7 +11,7 @@
 
 ## Teknik Mimari ve Öne Çıkan Özellikler
 
-PatiOS-Core, Debian/Ubuntu gibi hazır dağıtım tabanlarını kullanmaz. Tamamen kendi rootfs ve user-space araçlarını kullanır:
+PatiOS, Debian/Ubuntu gibi hazır dağıtım tabanlarını kullanmaz. Tamamen kendi rootfs ve user-space araçlarını kullanır:
 
 * **Standalone User-Space:** Sistem; Python gibi ağır yorumlayıcılara ihtiyaç duymadan, C ile derlenmiş minimal user-space ikili dosyalarıyla çalışır.
 * **Musl-libc Optimizasyonu:** `aarch64-linux-musl-gcc` zinciri hedeflenerek derlenmiştir. Bu sayede standart `glibc` kütüphanelerine kıyasla daha hafif binary boyutu sağlar.
@@ -76,9 +75,10 @@ Bu proje **MIT** lisansı ile yayınlanmaktadır.
 ## Timeline (Projenin zaman akışı):
 1. 27 Mart 2026 - Repo oluşturuldu (Pati adıyla)
 2. 11 Nisan 2026 - İlk resmi sürüm
-3. 9 Mayıs 2026 - 2.1 sürümüne ve Ananas kodadına geçiş
+3. 9 Mayıs 2026 - 2.1 sürümüne ve Ananas kod adına geçiş
 4. 19 Mayıs 2026 - Özel 19 Mayıs Atatürk'ü anma gençlik ve spor bayramı sürümü yayınlandı
 5. 2 Temmuz 2026 - Projenin son sürümü yayınlandı (2.6)
+6. 16 Kasım 2026 - PatiOS-3.0 Yayınlandı
 
 ---
 *Geliştirici: [mehmetdemir-tr](https://github.com/mehmetdemir-tr)*
