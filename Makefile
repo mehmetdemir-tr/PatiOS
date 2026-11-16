@@ -55,10 +55,9 @@ RECOVERY_MB    := 32
 REQUIRED_TOOLS := sfdisk dd mkfs.ext4 debugfs cpio gzip find file tune2fs e2fsck mknod
 
 .PHONY: all banner root-check tools disk extract compile fish nodes move \
-        system init recovery initramfs archive clean distclean help
+        system init recovery initramfs  clean distclean help
 
-all: banner $(DISK) extract compile fish nodes move system init recovery initramfs archive
-	@printf "\n$(G)═══ PatiOS ortamı hazır ═══$(N)\n"
+all: banner $(DISK) extract compile fish nodes move system init recovery initramfs
 	@printf "  Disk  : $(DISK)\n  Initrd: $(INITRAMFS)\n"
 	@printf "  Çalıştır: ./run.sh   (recovery: ./run.sh -r, grafik: ./run.sh -g)\n"
 
@@ -292,11 +291,6 @@ initramfs: root-check $(ROOTFS)/init
 	cd $(ROOTFS) && find . | cpio -o -H newc | gzip -9 > ../$(INITRAMFS)
 	@printf "$(G)[+] %s hazır.$(N)\n" "$(INITRAMFS)"
 
-archive: root-check
-	@printf "$(G)[*] %s temiz rootfs'ten yeniden paketleniyor...$(N)\n" "$(ARCHIVE)"
-	rm -f "$(ARCHIVE)"
-	cd $(ROOTFS) && zip -qry9 ../$(ARCHIVE) . -x "./dev/*"
-	@printf "$(G)[+] %s güncellendi.$(N)\n" "$(ARCHIVE)"
 
 clean: root-check
 	@printf "$(G)[*] Ara çıktılar temizleniyor...$(N)\n"
@@ -323,7 +317,6 @@ help:
 	@printf "  $(G)%-12s$(N) rootfs/init derle\n"                                 "init"
 	@printf "  $(G)%-12s$(N) recovery partition (vda6)\n"                        "recovery"
 	@printf "  $(G)%-12s$(N) initramfs.cpio.gz üret\n"                           "initramfs"
-	@printf "  $(G)%-12s$(N) rootfs'ten filesystem.zip yenile\n"                 "archive"
 	@printf "  $(G)%-12s$(N) ara çıktıları sil\n"                                "clean"
 	@printf "  $(G)%-12s$(N) disk + initramfs + rootfs dahil her şeyi sil\n"      "distclean"
 	@printf "\n$(C)Değişkenler:$(N)\n"
