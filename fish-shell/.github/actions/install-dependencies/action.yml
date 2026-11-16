@@ -1,0 +1,39 @@
+name: Install dependencies for system tests
+
+inputs:
+  include_sphinx:
+    description: Whether to install Sphinx
+    required: true
+    default: false
+  include_pcre:
+    description: Whether to install the PCRE library
+    required: false
+    default: true
+
+permissions:
+  contents: read
+
+runs:
+  using: "composite"
+  steps:
+    - shell: bash
+      env:
+        include_pcre: ${{ inputs.include_pcre }}
+      run: |
+        set -x
+        : "optional dependencies"
+        sudo apt install \
+          gettext \
+          $(if $include_pcre; then echo libpcre2-dev; fi) \
+        ;
+        : "system test dependencies"
+        sudo apt install \
+          diffutils $(: "for diff") \
+          git \
+          less \
+          python3-pexpect \
+          tmux \
+          wget \
+        ;
+    - uses: ./.github/actions/install-sphinx
+      if: ${{ inputs.include_sphinx == 'true' }}

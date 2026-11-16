@@ -1,0 +1,196 @@
+name: Create a new release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to release (tag name)'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  is-release-tag:
+    name: Pre-release checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1, build_tools/update-dependencies.sh
+        with:
+          # Workaround for https://github.com/actions/checkout/issues/882
+          ref: ${{ inputs.version }}
+      - name: Check if the pushed tag looks like a release
+        run: |
+          set -x
+          commit_subject=$(git log -1 --format=%s)
+          tag=$(git describe)
+          [ "$commit_subject" = "Release $tag" ]
+
+
+  source-tarball:
+    needs: [is-release-tag]
+    name: Create the source tarball
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+      tarball-name: ${{ steps.version.outputs.tarball-name }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1, build_tools/update-dependencies.sh
+        with:
+          # Workaround for https://github.com/actions/checkout/issues/882
+          ref: ${{ inputs.version }}
+      - name: Update package database
+        run: sudo apt-get update
+      - name: Install dependencies
+        run: sudo apt install cmake gettext ninja-build python3-pip
+      - uses: ./.github/actions/install-sphinx
+      - name: Create tarball
+        run: |
+          set -x
+          mkdir /tmp/fish-built
+          FISH_ARTEFACT_PATH=/tmp/fish-built ./build_tools/make_tarball.sh
+          relnotes=/tmp/fish-built/release-notes.md
+          # Need history since the last release (i.e. tag) for stats.
+          git fetch --tags
+          git fetch --unshallow
+          gpg_public_key_url=https://github.com/${{ github.actor }}.gpg
+          curl -sS "$gpg_public_key_url" | grep 'PGP PUBLIC KEY BLOCK' -A5
+          FISH_GPG_PUBLIC_KEY_URL=$gpg_public_key_url \
+            sh -x ./build_tools/release-notes.sh >"$relnotes"
+          # Delete title
+          sed -n 1p "$relnotes" | grep -q "^## fish .*"
+          sed -n 2p "$relnotes" | grep -q '^$'
+          sed -i 1,2d "$relnotes"
+      - name: Upload tarball artifact
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1, build_tools/update-dependencies.sh
+        with:
+          name: source-tarball
+          path: |
+            /tmp/fish-built/fish-${{ inputs.version }}.tar.xz
+            /tmp/fish-built/release-notes.md
+          if-no-files-found: error
+
+  packages-for-linux:
+    needs: [is-release-tag]
+    name: Build single-file fish for Linux
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1, build_tools/update-dependencies.sh
+        with:
+          # Workaround for https://github.com/actions/checkout/issues/882
+          ref: ${{ inputs.version }}
+      - name: Install Rust Stable
+        uses: ./.github/actions/rust-toolchain@stable
+        with:
+          targets: x86_64-unknown-linux-musl,aarch64-unknown-linux-musl
+      - name: Update package database
+        run: sudo apt-get update
+      - name: Install dependencies
+        run: sudo apt install crossbuild-essential-arm64 gettext musl-tools
+      - uses: ./.github/actions/install-sphinx
+      - name: Build statically-linked executables
+        run: |
+          set -x
+          cargo build --release --target x86_64-unknown-linux-musl --bin fish
+          CFLAGS="-D_FORTIFY_SOURCE=2" \
+            CC=aarch64-linux-gnu-gcc \
+            RUSTFLAGS="-C linker=aarch64-linux-gnu-gcc -C link-arg=-lgcc -C link-arg=-D_FORTIFY_SOURCE=0" \
+            cargo build --release --target aarch64-unknown-linux-musl --bin fish
+      - name: Compress
+        run: |
+          set -x
+          for arch in x86_64 aarch64; do
+            tar -cazf fish-$(git describe)-linux-$arch.tar.xz \
+              -C target/$arch-unknown-linux-musl/release fish
+          done
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1, build_tools/update-dependencies.sh
+        with:
+          name: Static builds for Linux
+          path: fish-${{ inputs.version }}-linux-*.tar.xz
+          if-no-files-found: error
+
+  create-draft-release:
+    needs:
+      - is-release-tag
+      - source-tarball
+      - packages-for-linux
+    name: Create release draft
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1, build_tools/update-dependencies.sh
+        with:
+          # Workaround for https://github.com/actions/checkout/issues/882
+          ref: ${{ inputs.version }}
+      - name: Download all artifacts
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1, build_tools/update-dependencies.sh
+        with:
+          merge-multiple: true
+          path: /tmp/artifacts
+      - name: List artifacts
+        run: find /tmp/artifacts -type f
+      - name: Create draft release
+        uses: softprops/action-gh-release@e598afbe1493e6b1bafb1f389cabb956eab91231 # v3.0.3, build_tools/update-dependencies.sh
+        with:
+          tag_name: ${{ inputs.version }}
+          name: fish ${{ inputs.version }}
+          body_path: /tmp/artifacts/release-notes.md
+          draft: true
+          files: |
+            /tmp/artifacts/fish-${{ inputs.version }}.tar.xz
+            /tmp/artifacts/fish-${{ inputs.version }}-linux-*.tar.xz
+
+  packages-for-macos:
+    needs: [is-release-tag, create-draft-release]
+    name: Build packages for macOS
+    runs-on: macos-latest
+    environment: macos-codesign
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1, build_tools/update-dependencies.sh
+        with:
+          # Workaround for https://github.com/actions/checkout/issues/882
+          ref: ${{ inputs.version }}
+      - name: Install Rust
+        uses: ./.github/actions/rust-toolchain@stable
+        with:
+          targets: aarch64-apple-darwin,x86_64-apple-darwin
+      - name: Install dependencies
+        run: brew install gettext
+      - uses: ./.github/actions/install-sphinx
+      - name: Build and codesign
+        run: |
+          die() { echo >&2 "$*"; exit 1; }
+          [ -n "$MAC_CODESIGN_APP_P12_BASE64" ] || die "Missing MAC_CODESIGN_APP_P12_BASE64"
+          [ -n "$MAC_CODESIGN_INSTALLER_P12_BASE64" ] || die "Missing MAC_CODESIGN_INSTALLER_P12_BASE64"
+          [ -n "$MAC_CODESIGN_PASSWORD" ] || die "Missing MAC_CODESIGN_PASSWORD"
+          [ -n "$MACOS_NOTARIZE_JSON" ] || die "Missing MACOS_NOTARIZE_JSON"
+          set -x
+          export FISH_ARTEFACT_PATH=/tmp/fish-built
+          # macOS runners keep having issues loading Cargo.toml dependencies from git (GitHub) instead
+          # of crates.io, so give this a try. It's also sometimes significantly faster on all platforms.
+          export CARGO_NET_GIT_FETCH_WITH_CLI=true
+          cargo install apple-codesign
+          mkdir -p "$FISH_ARTEFACT_PATH"
+          echo "$MAC_CODESIGN_APP_P12_BASE64" | base64 --decode >/tmp/app.p12
+          echo "$MAC_CODESIGN_INSTALLER_P12_BASE64" | base64 --decode >/tmp/installer.p12
+          echo "$MACOS_NOTARIZE_JSON" >/tmp/notarize.json
+          ./build_tools/make_macos_pkg.sh -s -f /tmp/app.p12 \
+            -i /tmp/installer.p12 -p "$MAC_CODESIGN_PASSWORD" \
+            -n -j /tmp/notarize.json -- -c "-DWITH_DOCS=ON"
+          version=$(git describe)
+          [ -f "${FISH_ARTEFACT_PATH}/fish-$version.app.zip" ]
+          [ -f "${FISH_ARTEFACT_PATH}/fish-$version.pkg" ]
+          rm /tmp/installer.p12 /tmp/app.p12 /tmp/notarize.json
+        env:
+          MAC_CODESIGN_APP_P12_BASE64: ${{ secrets.MAC_CODESIGN_APP_P12_BASE64 }}
+          MAC_CODESIGN_INSTALLER_P12_BASE64: ${{ secrets.MAC_CODESIGN_INSTALLER_P12_BASE64 }}
+          MAC_CODESIGN_PASSWORD: ${{ secrets.MAC_CODESIGN_PASSWORD }}
+          MACOS_NOTARIZE_JSON: ${{ secrets.MACOS_NOTARIZE_JSON }}
+      - name: Add macOS packages to the release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          version=$(git describe)
+          gh release upload $version \
+            /tmp/fish-built/fish-$version.app.zip \
+            /tmp/fish-built/fish-$version.pkg

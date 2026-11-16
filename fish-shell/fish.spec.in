@@ -1,0 +1,111 @@
+Summary:                Friendly interactive shell
+Name:                   fish
+
+Version:                @RPMVERSION@
+Release:                0.%{?dist}
+
+License:                GPL-2.0-only AND GPL-2.0-or-later AND BSD-2-Clause AND PSF-2.0 AND ISC AND MIT
+Group:                  System/Shells
+URL:                    https://fishshell.com/
+
+Source0:                %{name}_@VERSION@.orig.tar.xz
+Source1:                %{name}_@VERSION@.orig-cargo-vendor.tar.xz
+BuildRequires:          cargo gettext gcc xz pcre2-devel
+BuildRequires:          rust >= 1.85
+# Packaging guidelines say to use a BuildRequires: rust-packaging, but it adds no value for our package
+BuildRequires:          /usr/bin/sphinx-build
+# OBS: add eg "FileProvides: /usr/bin/sphinx-build python3-sphinx python3-Sphinx" to project config
+BuildRequires:          /usr/bin/man
+# OBS: add eg "FileProvides: /usr/bin/man man-db man" to project config
+# pkg-config is needed for the pcre2 crate to find the pcre2 system librar
+BuildRequires:          /usr/bin/pkg-config
+# OBS: add eg "FileProvides: /usr/bin/pkg-config pkgconf-pkg-config pkg-config" to project config
+BuildRequires: cmake >= 3.15
+
+# for tests
+BuildRequires:          python3 procps
+%if 0%{?fedora}
+# Need the en_US.utf-8 locale at a minimum
+BuildRequires: glibc-langpack-en
+%endif
+
+Requires:      file
+Requires:      /usr/bin/man
+Requires:      python3
+Requires:      procps
+
+# Although the build scripts mangle the version number to be RPM compatible
+# for continuous builds (transforming the output of `git describe`), Fedora 32+
+# also validates the version inside the pkgconfig file. There's no impetus for this
+# with fish.
+%define _wrong_version_format_terminate_build 0
+
+%description
+
+fish is a shell geared towards interactive use. Its features are
+focused on user friendliness and discoverability. The language syntax
+is simple but incompatible with other shell languages.
+
+%prep
+# Unpack the source tarball and overlay the vendor tarball
+%setup -q -n %{name}-@VERSION@ -a 1
+# Should use cargo_prep here, it overrides our vendor config changes though
+
+%build
+export CARGO_NET_OFFLINE=true
+# CMake macros define the wrong sysconfdir arguments
+EXTRA_CMAKE_FLAGS="$EXTRA_CMAKE_FLAGS -DCMAKE_INSTALL_SYSCONFDIR=%{_sysconfdir} -DCMAKE_INSTALL_DOCDIR=%{_docdir}/fish"
+# Look into https://www.suse.com/c/declarative-rpm-cleaning-up-your-spec-files/ once OpenSUSE 15.x
+# is out of support.
+%cmake $EXTRA_CMAKE_FLAGS
+%cmake_build
+
+%install
+%cmake_install
+
+%check
+%if 0%{?__builddir:1}
+# OpenSUSE does out-of-tree builds and defines __builddir, but does not change
+# to the directory except in the main cmake macro. cmake_build calls Make/Ninja.
+cd %__builddir
+%cmake_build fish_run_tests
+%else
+# Fedora's cmake_build macro calls CMake
+%cmake_build --target fish_run_tests
+%endif
+
+%post
+# Add fish to the list of allowed shells in /etc/shells
+if ! grep %{_bindir}/fish %{_sysconfdir}/shells >/dev/null; then
+    echo %{_bindir}/fish >>%{_sysconfdir}/shells
+fi
+
+%postun
+# Remove fish from the list of allowed shells in /etc/shells
+if [ "$1" = 0 ]; then
+    grep -v %{_bindir}/fish %{_sysconfdir}/shells >%{_sysconfdir}/fish.tmp
+    mv %{_sysconfdir}/fish.tmp %{_sysconfdir}/shells
+fi
+
+%files
+%defattr(-,root,root,-)
+
+# The documentation directory
+%doc %{_docdir}/fish
+%doc CONTRIBUTING.rst README.rst
+
+# man files
+%{_mandir}/man1/*
+
+# The program binaries
+%attr(0755,root,root) %{_bindir}/*
+
+# Configuration files
+%dir %{_sysconfdir}/fish/
+%config(noreplace) %{_sysconfdir}/fish/config.fish
+
+# Support files
+%{_datadir}/fish/
+
+# pkgconfig
+%{_datadir}/pkgconfig/fish.pc

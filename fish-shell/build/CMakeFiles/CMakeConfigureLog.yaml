@@ -1,0 +1,1693 @@
+
+---
+events:
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeDetermineSystem.cmake:12 (find_program)"
+      - "CMakeLists.txt:5 (project)"
+    mode: "program"
+    variable: "CMAKE_UNAME"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "uname"
+    candidate_directories:
+      - "/home/mehmet/.bun/bin/"
+      - "/home/mehmet/Masa\u00fcst\u00fc/PatiOS-3.0/aarch64-linux-musl-cross/bin/"
+      - "/home/mehmet/.cargo/bin/"
+      - "/home/mehmet/.local/bin/"
+      - "/home/mehmet/.opencode/bin/"
+      - "/usr/local/bin/"
+      - "/usr/bin/"
+      - "/bin/"
+      - "/usr/local/sbin/"
+      - "/var/lib/flatpak/exports/bin/"
+      - "/usr/lib/jvm/default/bin/"
+      - "/usr/bin/site_perl/"
+      - "/usr/bin/vendor_perl/"
+      - "/usr/bin/core_perl/"
+      - "/usr/lib/rustup/bin/"
+    searched_directories:
+      - "/home/mehmet/.bun/bin/uname"
+      - "/home/mehmet/Masa\u00fcst\u00fc/PatiOS-3.0/aarch64-linux-musl-cross/bin/uname"
+      - "/home/mehmet/.cargo/bin/uname"
+      - "/home/mehmet/.local/bin/uname"
+      - "/home/mehmet/.opencode/bin/uname"
+      - "/usr/local/bin/uname"
+    found: "/usr/bin/uname"
+    search_context:
+      ENV{PATH}:
+        - "/home/mehmet/.bun/bin"
+        - "/home/mehmet/Masa\u00fcst\u00fc/PatiOS-3.0/aarch64-linux-musl-cross/bin"
+        - "/home/mehmet/.cargo/bin"
+        - "/home/mehmet/.local/bin"
+        - "/home/mehmet/.opencode/bin"
+        - "/home/mehmet/.bun/bin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/local/sbin"
+        - "/var/lib/flatpak/exports/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+        - "/usr/lib/rustup/bin"
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeDetermineSystem.cmake:218 (message)"
+      - "CMakeLists.txt:5 (project)"
+    message: |
+      The system is: Linux - 7.2.4-3-cachyos - x86_64
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeUnixFindMake.cmake:5 (find_program)"
+      - "CMakeLists.txt:5 (project)"
+    mode: "program"
+    variable: "CMAKE_MAKE_PROGRAM"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "gmake"
+      - "make"
+      - "smake"
+    candidate_directories:
+      - "/home/mehmet/.bun/bin/"
+      - "/home/mehmet/Masa\u00fcst\u00fc/PatiOS-3.0/aarch64-linux-musl-cross/bin/"
+      - "/home/mehmet/.cargo/bin/"
+      - "/home/mehmet/.local/bin/"
+      - "/home/mehmet/.opencode/bin/"
+      - "/usr/local/bin/"
+      - "/usr/bin/"
+      - "/bin/"
+      - "/usr/local/sbin/"
+      - "/var/lib/flatpak/exports/bin/"
+      - "/usr/lib/jvm/default/bin/"
+      - "/usr/bin/site_perl/"
+      - "/usr/bin/vendor_perl/"
+      - "/usr/bin/core_perl/"
+      - "/usr/lib/rustup/bin/"
+    searched_directories:
+      - "/home/mehmet/.bun/bin/gmake"
+      - "/home/mehmet/Masa\u00fcst\u00fc/PatiOS-3.0/aarch64-linux-musl-cross/bin/gmake"
+      - "/home/mehmet/.cargo/bin/gmake"
+      - "/home/mehmet/.local/bin/gmake"
+      - "/home/mehmet/.opencode/bin/gmake"
+      - "/usr/local/bin/gmake"
+      - "/usr/bin/gmake"
+      - "/bin/gmake"
+      - "/usr/local/sbin/gmake"
+      - "/var/lib/flatpak/exports/bin/gmake"
+      - "/usr/lib/jvm/default/bin/gmake"
+      - "/usr/bin/site_perl/gmake"
+      - "/usr/bin/vendor_perl/gmake"
+      - "/usr/bin/core_perl/gmake"
+      - "/usr/lib/rustup/bin/gmake"
+      - "/home/mehmet/.bun/bin/make"
+      - "/home/mehmet/Masa\u00fcst\u00fc/PatiOS-3.0/aarch64-linux-musl-cross/bin/make"
+      - "/home/mehmet/.cargo/bin/make"
+      - "/home/mehmet/.local/bin/make"
+      - "/home/mehmet/.opencode/bin/make"
+      - "/usr/local/bin/make"
+    found: "/usr/bin/make"
+    search_context:
+      ENV{PATH}:
+        - "/home/mehmet/.bun/bin"
+        - "/home/mehmet/Masa\u00fcst\u00fc/PatiOS-3.0/aarch64-linux-musl-cross/bin"
+        - "/home/mehmet/.cargo/bin"
+        - "/home/mehmet/.local/bin"
+        - "/home/mehmet/.opencode/bin"
+        - "/home/mehmet/.bun/bin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/local/sbin"
+        - "/var/lib/flatpak/exports/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+        - "/usr/lib/rustup/bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeDetermineCompiler.cmake:73 (find_program)"
+      - "/usr/share/cmake/Modules/CMakeDetermineCCompiler.cmake:64 (_cmake_find_compiler)"
+      - "CMakeLists.txt:5 (project)"
+    mode: "program"
+    variable: "CMAKE_C_COMPILER"
+    description: "C compiler"
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "cc"
+      - "gcc"
+      - "cl"
+      - "bcc"
+      - "xlc"
+      - "icx"
+      - "clang"
+    candidate_directories:
+      - "/home/mehmet/.bun/bin/"
+      - "/home/mehmet/Masa\u00fcst\u00fc/PatiOS-3.0/aarch64-linux-musl-cross/bin/"
+      - "/home/mehmet/.cargo/bin/"
+      - "/home/mehmet/.local/bin/"
+      - "/home/mehmet/.opencode/bin/"
+      - "/usr/local/bin/"
+      - "/usr/bin/"
+      - "/bin/"
+      - "/usr/local/sbin/"
+      - "/var/lib/flatpak/exports/bin/"
+      - "/usr/lib/jvm/default/bin/"
+      - "/usr/bin/site_perl/"
+      - "/usr/bin/vendor_perl/"
+      - "/usr/bin/core_perl/"
+      - "/usr/lib/rustup/bin/"
+    searched_directories:
+      - "/home/mehmet/.bun/bin/cc"
+      - "/home/mehmet/Masa\u00fcst\u00fc/PatiOS-3.0/aarch64-linux-musl-cross/bin/cc"
+      - "/home/mehmet/.cargo/bin/cc"
+      - "/home/mehmet/.local/bin/cc"
+      - "/home/mehmet/.opencode/bin/cc"
+      - "/usr/local/bin/cc"
+    found: "/usr/bin/cc"
+    search_context:
+      ENV{PATH}:
+        - "/home/mehmet/.bun/bin"
+        - "/home/mehmet/Masa\u00fcst\u00fc/PatiOS-3.0/aarch64-linux-musl-cross/bin"
+        - "/home/mehmet/.cargo/bin"
+        - "/home/mehmet/.local/bin"
+        - "/home/mehmet/.opencode/bin"
+        - "/home/mehmet/.bun/bin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/local/sbin"
+        - "/var/lib/flatpak/exports/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+        - "/usr/lib/rustup/bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeDetermineCompilerId.cmake:501 (find_file)"
+      - "/usr/share/cmake/Modules/CMakeDetermineCompilerId.cmake:538 (CMAKE_DETERMINE_COMPILER_ID_WRITE)"
+      - "/usr/share/cmake/Modules/CMakeDetermineCompilerId.cmake:8 (CMAKE_DETERMINE_COMPILER_ID_BUILD)"
+      - "/usr/share/cmake/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "/usr/share/cmake/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:5 (project)"
+    mode: "file"
+    variable: "src_in"
+    description: "Path to a file."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "CMakeCCompilerId.c.in"
+    candidate_directories:
+      - "/usr/share/cmake/Modules/"
+      - "/home/mehmet/Masa\u00fcst\u00fc/PatiOS-3.0/fish-shell/cmake/"
+    found: "/usr/share/cmake/Modules/CMakeCCompilerId.c.in"
+    search_context:
+      ENV{PATH}:
+        - "/home/mehmet/.bun/bin"
+        - "/home/mehmet/Masa\u00fcst\u00fc/PatiOS-3.0/aarch64-linux-musl-cross/bin"
+        - "/home/mehmet/.cargo/bin"
+        - "/home/mehmet/.local/bin"
+        - "/home/mehmet/.opencode/bin"
+        - "/home/mehmet/.bun/bin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/local/sbin"
+        - "/var/lib/flatpak/exports/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+        - "/usr/lib/rustup/bin"
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "/usr/share/cmake/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "/usr/share/cmake/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:5 (project)"
+    message: |
+      Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+      Compiler: /usr/bin/cc 
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      
+      
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.out"
+      
+      The C compiler identification is GNU, found in:
+        /home/mehmet/Masaüstü/PatiOS-3.0/fish-shell/build/CMakeFiles/4.4.3/CompilerIdC/a.out
+      
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeFindBinUtils.cmake:247 (find_program)"
+      - "/usr/share/cmake/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "CMakeLists.txt:5 (project)"
+    mode: "program"
+    variable: "CMAKE_AR"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "ar"
+    candidate_directories:
+      - "/usr/bin/"
+      - "/home/mehmet/.bun/bin/"
+      - "/home/mehmet/Masa\u00fcst\u00fc/PatiOS-3.0/aarch64-linux-musl-cross/bin/"
+      - "/home/mehmet/.cargo/bin/"
+      - "/home/mehmet/.local/bin/"
+      - "/home/mehmet/.opencode/bin/"
+      - "/usr/local/bin/"
+      - "/bin/"
+      - "/usr/local/sbin/"
+      - "/var/lib/flatpak/exports/bin/"
+      - "/usr/lib/jvm/default/bin/"
+      - "/usr/bin/site_perl/"
+      - "/usr/bin/vendor_perl/"
+      - "/usr/bin/core_perl/"
+      - "/usr/lib/rustup/bin/"
+    found: "/usr/bin/ar"
+    search_context:
+      ENV{PATH}:
+        - "/home/mehmet/.bun/bin"
+        - "/home/mehmet/Masa\u00fcst\u00fc/PatiOS-3.0/aarch64-linux-musl-cross/bin"
+        - "/home/mehmet/.cargo/bin"
+        - "/home/mehmet/.local/bin"
+        - "/home/mehmet/.opencode/bin"
+        - "/home/mehmet/.bun/bin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/local/sbin"
+        - "/var/lib/flatpak/exports/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+        - "/usr/lib/rustup/bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeFindBinUtils.cmake:247 (find_program)"
+      - "/usr/share/cmake/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "CMakeLists.txt:5 (project)"
+    mode: "program"
+    variable: "CMAKE_RANLIB"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "ranlib"
+    candidate_directories:
+      - "/usr/bin/"
+      - "/home/mehmet/.bun/bin/"
+      - "/home/mehmet/Masa\u00fcst\u00fc/PatiOS-3.0/aarch64-linux-musl-cross/bin/"
+      - "/home/mehmet/.cargo/bin/"
+      - "/home/mehmet/.local/bin/"
+      - "/home/mehmet/.opencode/bin/"
+      - "/usr/local/bin/"
+      - "/bin/"
+      - "/usr/local/sbin/"
+      - "/var/lib/flatpak/exports/bin/"
+      - "/usr/lib/jvm/default/bin/"
+      - "/usr/bin/site_perl/"
+      - "/usr/bin/vendor_perl/"
+      - "/usr/bin/core_perl/"
+      - "/usr/lib/rustup/bin/"
+    found: "/usr/bin/ranlib"
+    search_context:
+      ENV{PATH}:
+        - "/home/mehmet/.bun/bin"
+        - "/home/mehmet/Masa\u00fcst\u00fc/PatiOS-3.0/aarch64-linux-musl-cross/bin"
+        - "/home/mehmet/.cargo/bin"
+        - "/home/mehmet/.local/bin"
+        - "/home/mehmet/.opencode/bin"
+        - "/home/mehmet/.bun/bin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/local/sbin"
+        - "/var/lib/flatpak/exports/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+        - "/usr/lib/rustup/bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeFindBinUtils.cmake:247 (find_program)"
+      - "/usr/share/cmake/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "CMakeLists.txt:5 (project)"
+    mode: "program"
+    variable: "CMAKE_STRIP"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "strip"
+    candidate_directories:
+      - "/usr/bin/"
+      - "/home/mehmet/.bun/bin/"
+      - "/home/mehmet/Masa\u00fcst\u00fc/PatiOS-3.0/aarch64-linux-musl-cross/bin/"
+      - "/home/mehmet/.cargo/bin/"
+      - "/home/mehmet/.local/bin/"
+      - "/home/mehmet/.opencode/bin/"
+      - "/usr/local/bin/"
+      - "/bin/"
+      - "/usr/local/sbin/"
+      - "/var/lib/flatpak/exports/bin/"
+      - "/usr/lib/jvm/default/bin/"
+      - "/usr/bin/site_perl/"
+      - "/usr/bin/vendor_perl/"
+      - "/usr/bin/core_perl/"
+      - "/usr/lib/rustup/bin/"
+    found: "/usr/bin/strip"
+    search_context:
+      ENV{PATH}:
+        - "/home/mehmet/.bun/bin"
+        - "/home/mehmet/Masa\u00fcst\u00fc/PatiOS-3.0/aarch64-linux-musl-cross/bin"
+        - "/home/mehmet/.cargo/bin"
+        - "/home/mehmet/.local/bin"
+        - "/home/mehmet/.opencode/bin"
+        - "/home/mehmet/.bun/bin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/local/sbin"
+        - "/var/lib/flatpak/exports/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+        - "/usr/lib/rustup/bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeFindBinUtils.cmake:247 (find_program)"
+      - "/usr/share/cmake/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "CMakeLists.txt:5 (project)"
+    mode: "program"
+    variable: "CMAKE_LINKER"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "ld"
+    candidate_directories:
+      - "/usr/bin/"
+      - "/home/mehmet/.bun/bin/"
+      - "/home/mehmet/Masa\u00fcst\u00fc/PatiOS-3.0/aarch64-linux-musl-cross/bin/"
+      - "/home/mehmet/.cargo/bin/"
+      - "/home/mehmet/.local/bin/"
+      - "/home/mehmet/.opencode/bin/"
+      - "/usr/local/bin/"
+      - "/bin/"
+      - "/usr/local/sbin/"
+      - "/var/lib/flatpak/exports/bin/"
+      - "/usr/lib/jvm/default/bin/"
+      - "/usr/bin/site_perl/"
+      - "/usr/bin/vendor_perl/"
+      - "/usr/bin/core_perl/"
+      - "/usr/lib/rustup/bin/"
+    found: "/usr/bin/ld"
+    search_context:
+      ENV{PATH}:
+        - "/home/mehmet/.bun/bin"
+        - "/home/mehmet/Masa\u00fcst\u00fc/PatiOS-3.0/aarch64-linux-musl-cross/bin"
+        - "/home/mehmet/.cargo/bin"
+        - "/home/mehmet/.local/bin"
+        - "/home/mehmet/.opencode/bin"
+        - "/home/mehmet/.bun/bin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/local/sbin"
+        - "/var/lib/flatpak/exports/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+        - "/usr/lib/rustup/bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeFindBinUtils.cmake:247 (find_program)"
+      - "/usr/share/cmake/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "CMakeLists.txt:5 (project)"
+    mode: "program"
+    variable: "CMAKE_NM"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "nm"
+    candidate_directories:
+      - "/usr/bin/"
+      - "/home/mehmet/.bun/bin/"
+      - "/home/mehmet/Masa\u00fcst\u00fc/PatiOS-3.0/aarch64-linux-musl-cross/bin/"
+      - "/home/mehmet/.cargo/bin/"
+      - "/home/mehmet/.local/bin/"
+      - "/home/mehmet/.opencode/bin/"
+      - "/usr/local/bin/"
+      - "/bin/"
+      - "/usr/local/sbin/"
+      - "/var/lib/flatpak/exports/bin/"
+      - "/usr/lib/jvm/default/bin/"
+      - "/usr/bin/site_perl/"
+      - "/usr/bin/vendor_perl/"
+      - "/usr/bin/core_perl/"
+      - "/usr/lib/rustup/bin/"
+    found: "/usr/bin/nm"
+    search_context:
+      ENV{PATH}:
+        - "/home/mehmet/.bun/bin"
+        - "/home/mehmet/Masa\u00fcst\u00fc/PatiOS-3.0/aarch64-linux-musl-cross/bin"
+        - "/home/mehmet/.cargo/bin"
+        - "/home/mehmet/.local/bin"
+        - "/home/mehmet/.opencode/bin"
+        - "/home/mehmet/.bun/bin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/local/sbin"
+        - "/var/lib/flatpak/exports/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+        - "/usr/lib/rustup/bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeFindBinUtils.cmake:247 (find_program)"
+      - "/usr/share/cmake/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "CMakeLists.txt:5 (project)"
+    mode: "program"
+    variable: "CMAKE_OBJDUMP"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "objdump"
+    candidate_directories:
+      - "/usr/bin/"
+      - "/home/mehmet/.bun/bin/"
+      - "/home/mehmet/Masa\u00fcst\u00fc/PatiOS-3.0/aarch64-linux-musl-cross/bin/"
+      - "/home/mehmet/.cargo/bin/"
+      - "/home/mehmet/.local/bin/"
+      - "/home/mehmet/.opencode/bin/"
+      - "/usr/local/bin/"
+      - "/bin/"
+      - "/usr/local/sbin/"
+      - "/var/lib/flatpak/exports/bin/"
+      - "/usr/lib/jvm/default/bin/"
+      - "/usr/bin/site_perl/"
+      - "/usr/bin/vendor_perl/"
+      - "/usr/bin/core_perl/"
+      - "/usr/lib/rustup/bin/"
+    found: "/usr/bin/objdump"
+    search_context:
+      ENV{PATH}:
+        - "/home/mehmet/.bun/bin"
+        - "/home/mehmet/Masa\u00fcst\u00fc/PatiOS-3.0/aarch64-linux-musl-cross/bin"
+        - "/home/mehmet/.cargo/bin"
+        - "/home/mehmet/.local/bin"
+        - "/home/mehmet/.opencode/bin"
+        - "/home/mehmet/.bun/bin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/local/sbin"
+        - "/var/lib/flatpak/exports/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+        - "/usr/lib/rustup/bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeFindBinUtils.cmake:247 (find_program)"
+      - "/usr/share/cmake/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "CMakeLists.txt:5 (project)"
+    mode: "program"
+    variable: "CMAKE_OBJCOPY"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "objcopy"
+    candidate_directories:
+      - "/usr/bin/"
+      - "/home/mehmet/.bun/bin/"
+      - "/home/mehmet/Masa\u00fcst\u00fc/PatiOS-3.0/aarch64-linux-musl-cross/bin/"
+      - "/home/mehmet/.cargo/bin/"
+      - "/home/mehmet/.local/bin/"
+      - "/home/mehmet/.opencode/bin/"
+      - "/usr/local/bin/"
+      - "/bin/"
+      - "/usr/local/sbin/"
+      - "/var/lib/flatpak/exports/bin/"
+      - "/usr/lib/jvm/default/bin/"
+      - "/usr/bin/site_perl/"
+      - "/usr/bin/vendor_perl/"
+      - "/usr/bin/core_perl/"
+      - "/usr/lib/rustup/bin/"
+    found: "/usr/bin/objcopy"
+    search_context:
+      ENV{PATH}:
+        - "/home/mehmet/.bun/bin"
+        - "/home/mehmet/Masa\u00fcst\u00fc/PatiOS-3.0/aarch64-linux-musl-cross/bin"
+        - "/home/mehmet/.cargo/bin"
+        - "/home/mehmet/.local/bin"
+        - "/home/mehmet/.opencode/bin"
+        - "/home/mehmet/.bun/bin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/local/sbin"
+        - "/var/lib/flatpak/exports/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+        - "/usr/lib/rustup/bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeFindBinUtils.cmake:247 (find_program)"
+      - "/usr/share/cmake/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "CMakeLists.txt:5 (project)"
+    mode: "program"
+    variable: "CMAKE_READELF"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "readelf"
+    candidate_directories:
+      - "/usr/bin/"
+      - "/home/mehmet/.bun/bin/"
+      - "/home/mehmet/Masa\u00fcst\u00fc/PatiOS-3.0/aarch64-linux-musl-cross/bin/"
+      - "/home/mehmet/.cargo/bin/"
+      - "/home/mehmet/.local/bin/"
+      - "/home/mehmet/.opencode/bin/"
+      - "/usr/local/bin/"
+      - "/bin/"
+      - "/usr/local/sbin/"
+      - "/var/lib/flatpak/exports/bin/"
+      - "/usr/lib/jvm/default/bin/"
+      - "/usr/bin/site_perl/"
+      - "/usr/bin/vendor_perl/"
+      - "/usr/bin/core_perl/"
+      - "/usr/lib/rustup/bin/"
+    found: "/usr/bin/readelf"
+    search_context:
+      ENV{PATH}:
+        - "/home/mehmet/.bun/bin"
+        - "/home/mehmet/Masa\u00fcst\u00fc/PatiOS-3.0/aarch64-linux-musl-cross/bin"
+        - "/home/mehmet/.cargo/bin"
+        - "/home/mehmet/.local/bin"
+        - "/home/mehmet/.opencode/bin"
+        - "/home/mehmet/.bun/bin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/local/sbin"
+        - "/var/lib/flatpak/exports/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+        - "/usr/lib/rustup/bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeFindBinUtils.cmake:247 (find_program)"
+      - "/usr/share/cmake/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "CMakeLists.txt:5 (project)"
+    mode: "program"
+    variable: "CMAKE_DLLTOOL"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "dlltool"
+    candidate_directories:
+      - "/usr/bin/"
+      - "/home/mehmet/.bun/bin/"
+      - "/home/mehmet/Masa\u00fcst\u00fc/PatiOS-3.0/aarch64-linux-musl-cross/bin/"
+      - "/home/mehmet/.cargo/bin/"
+      - "/home/mehmet/.local/bin/"
+      - "/home/mehmet/.opencode/bin/"
+      - "/usr/local/bin/"
+      - "/bin/"
+      - "/usr/local/sbin/"
+      - "/var/lib/flatpak/exports/bin/"
+      - "/usr/lib/jvm/default/bin/"
+      - "/usr/bin/site_perl/"
+      - "/usr/bin/vendor_perl/"
+      - "/usr/bin/core_perl/"
+      - "/usr/lib/rustup/bin/"
+    searched_directories:
+      - "/usr/bin/dlltool"
+      - "/home/mehmet/.bun/bin/dlltool"
+      - "/home/mehmet/Masa\u00fcst\u00fc/PatiOS-3.0/aarch64-linux-musl-cross/bin/dlltool"
+      - "/home/mehmet/.cargo/bin/dlltool"
+      - "/home/mehmet/.local/bin/dlltool"
+      - "/home/mehmet/.opencode/bin/dlltool"
+      - "/usr/local/bin/dlltool"
+      - "/bin/dlltool"
+      - "/usr/local/sbin/dlltool"
+      - "/var/lib/flatpak/exports/bin/dlltool"
+      - "/usr/lib/jvm/default/bin/dlltool"
+      - "/usr/bin/site_perl/dlltool"
+      - "/usr/bin/vendor_perl/dlltool"
+      - "/usr/bin/core_perl/dlltool"
+      - "/usr/lib/rustup/bin/dlltool"
+    found: false
+    search_context:
+      ENV{PATH}:
+        - "/home/mehmet/.bun/bin"
+        - "/home/mehmet/Masa\u00fcst\u00fc/PatiOS-3.0/aarch64-linux-musl-cross/bin"
+        - "/home/mehmet/.cargo/bin"
+        - "/home/mehmet/.local/bin"
+        - "/home/mehmet/.opencode/bin"
+        - "/home/mehmet/.bun/bin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/local/sbin"
+        - "/var/lib/flatpak/exports/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+        - "/usr/lib/rustup/bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeFindBinUtils.cmake:247 (find_program)"
+      - "/usr/share/cmake/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "CMakeLists.txt:5 (project)"
+    mode: "program"
+    variable: "CMAKE_ADDR2LINE"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "addr2line"
+    candidate_directories:
+      - "/usr/bin/"
+      - "/home/mehmet/.bun/bin/"
+      - "/home/mehmet/Masa\u00fcst\u00fc/PatiOS-3.0/aarch64-linux-musl-cross/bin/"
+      - "/home/mehmet/.cargo/bin/"
+      - "/home/mehmet/.local/bin/"
+      - "/home/mehmet/.opencode/bin/"
+      - "/usr/local/bin/"
+      - "/bin/"
+      - "/usr/local/sbin/"
+      - "/var/lib/flatpak/exports/bin/"
+      - "/usr/lib/jvm/default/bin/"
+      - "/usr/bin/site_perl/"
+      - "/usr/bin/vendor_perl/"
+      - "/usr/bin/core_perl/"
+      - "/usr/lib/rustup/bin/"
+    found: "/usr/bin/addr2line"
+    search_context:
+      ENV{PATH}:
+        - "/home/mehmet/.bun/bin"
+        - "/home/mehmet/Masa\u00fcst\u00fc/PatiOS-3.0/aarch64-linux-musl-cross/bin"
+        - "/home/mehmet/.cargo/bin"
+        - "/home/mehmet/.local/bin"
+        - "/home/mehmet/.opencode/bin"
+        - "/home/mehmet/.bun/bin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/local/sbin"
+        - "/var/lib/flatpak/exports/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+        - "/usr/lib/rustup/bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeFindBinUtils.cmake:247 (find_program)"
+      - "/usr/share/cmake/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "CMakeLists.txt:5 (project)"
+    mode: "program"
+    variable: "CMAKE_TAPI"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "tapi"
+    candidate_directories:
+      - "/usr/bin/"
+      - "/home/mehmet/.bun/bin/"
+      - "/home/mehmet/Masa\u00fcst\u00fc/PatiOS-3.0/aarch64-linux-musl-cross/bin/"
+      - "/home/mehmet/.cargo/bin/"
+      - "/home/mehmet/.local/bin/"
+      - "/home/mehmet/.opencode/bin/"
+      - "/usr/local/bin/"
+      - "/bin/"
+      - "/usr/local/sbin/"
+      - "/var/lib/flatpak/exports/bin/"
+      - "/usr/lib/jvm/default/bin/"
+      - "/usr/bin/site_perl/"
+      - "/usr/bin/vendor_perl/"
+      - "/usr/bin/core_perl/"
+      - "/usr/lib/rustup/bin/"
+    searched_directories:
+      - "/usr/bin/tapi"
+      - "/home/mehmet/.bun/bin/tapi"
+      - "/home/mehmet/Masa\u00fcst\u00fc/PatiOS-3.0/aarch64-linux-musl-cross/bin/tapi"
+      - "/home/mehmet/.cargo/bin/tapi"
+      - "/home/mehmet/.local/bin/tapi"
+      - "/home/mehmet/.opencode/bin/tapi"
+      - "/usr/local/bin/tapi"
+      - "/bin/tapi"
+      - "/usr/local/sbin/tapi"
+      - "/var/lib/flatpak/exports/bin/tapi"
+      - "/usr/lib/jvm/default/bin/tapi"
+      - "/usr/bin/site_perl/tapi"
+      - "/usr/bin/vendor_perl/tapi"
+      - "/usr/bin/core_perl/tapi"
+      - "/usr/lib/rustup/bin/tapi"
+    found: false
+    search_context:
+      ENV{PATH}:
+        - "/home/mehmet/.bun/bin"
+        - "/home/mehmet/Masa\u00fcst\u00fc/PatiOS-3.0/aarch64-linux-musl-cross/bin"
+        - "/home/mehmet/.cargo/bin"
+        - "/home/mehmet/.local/bin"
+        - "/home/mehmet/.opencode/bin"
+        - "/home/mehmet/.bun/bin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/local/sbin"
+        - "/var/lib/flatpak/exports/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+        - "/usr/lib/rustup/bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/Compiler/GNU-FindBinUtils.cmake:18 (find_program)"
+      - "/usr/share/cmake/Modules/CMakeDetermineCCompiler.cmake:201 (include)"
+      - "CMakeLists.txt:5 (project)"
+    mode: "program"
+    variable: "CMAKE_C_COMPILER_AR"
+    description: "A wrapper around 'ar' adding the appropriate '--plugin' option for the GCC compiler"
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "gcc-ar-16.2"
+      - "gcc-ar-16"
+      - "gcc-ar16"
+      - "gcc-ar"
+    candidate_directories:
+      - "/usr/bin/"
+      - "/home/mehmet/.bun/bin/"
+      - "/home/mehmet/Masa\u00fcst\u00fc/PatiOS-3.0/aarch64-linux-musl-cross/bin/"
+      - "/home/mehmet/.cargo/bin/"
+      - "/home/mehmet/.local/bin/"
+      - "/home/mehmet/.opencode/bin/"
+      - "/usr/local/bin/"
+      - "/bin/"
+      - "/usr/local/sbin/"
+      - "/var/lib/flatpak/exports/bin/"
+      - "/usr/lib/jvm/default/bin/"
+      - "/usr/bin/site_perl/"
+      - "/usr/bin/vendor_perl/"
+      - "/usr/bin/core_perl/"
+      - "/usr/lib/rustup/bin/"
+    searched_directories:
+      - "/usr/bin/gcc-ar-16.2"
+      - "/home/mehmet/.bun/bin/gcc-ar-16.2"
+      - "/home/mehmet/Masa\u00fcst\u00fc/PatiOS-3.0/aarch64-linux-musl-cross/bin/gcc-ar-16.2"
+      - "/home/mehmet/.cargo/bin/gcc-ar-16.2"
+      - "/home/mehmet/.local/bin/gcc-ar-16.2"
+      - "/home/mehmet/.opencode/bin/gcc-ar-16.2"
+      - "/usr/local/bin/gcc-ar-16.2"
+      - "/bin/gcc-ar-16.2"
+      - "/usr/local/sbin/gcc-ar-16.2"
+      - "/var/lib/flatpak/exports/bin/gcc-ar-16.2"
+      - "/usr/lib/jvm/default/bin/gcc-ar-16.2"
+      - "/usr/bin/site_perl/gcc-ar-16.2"
+      - "/usr/bin/vendor_perl/gcc-ar-16.2"
+      - "/usr/bin/core_perl/gcc-ar-16.2"
+      - "/usr/lib/rustup/bin/gcc-ar-16.2"
+      - "/usr/bin/gcc-ar-16"
+      - "/home/mehmet/.bun/bin/gcc-ar-16"
+      - "/home/mehmet/Masa\u00fcst\u00fc/PatiOS-3.0/aarch64-linux-musl-cross/bin/gcc-ar-16"
+      - "/home/mehmet/.cargo/bin/gcc-ar-16"
+      - "/home/mehmet/.local/bin/gcc-ar-16"
+      - "/home/mehmet/.opencode/bin/gcc-ar-16"
+      - "/usr/local/bin/gcc-ar-16"
+      - "/bin/gcc-ar-16"
+      - "/usr/local/sbin/gcc-ar-16"
+      - "/var/lib/flatpak/exports/bin/gcc-ar-16"
+      - "/usr/lib/jvm/default/bin/gcc-ar-16"
+      - "/usr/bin/site_perl/gcc-ar-16"
+      - "/usr/bin/vendor_perl/gcc-ar-16"
+      - "/usr/bin/core_perl/gcc-ar-16"
+      - "/usr/lib/rustup/bin/gcc-ar-16"
+      - "/usr/bin/gcc-ar16"
+      - "/home/mehmet/.bun/bin/gcc-ar16"
+      - "/home/mehmet/Masa\u00fcst\u00fc/PatiOS-3.0/aarch64-linux-musl-cross/bin/gcc-ar16"
+      - "/home/mehmet/.cargo/bin/gcc-ar16"
+      - "/home/mehmet/.local/bin/gcc-ar16"
+      - "/home/mehmet/.opencode/bin/gcc-ar16"
+      - "/usr/local/bin/gcc-ar16"
+      - "/bin/gcc-ar16"
+      - "/usr/local/sbin/gcc-ar16"
+      - "/var/lib/flatpak/exports/bin/gcc-ar16"
+      - "/usr/lib/jvm/default/bin/gcc-ar16"
+      - "/usr/bin/site_perl/gcc-ar16"
+      - "/usr/bin/vendor_perl/gcc-ar16"
+      - "/usr/bin/core_perl/gcc-ar16"
+      - "/usr/lib/rustup/bin/gcc-ar16"
+    found: "/usr/bin/gcc-ar"
+    search_context:
+      ENV{PATH}:
+        - "/home/mehmet/.bun/bin"
+        - "/home/mehmet/Masa\u00fcst\u00fc/PatiOS-3.0/aarch64-linux-musl-cross/bin"
+        - "/home/mehmet/.cargo/bin"
+        - "/home/mehmet/.local/bin"
+        - "/home/mehmet/.opencode/bin"
+        - "/home/mehmet/.bun/bin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/local/sbin"
+        - "/var/lib/flatpak/exports/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+        - "/usr/lib/rustup/bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/Compiler/GNU-FindBinUtils.cmake:30 (find_program)"
+      - "/usr/share/cmake/Modules/CMakeDetermineCCompiler.cmake:201 (include)"
+      - "CMakeLists.txt:5 (project)"
+    mode: "program"
+    variable: "CMAKE_C_COMPILER_RANLIB"
+    description: "A wrapper around 'ranlib' adding the appropriate '--plugin' option for the GCC compiler"
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "gcc-ranlib-16.2"
+      - "gcc-ranlib-16"
+      - "gcc-ranlib16"
+      - "gcc-ranlib"
+    candidate_directories:
+      - "/usr/bin/"
+      - "/home/mehmet/.bun/bin/"
+      - "/home/mehmet/Masa\u00fcst\u00fc/PatiOS-3.0/aarch64-linux-musl-cross/bin/"
+      - "/home/mehmet/.cargo/bin/"
+      - "/home/mehmet/.local/bin/"
+      - "/home/mehmet/.opencode/bin/"
+      - "/usr/local/bin/"
+      - "/bin/"
+      - "/usr/local/sbin/"
+      - "/var/lib/flatpak/exports/bin/"
+      - "/usr/lib/jvm/default/bin/"
+      - "/usr/bin/site_perl/"
+      - "/usr/bin/vendor_perl/"
+      - "/usr/bin/core_perl/"
+      - "/usr/lib/rustup/bin/"
+    searched_directories:
+      - "/usr/bin/gcc-ranlib-16.2"
+      - "/home/mehmet/.bun/bin/gcc-ranlib-16.2"
+      - "/home/mehmet/Masa\u00fcst\u00fc/PatiOS-3.0/aarch64-linux-musl-cross/bin/gcc-ranlib-16.2"
+      - "/home/mehmet/.cargo/bin/gcc-ranlib-16.2"
+      - "/home/mehmet/.local/bin/gcc-ranlib-16.2"
+      - "/home/mehmet/.opencode/bin/gcc-ranlib-16.2"
+      - "/usr/local/bin/gcc-ranlib-16.2"
+      - "/bin/gcc-ranlib-16.2"
+      - "/usr/local/sbin/gcc-ranlib-16.2"
+      - "/var/lib/flatpak/exports/bin/gcc-ranlib-16.2"
+      - "/usr/lib/jvm/default/bin/gcc-ranlib-16.2"
+      - "/usr/bin/site_perl/gcc-ranlib-16.2"
+      - "/usr/bin/vendor_perl/gcc-ranlib-16.2"
+      - "/usr/bin/core_perl/gcc-ranlib-16.2"
+      - "/usr/lib/rustup/bin/gcc-ranlib-16.2"
+      - "/usr/bin/gcc-ranlib-16"
+      - "/home/mehmet/.bun/bin/gcc-ranlib-16"
+      - "/home/mehmet/Masa\u00fcst\u00fc/PatiOS-3.0/aarch64-linux-musl-cross/bin/gcc-ranlib-16"
+      - "/home/mehmet/.cargo/bin/gcc-ranlib-16"
+      - "/home/mehmet/.local/bin/gcc-ranlib-16"
+      - "/home/mehmet/.opencode/bin/gcc-ranlib-16"
+      - "/usr/local/bin/gcc-ranlib-16"
+      - "/bin/gcc-ranlib-16"
+      - "/usr/local/sbin/gcc-ranlib-16"
+      - "/var/lib/flatpak/exports/bin/gcc-ranlib-16"
+      - "/usr/lib/jvm/default/bin/gcc-ranlib-16"
+      - "/usr/bin/site_perl/gcc-ranlib-16"
+      - "/usr/bin/vendor_perl/gcc-ranlib-16"
+      - "/usr/bin/core_perl/gcc-ranlib-16"
+      - "/usr/lib/rustup/bin/gcc-ranlib-16"
+      - "/usr/bin/gcc-ranlib16"
+      - "/home/mehmet/.bun/bin/gcc-ranlib16"
+      - "/home/mehmet/Masa\u00fcst\u00fc/PatiOS-3.0/aarch64-linux-musl-cross/bin/gcc-ranlib16"
+      - "/home/mehmet/.cargo/bin/gcc-ranlib16"
+      - "/home/mehmet/.local/bin/gcc-ranlib16"
+      - "/home/mehmet/.opencode/bin/gcc-ranlib16"
+      - "/usr/local/bin/gcc-ranlib16"
+      - "/bin/gcc-ranlib16"
+      - "/usr/local/sbin/gcc-ranlib16"
+      - "/var/lib/flatpak/exports/bin/gcc-ranlib16"
+      - "/usr/lib/jvm/default/bin/gcc-ranlib16"
+      - "/usr/bin/site_perl/gcc-ranlib16"
+      - "/usr/bin/vendor_perl/gcc-ranlib16"
+      - "/usr/bin/core_perl/gcc-ranlib16"
+      - "/usr/lib/rustup/bin/gcc-ranlib16"
+    found: "/usr/bin/gcc-ranlib"
+    search_context:
+      ENV{PATH}:
+        - "/home/mehmet/.bun/bin"
+        - "/home/mehmet/Masa\u00fcst\u00fc/PatiOS-3.0/aarch64-linux-musl-cross/bin"
+        - "/home/mehmet/.cargo/bin"
+        - "/home/mehmet/.local/bin"
+        - "/home/mehmet/.opencode/bin"
+        - "/home/mehmet/.bun/bin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/local/sbin"
+        - "/var/lib/flatpak/exports/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+        - "/usr/lib/rustup/bin"
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:123 (try_compile)"
+      - "/usr/share/cmake/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:5 (project)"
+    checks:
+      - "Detecting C compiler ABI info"
+    directories:
+      source: "/home/mehmet/Masa\u00fcst\u00fc/PatiOS-3.0/fish-shell/build/CMakeFiles/CMakeScratch/TryCompile-NWmh9L"
+      binary: "/home/mehmet/Masa\u00fcst\u00fc/PatiOS-3.0/fish-shell/build/CMakeFiles/CMakeScratch/TryCompile-NWmh9L"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/mehmet/Masa\u00fcst\u00fc/PatiOS-3.0/fish-shell/cmake"
+    buildResult:
+      variable: "CMAKE_C_ABI_COMPILED"
+      cached: false
+      stdout: |
+        Change Dir: '/home/mehmet/Masaüstü/PatiOS-3.0/fish-shell/build/CMakeFiles/CMakeScratch/TryCompile-NWmh9L'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_2594d/fast
+        /usr/bin/make  -f CMakeFiles/cmTC_2594d.dir/build.make CMakeFiles/cmTC_2594d.dir/build
+        make[1]: Entering directory '/home/mehmet/Masaüstü/PatiOS-3.0/fish-shell/build/CMakeFiles/CMakeScratch/TryCompile-NWmh9L'
+        Building C object CMakeFiles/cmTC_2594d.dir/CMakeCCompilerABI.c.o
+        /usr/bin/cc   -v -o CMakeFiles/cmTC_2594d.dir/CMakeCCompilerABI.c.o -c /usr/share/cmake/Modules/CMakeCCompilerABI.c
+        Using built-in specs.
+        COLLECT_GCC=/usr/bin/cc
+        Target: x86_64-pc-linux-gnu
+        Configured with: ../gcc/configure --enable-languages=ada,c,c++,d,fortran,go,lto,m2,objc,obj-c++,rust,cobol --enable-bootstrap --prefix=/usr --libdir=/usr/lib --libexecdir=/usr/lib --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=https://github.com/CachyOS/CachyOS-PKGBUILDS/issues --with-build-config=bootstrap-lto --with-gcc-major-version-only --with-linker-hash-style=gnu --with-system-zlib --enable-cet=auto --enable-checking=release --enable-clocale=gnu --enable-default-pie --enable-default-ssp --enable-gnu-indirect-function --enable-gnu-unique-object --enable-libstdcxx-backtrace --enable-link-serialization=1 --enable-linker-build-id --enable-lto --enable-multilib --enable-plugin --enable-shared --enable-threads=posix --disable-fixincludes --disable-libssp --disable-libstdcxx-pch --disable-werror
+        Thread model: posix
+        Supported LTO compression algorithms: zlib zstd
+        gcc version 16.2.1 20260810 (GCC) 
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_2594d.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_2594d.dir/'
+         /usr/lib/gcc/x86_64-pc-linux-gnu/16/cc1 -quiet -v /usr/share/cmake/Modules/CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles/cmTC_2594d.dir/ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mtune=generic -march=x86-64 -version -o /tmp/ccOld4qR.s
+        GNU C23 (GCC) version 16.2.1 20260810 (x86_64-pc-linux-gnu)
+        	compiled by GNU C version 16.2.1 20260810, GMP version 6.3.0, MPFR version 4.2.2, MPC version 1.4.1, isl version isl-0.28-GMP
+        
+        GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+        ignoring nonexistent directory "/usr/lib/gcc/x86_64-pc-linux-gnu/16/include-fixed"
+        ignoring nonexistent directory "/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../x86_64-pc-linux-gnu/include"
+        #include "..." search starts here:
+        #include <...> search starts here:
+         /usr/lib/gcc/x86_64-pc-linux-gnu/16/include
+         /usr/local/include
+         /usr/include
+        End of search list.
+        Compiler executable checksum: a48c0af3a2776f11d2f29c8a4f4a097f
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_2594d.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_2594d.dir/'
+         as -v --64 -o CMakeFiles/cmTC_2594d.dir/CMakeCCompilerABI.c.o /tmp/ccOld4qR.s
+        GNU assembler version 2.47 (x86_64-pc-linux-gnu) using BFD version (GNU Binutils) 2.47
+        COMPILER_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/16/:/usr/lib/gcc/x86_64-pc-linux-gnu/16/:/usr/lib/gcc/x86_64-pc-linux-gnu/:/usr/lib/gcc/x86_64-pc-linux-gnu/16/:/usr/lib/gcc/x86_64-pc-linux-gnu/
+        LIBRARY_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/16/:/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/:/lib/../lib/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../:/lib/:/usr/lib/
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_2594d.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_2594d.dir/CMakeCCompilerABI.c.'
+        Linking C executable cmTC_2594d
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_2594d.dir/link.txt --verbose=1
+        Using built-in specs.
+        COLLECT_GCC=/usr/bin/cc
+        COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-pc-linux-gnu/16/lto-wrapper
+        Target: x86_64-pc-linux-gnu
+        Configured with: ../gcc/configure --enable-languages=ada,c,c++,d,fortran,go,lto,m2,objc,obj-c++,rust,cobol --enable-bootstrap --prefix=/usr --libdir=/usr/lib --libexecdir=/usr/lib --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=https://github.com/CachyOS/CachyOS-PKGBUILDS/issues --with-build-config=bootstrap-lto --with-gcc-major-version-only --with-linker-hash-style=gnu --with-system-zlib --enable-cet=auto --enable-checking=release --enable-clocale=gnu --enable-default-pie --enable-default-ssp --enable-gnu-indirect-function --enable-gnu-unique-object --enable-libstdcxx-backtrace --enable-link-serialization=1 --enable-linker-build-id --enable-lto --enable-multilib --enable-plugin --enable-shared --enable-threads=posix --disable-fixincludes --disable-libssp --disable-libstdcxx-pch --disable-werror
+        Thread model: posix
+        Supported LTO compression algorithms: zlib zstd
+        gcc version 16.2.1 20260810 (GCC) 
+        COMPILER_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/16/:/usr/lib/gcc/x86_64-pc-linux-gnu/16/:/usr/lib/gcc/x86_64-pc-linux-gnu/:/usr/lib/gcc/x86_64-pc-linux-gnu/16/:/usr/lib/gcc/x86_64-pc-linux-gnu/
+        LIBRARY_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/16/:/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/:/lib/../lib/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../:/lib/:/usr/lib/
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_2594d' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_2594d.'
+         /usr/lib/gcc/x86_64-pc-linux-gnu/16/collect2 -plugin /usr/lib/gcc/x86_64-pc-linux-gnu/16/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-pc-linux-gnu/16/lto-wrapper -plugin-opt=-fresolution=/tmp/ccSI1F2H.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s_asneeded -plugin-opt=-pass-through=-latomic_asneeded -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s_asneeded --build-id --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -o cmTC_2594d /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/Scrt1.o /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/crti.o /usr/lib/gcc/x86_64-pc-linux-gnu/16/crtbeginS.o -L/usr/lib/gcc/x86_64-pc-linux-gnu/16 -L/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib -L/lib/../lib -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../.. -L/lib -L/usr/lib -v CMakeFiles/cmTC_2594d.dir/CMakeCCompilerABI.c.o -lgcc -lgcc_s_asneeded -latomic_asneeded -lc -lgcc -lgcc_s_asneeded /usr/lib/gcc/x86_64-pc-linux-gnu/16/crtendS.o /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/crtn.o
+        collect2 version 16.2.1 20260810
+        /usr/bin/ld -plugin /usr/lib/gcc/x86_64-pc-linux-gnu/16/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-pc-linux-gnu/16/lto-wrapper -plugin-opt=-fresolution=/tmp/ccSI1F2H.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s_asneeded -plugin-opt=-pass-through=-latomic_asneeded -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s_asneeded --build-id --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -o cmTC_2594d /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/Scrt1.o /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/crti.o /usr/lib/gcc/x86_64-pc-linux-gnu/16/crtbeginS.o -L/usr/lib/gcc/x86_64-pc-linux-gnu/16 -L/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib -L/lib/../lib -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../.. -L/lib -L/usr/lib -v CMakeFiles/cmTC_2594d.dir/CMakeCCompilerABI.c.o -lgcc -lgcc_s_asneeded -latomic_asneeded -lc -lgcc -lgcc_s_asneeded /usr/lib/gcc/x86_64-pc-linux-gnu/16/crtendS.o /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/crtn.o
+        GNU ld (GNU Binutils) 2.47
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_2594d' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_2594d.'
+        /usr/bin/cc  -v -Wl,-v CMakeFiles/cmTC_2594d.dir/CMakeCCompilerABI.c.o -o cmTC_2594d
+        make[1]: Leaving directory '/home/mehmet/Masaüstü/PatiOS-3.0/fish-shell/build/CMakeFiles/CMakeScratch/TryCompile-NWmh9L'
+        
+      exitCode: 0
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:255 (message)"
+      - "/usr/share/cmake/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:5 (project)"
+    message: |
+      Parsed C implicit include dir info: rv=done
+        found start of include info
+        found start of implicit include info
+          add: [/usr/lib/gcc/x86_64-pc-linux-gnu/16/include]
+          add: [/usr/local/include]
+          add: [/usr/include]
+        end of search list found
+        collapse include dir [/usr/lib/gcc/x86_64-pc-linux-gnu/16/include] ==> [/usr/lib/gcc/x86_64-pc-linux-gnu/16/include]
+        collapse include dir [/usr/local/include] ==> [/usr/local/include]
+        collapse include dir [/usr/include] ==> [/usr/include]
+        implicit include dirs: [/usr/lib/gcc/x86_64-pc-linux-gnu/16/include;/usr/local/include;/usr/include]
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:291 (message)"
+      - "/usr/share/cmake/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:5 (project)"
+    message: |
+      Parsed C implicit link information:
+        link line regex: [^( *|.*[/\\])(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)|wild|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
+        linker tool regex: [^[ 	]*(->|"|[0-9]+>[ 	-]*Build:[ 	0-9]+ ms[ 	]*)?[ 	]*(([^"]*[/\\])?(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)|wild))("|,| |$)]
+        ignore line: [Change Dir: '/home/mehmet/Masaüstü/PatiOS-3.0/fish-shell/build/CMakeFiles/CMakeScratch/TryCompile-NWmh9L']
+        ignore line: []
+        ignore line: [Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_2594d/fast]
+        ignore line: [/usr/bin/make  -f CMakeFiles/cmTC_2594d.dir/build.make CMakeFiles/cmTC_2594d.dir/build]
+        ignore line: [make[1]: Entering directory '/home/mehmet/Masaüstü/PatiOS-3.0/fish-shell/build/CMakeFiles/CMakeScratch/TryCompile-NWmh9L']
+        ignore line: [Building C object CMakeFiles/cmTC_2594d.dir/CMakeCCompilerABI.c.o]
+        ignore line: [/usr/bin/cc   -v -o CMakeFiles/cmTC_2594d.dir/CMakeCCompilerABI.c.o -c /usr/share/cmake/Modules/CMakeCCompilerABI.c]
+        ignore line: [Using built-in specs.]
+        ignore line: [COLLECT_GCC=/usr/bin/cc]
+        ignore line: [Target: x86_64-pc-linux-gnu]
+        ignore line: [Configured with: ../gcc/configure --enable-languages=ada c c++ d fortran go lto m2 objc obj-c++ rust cobol --enable-bootstrap --prefix=/usr --libdir=/usr/lib --libexecdir=/usr/lib --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=https://github.com/CachyOS/CachyOS-PKGBUILDS/issues --with-build-config=bootstrap-lto --with-gcc-major-version-only --with-linker-hash-style=gnu --with-system-zlib --enable-cet=auto --enable-checking=release --enable-clocale=gnu --enable-default-pie --enable-default-ssp --enable-gnu-indirect-function --enable-gnu-unique-object --enable-libstdcxx-backtrace --enable-link-serialization=1 --enable-linker-build-id --enable-lto --enable-multilib --enable-plugin --enable-shared --enable-threads=posix --disable-fixincludes --disable-libssp --disable-libstdcxx-pch --disable-werror]
+        ignore line: [Thread model: posix]
+        ignore line: [Supported LTO compression algorithms: zlib zstd]
+        ignore line: [gcc version 16.2.1 20260810 (GCC) ]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_2594d.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_2594d.dir/']
+        ignore line: [ /usr/lib/gcc/x86_64-pc-linux-gnu/16/cc1 -quiet -v /usr/share/cmake/Modules/CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles/cmTC_2594d.dir/ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mtune=generic -march=x86-64 -version -o /tmp/ccOld4qR.s]
+        ignore line: [GNU C23 (GCC) version 16.2.1 20260810 (x86_64-pc-linux-gnu)]
+        ignore line: [	compiled by GNU C version 16.2.1 20260810  GMP version 6.3.0  MPFR version 4.2.2  MPC version 1.4.1  isl version isl-0.28-GMP]
+        ignore line: []
+        ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+        ignore line: [ignoring nonexistent directory "/usr/lib/gcc/x86_64-pc-linux-gnu/16/include-fixed"]
+        ignore line: [ignoring nonexistent directory "/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../x86_64-pc-linux-gnu/include"]
+        ignore line: [#include "..." search starts here:]
+        ignore line: [#include <...> search starts here:]
+        ignore line: [ /usr/lib/gcc/x86_64-pc-linux-gnu/16/include]
+        ignore line: [ /usr/local/include]
+        ignore line: [ /usr/include]
+        ignore line: [End of search list.]
+        ignore line: [Compiler executable checksum: a48c0af3a2776f11d2f29c8a4f4a097f]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_2594d.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_2594d.dir/']
+        ignore line: [ as -v --64 -o CMakeFiles/cmTC_2594d.dir/CMakeCCompilerABI.c.o /tmp/ccOld4qR.s]
+        ignore line: [GNU assembler version 2.47 (x86_64-pc-linux-gnu) using BFD version (GNU Binutils) 2.47]
+        ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/16/:/usr/lib/gcc/x86_64-pc-linux-gnu/16/:/usr/lib/gcc/x86_64-pc-linux-gnu/:/usr/lib/gcc/x86_64-pc-linux-gnu/16/:/usr/lib/gcc/x86_64-pc-linux-gnu/]
+        ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/16/:/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/:/lib/../lib/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../:/lib/:/usr/lib/]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_2594d.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_2594d.dir/CMakeCCompilerABI.c.']
+        ignore line: [Linking C executable cmTC_2594d]
+        ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_2594d.dir/link.txt --verbose=1]
+        ignore line: [Using built-in specs.]
+        ignore line: [COLLECT_GCC=/usr/bin/cc]
+        ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-pc-linux-gnu/16/lto-wrapper]
+        ignore line: [Target: x86_64-pc-linux-gnu]
+        ignore line: [Configured with: ../gcc/configure --enable-languages=ada c c++ d fortran go lto m2 objc obj-c++ rust cobol --enable-bootstrap --prefix=/usr --libdir=/usr/lib --libexecdir=/usr/lib --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=https://github.com/CachyOS/CachyOS-PKGBUILDS/issues --with-build-config=bootstrap-lto --with-gcc-major-version-only --with-linker-hash-style=gnu --with-system-zlib --enable-cet=auto --enable-checking=release --enable-clocale=gnu --enable-default-pie --enable-default-ssp --enable-gnu-indirect-function --enable-gnu-unique-object --enable-libstdcxx-backtrace --enable-link-serialization=1 --enable-linker-build-id --enable-lto --enable-multilib --enable-plugin --enable-shared --enable-threads=posix --disable-fixincludes --disable-libssp --disable-libstdcxx-pch --disable-werror]
+        ignore line: [Thread model: posix]
+        ignore line: [Supported LTO compression algorithms: zlib zstd]
+        ignore line: [gcc version 16.2.1 20260810 (GCC) ]
+        ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/16/:/usr/lib/gcc/x86_64-pc-linux-gnu/16/:/usr/lib/gcc/x86_64-pc-linux-gnu/:/usr/lib/gcc/x86_64-pc-linux-gnu/16/:/usr/lib/gcc/x86_64-pc-linux-gnu/]
+        ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/16/:/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/:/lib/../lib/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../:/lib/:/usr/lib/]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_2594d' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_2594d.']
+        link line: [ /usr/lib/gcc/x86_64-pc-linux-gnu/16/collect2 -plugin /usr/lib/gcc/x86_64-pc-linux-gnu/16/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-pc-linux-gnu/16/lto-wrapper -plugin-opt=-fresolution=/tmp/ccSI1F2H.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s_asneeded -plugin-opt=-pass-through=-latomic_asneeded -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s_asneeded --build-id --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -o cmTC_2594d /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/Scrt1.o /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/crti.o /usr/lib/gcc/x86_64-pc-linux-gnu/16/crtbeginS.o -L/usr/lib/gcc/x86_64-pc-linux-gnu/16 -L/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib -L/lib/../lib -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../.. -L/lib -L/usr/lib -v CMakeFiles/cmTC_2594d.dir/CMakeCCompilerABI.c.o -lgcc -lgcc_s_asneeded -latomic_asneeded -lc -lgcc -lgcc_s_asneeded /usr/lib/gcc/x86_64-pc-linux-gnu/16/crtendS.o /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/crtn.o]
+          arg [/usr/lib/gcc/x86_64-pc-linux-gnu/16/collect2] ==> ignore
+          arg [-plugin] ==> ignore
+          arg [/usr/lib/gcc/x86_64-pc-linux-gnu/16/liblto_plugin.so] ==> ignore
+          arg [-plugin-opt=/usr/lib/gcc/x86_64-pc-linux-gnu/16/lto-wrapper] ==> ignore
+          arg [-plugin-opt=-fresolution=/tmp/ccSI1F2H.res] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc_s_asneeded] ==> ignore
+          arg [-plugin-opt=-pass-through=-latomic_asneeded] ==> ignore
+          arg [-plugin-opt=-pass-through=-lc] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc_s_asneeded] ==> ignore
+          arg [--build-id] ==> ignore
+          arg [--eh-frame-hdr] ==> ignore
+          arg [--hash-style=gnu] ==> ignore
+          arg [-m] ==> ignore
+          arg [elf_x86_64] ==> ignore
+          arg [-dynamic-linker] ==> ignore
+          arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
+          arg [-pie] ==> ignore
+          arg [-o] ==> ignore
+          arg [cmTC_2594d] ==> ignore
+          arg [/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/Scrt1.o] ==> obj [/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/Scrt1.o]
+          arg [/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/crti.o] ==> obj [/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/crti.o]
+          arg [/usr/lib/gcc/x86_64-pc-linux-gnu/16/crtbeginS.o] ==> obj [/usr/lib/gcc/x86_64-pc-linux-gnu/16/crtbeginS.o]
+          arg [-L/usr/lib/gcc/x86_64-pc-linux-gnu/16] ==> dir [/usr/lib/gcc/x86_64-pc-linux-gnu/16]
+          arg [-L/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib] ==> dir [/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib]
+          arg [-L/lib/../lib] ==> dir [/lib/../lib]
+          arg [-L/usr/lib/../lib] ==> dir [/usr/lib/../lib]
+          arg [-L/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../..] ==> dir [/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../..]
+          arg [-L/lib] ==> dir [/lib]
+          arg [-L/usr/lib] ==> dir [/usr/lib]
+          arg [-v] ==> ignore
+          arg [CMakeFiles/cmTC_2594d.dir/CMakeCCompilerABI.c.o] ==> ignore
+          arg [-lgcc] ==> lib [gcc]
+          arg [-lgcc_s_asneeded] ==> lib [gcc_s_asneeded]
+          arg [-latomic_asneeded] ==> lib [atomic_asneeded]
+          arg [-lc] ==> lib [c]
+          arg [-lgcc] ==> lib [gcc]
+          arg [-lgcc_s_asneeded] ==> lib [gcc_s_asneeded]
+          arg [/usr/lib/gcc/x86_64-pc-linux-gnu/16/crtendS.o] ==> obj [/usr/lib/gcc/x86_64-pc-linux-gnu/16/crtendS.o]
+          arg [/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/crtn.o] ==> obj [/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/crtn.o]
+        ignore line: [collect2 version 16.2.1 20260810]
+        link line: [/usr/bin/ld -plugin /usr/lib/gcc/x86_64-pc-linux-gnu/16/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-pc-linux-gnu/16/lto-wrapper -plugin-opt=-fresolution=/tmp/ccSI1F2H.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s_asneeded -plugin-opt=-pass-through=-latomic_asneeded -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s_asneeded --build-id --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -o cmTC_2594d /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/Scrt1.o /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/crti.o /usr/lib/gcc/x86_64-pc-linux-gnu/16/crtbeginS.o -L/usr/lib/gcc/x86_64-pc-linux-gnu/16 -L/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib -L/lib/../lib -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../.. -L/lib -L/usr/lib -v CMakeFiles/cmTC_2594d.dir/CMakeCCompilerABI.c.o -lgcc -lgcc_s_asneeded -latomic_asneeded -lc -lgcc -lgcc_s_asneeded /usr/lib/gcc/x86_64-pc-linux-gnu/16/crtendS.o /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/crtn.o] ==> linker [/usr/bin/ld]
+        link line: [/usr/bin/ld -plugin /usr/lib/gcc/x86_64-pc-linux-gnu/16/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-pc-linux-gnu/16/lto-wrapper -plugin-opt=-fresolution=/tmp/ccSI1F2H.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s_asneeded -plugin-opt=-pass-through=-latomic_asneeded -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s_asneeded --build-id --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -o cmTC_2594d /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/Scrt1.o /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/crti.o /usr/lib/gcc/x86_64-pc-linux-gnu/16/crtbeginS.o -L/usr/lib/gcc/x86_64-pc-linux-gnu/16 -L/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib -L/lib/../lib -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../.. -L/lib -L/usr/lib -v CMakeFiles/cmTC_2594d.dir/CMakeCCompilerABI.c.o -lgcc -lgcc_s_asneeded -latomic_asneeded -lc -lgcc -lgcc_s_asneeded /usr/lib/gcc/x86_64-pc-linux-gnu/16/crtendS.o /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/crtn.o] ==> linker architecture flags [-m;elf]
+        ignore line: [/usr/bin/ld -plugin /usr/lib/gcc/x86_64-pc-linux-gnu/16/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-pc-linux-gnu/16/lto-wrapper -plugin-opt=-fresolution=/tmp/ccSI1F2H.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s_asneeded -plugin-opt=-pass-through=-latomic_asneeded -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s_asneeded --build-id --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -o cmTC_2594d /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/Scrt1.o /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/crti.o /usr/lib/gcc/x86_64-pc-linux-gnu/16/crtbeginS.o -L/usr/lib/gcc/x86_64-pc-linux-gnu/16 -L/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib -L/lib/../lib -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../.. -L/lib -L/usr/lib -v CMakeFiles/cmTC_2594d.dir/CMakeCCompilerABI.c.o -lgcc -lgcc_s_asneeded -latomic_asneeded -lc -lgcc -lgcc_s_asneeded /usr/lib/gcc/x86_64-pc-linux-gnu/16/crtendS.o /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/crtn.o]
+        linker tool for 'C': /usr/bin/ld -m;elf
+        collapse obj [/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/Scrt1.o] ==> [/usr/lib/Scrt1.o]
+        collapse obj [/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/crti.o] ==> [/usr/lib/crti.o]
+        collapse obj [/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/crtn.o] ==> [/usr/lib/crtn.o]
+        collapse library dir [/usr/lib/gcc/x86_64-pc-linux-gnu/16] ==> [/usr/lib/gcc/x86_64-pc-linux-gnu/16]
+        collapse library dir [/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib] ==> [/usr/lib]
+        collapse library dir [/lib/../lib] ==> [/lib]
+        collapse library dir [/usr/lib/../lib] ==> [/usr/lib]
+        collapse library dir [/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../..] ==> [/usr/lib]
+        collapse library dir [/lib] ==> [/lib]
+        collapse library dir [/usr/lib] ==> [/usr/lib]
+        implicit libs: [gcc;gcc_s_asneeded;atomic_asneeded;c;gcc;gcc_s_asneeded]
+        implicit objs: [/usr/lib/Scrt1.o;/usr/lib/crti.o;/usr/lib/gcc/x86_64-pc-linux-gnu/16/crtbeginS.o;/usr/lib/gcc/x86_64-pc-linux-gnu/16/crtendS.o;/usr/lib/crtn.o]
+        implicit dirs: [/usr/lib/gcc/x86_64-pc-linux-gnu/16;/usr/lib;/lib]
+        implicit fwks: []
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/Internal/CMakeDetermineLinkerId.cmake:41 (message)"
+      - "/usr/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:337 (cmake_determine_linker_id)"
+      - "/usr/share/cmake/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:5 (project)"
+    message: |
+      Running the C compiler's linker: "/usr/bin/ld" "-v"
+      GNU ld (GNU Binutils) 2.47
+  -
+    kind: "find-v1"
+    backtrace:
+      - "cmake/FindRust.cmake:25 (find_program)"
+      - "cmake/Rust.cmake:2 (include)"
+      - "CMakeLists.txt:22 (include)"
+    mode: "program"
+    variable: "Rust_CARGO_CACHED"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "cargo"
+    candidate_directories:
+      - "/home/mehmet/.bun/bin/"
+      - "/home/mehmet/Masa\u00fcst\u00fc/PatiOS-3.0/aarch64-linux-musl-cross/bin/"
+      - "/home/mehmet/.cargo/bin/"
+      - "/home/mehmet/.local/bin/"
+      - "/home/mehmet/.opencode/bin/"
+      - "/usr/local/bin/"
+      - "/usr/bin/"
+      - "/bin/"
+      - "/usr/local/sbin/"
+      - "/var/lib/flatpak/exports/bin/"
+      - "/usr/lib/jvm/default/bin/"
+      - "/usr/bin/site_perl/"
+      - "/usr/bin/vendor_perl/"
+      - "/usr/bin/core_perl/"
+      - "/usr/lib/rustup/bin/"
+      - "/usr/local/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/"
+      - "/usr/bin/"
+      - "/usr/sbin/"
+      - "/usr/"
+      - "/bin/"
+      - "/sbin/"
+      - "/usr/X11R6/bin/"
+      - "/usr/X11R6/sbin/"
+      - "/usr/X11R6/"
+      - "/usr/pkg/bin/"
+      - "/usr/pkg/sbin/"
+      - "/usr/pkg/"
+      - "/opt/bin/"
+      - "/opt/sbin/"
+      - "/opt/"
+    searched_directories:
+      - "/home/mehmet/.bun/bin/cargo"
+      - "/home/mehmet/Masa\u00fcst\u00fc/PatiOS-3.0/aarch64-linux-musl-cross/bin/cargo"
+      - "/home/mehmet/.cargo/bin/cargo"
+      - "/home/mehmet/.local/bin/cargo"
+      - "/home/mehmet/.opencode/bin/cargo"
+      - "/usr/local/bin/cargo"
+    found: "/usr/bin/cargo"
+    search_context:
+      ENV{PATH}:
+        - "/home/mehmet/.bun/bin"
+        - "/home/mehmet/Masa\u00fcst\u00fc/PatiOS-3.0/aarch64-linux-musl-cross/bin"
+        - "/home/mehmet/.cargo/bin"
+        - "/home/mehmet/.local/bin"
+        - "/home/mehmet/.opencode/bin"
+        - "/home/mehmet/.bun/bin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/local/sbin"
+        - "/var/lib/flatpak/exports/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+        - "/usr/lib/rustup/bin"
+      CMAKE_INSTALL_PREFIX: "/usr/local"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/usr/local"
+        - "/usr"
+        - "/"
+        - "/usr"
+        - "/usr/local"
+        - "/usr/X11R6"
+        - "/usr/pkg"
+        - "/opt"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "cmake/FindRust.cmake:35 (find_program)"
+      - "cmake/Rust.cmake:2 (include)"
+      - "CMakeLists.txt:22 (include)"
+    mode: "program"
+    variable: "Rust_COMPILER_CACHED"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "rustc"
+    candidate_directories:
+      - "/home/mehmet/.bun/bin/"
+      - "/home/mehmet/Masa\u00fcst\u00fc/PatiOS-3.0/aarch64-linux-musl-cross/bin/"
+      - "/home/mehmet/.cargo/bin/"
+      - "/home/mehmet/.local/bin/"
+      - "/home/mehmet/.opencode/bin/"
+      - "/usr/local/bin/"
+      - "/usr/bin/"
+      - "/bin/"
+      - "/usr/local/sbin/"
+      - "/var/lib/flatpak/exports/bin/"
+      - "/usr/lib/jvm/default/bin/"
+      - "/usr/bin/site_perl/"
+      - "/usr/bin/vendor_perl/"
+      - "/usr/bin/core_perl/"
+      - "/usr/lib/rustup/bin/"
+      - "/usr/local/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/"
+      - "/usr/bin/"
+      - "/usr/sbin/"
+      - "/usr/"
+      - "/bin/"
+      - "/sbin/"
+      - "/usr/X11R6/bin/"
+      - "/usr/X11R6/sbin/"
+      - "/usr/X11R6/"
+      - "/usr/pkg/bin/"
+      - "/usr/pkg/sbin/"
+      - "/usr/pkg/"
+      - "/opt/bin/"
+      - "/opt/sbin/"
+      - "/opt/"
+    searched_directories:
+      - "/home/mehmet/.bun/bin/rustc"
+      - "/home/mehmet/Masa\u00fcst\u00fc/PatiOS-3.0/aarch64-linux-musl-cross/bin/rustc"
+      - "/home/mehmet/.cargo/bin/rustc"
+      - "/home/mehmet/.local/bin/rustc"
+      - "/home/mehmet/.opencode/bin/rustc"
+      - "/usr/local/bin/rustc"
+    found: "/usr/bin/rustc"
+    search_context:
+      ENV{PATH}:
+        - "/home/mehmet/.bun/bin"
+        - "/home/mehmet/Masa\u00fcst\u00fc/PatiOS-3.0/aarch64-linux-musl-cross/bin"
+        - "/home/mehmet/.cargo/bin"
+        - "/home/mehmet/.local/bin"
+        - "/home/mehmet/.opencode/bin"
+        - "/home/mehmet/.bun/bin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/local/sbin"
+        - "/var/lib/flatpak/exports/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+        - "/usr/lib/rustup/bin"
+      CMAKE_INSTALL_PREFIX: "/usr/local"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/usr/local"
+        - "/usr"
+        - "/"
+        - "/usr"
+        - "/usr/local"
+        - "/usr/X11R6"
+        - "/usr/pkg"
+        - "/opt"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "CMakeLists.txt:27 (find_program)"
+    mode: "program"
+    variable: "SPHINX_EXECUTABLE"
+    description: "Sphinx documentation generator"
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "sphinx-build"
+    candidate_directories:
+      - "/home/mehmet/.bun/bin/bin/"
+      - "/home/mehmet/.bun/bin/"
+      - "/home/mehmet/Masa\u00fcst\u00fc/PatiOS-3.0/aarch64-linux-musl-cross/bin/bin/"
+      - "/home/mehmet/Masa\u00fcst\u00fc/PatiOS-3.0/aarch64-linux-musl-cross/bin/"
+      - "/home/mehmet/.cargo/bin/bin/"
+      - "/home/mehmet/.cargo/bin/"
+      - "/home/mehmet/.local/bin/bin/"
+      - "/home/mehmet/.local/bin/"
+      - "/home/mehmet/.opencode/bin/bin/"
+      - "/home/mehmet/.opencode/bin/"
+      - "/usr/local/bin/bin/"
+      - "/usr/local/bin/"
+      - "/usr/bin/bin/"
+      - "/usr/bin/"
+      - "/bin/bin/"
+      - "/bin/"
+      - "/usr/local/sbin/bin/"
+      - "/usr/local/sbin/"
+      - "/var/lib/flatpak/exports/bin/bin/"
+      - "/var/lib/flatpak/exports/bin/"
+      - "/usr/lib/jvm/default/bin/bin/"
+      - "/usr/lib/jvm/default/bin/"
+      - "/usr/bin/site_perl/bin/"
+      - "/usr/bin/site_perl/"
+      - "/usr/bin/vendor_perl/bin/"
+      - "/usr/bin/vendor_perl/"
+      - "/usr/bin/core_perl/bin/"
+      - "/usr/bin/core_perl/"
+      - "/usr/lib/rustup/bin/bin/"
+      - "/usr/lib/rustup/bin/"
+      - "/usr/local/bin/bin/"
+      - "/usr/local/bin/"
+      - "/usr/local/sbin/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/local/"
+      - "/usr/bin/bin/"
+      - "/usr/bin/"
+      - "/usr/sbin/bin/"
+      - "/usr/sbin/"
+      - "/usr/bin/"
+      - "/usr/"
+      - "/bin/bin/"
+      - "/bin/"
+      - "/sbin/bin/"
+      - "/sbin/"
+      - "/usr/X11R6/bin/bin/"
+      - "/usr/X11R6/bin/"
+      - "/usr/X11R6/sbin/bin/"
+      - "/usr/X11R6/sbin/"
+      - "/usr/X11R6/bin/"
+      - "/usr/X11R6/"
+      - "/usr/pkg/bin/bin/"
+      - "/usr/pkg/bin/"
+      - "/usr/pkg/sbin/bin/"
+      - "/usr/pkg/sbin/"
+      - "/usr/pkg/bin/"
+      - "/usr/pkg/"
+      - "/opt/bin/bin/"
+      - "/opt/bin/"
+      - "/opt/sbin/bin/"
+      - "/opt/sbin/"
+      - "/opt/bin/"
+      - "/opt/"
+    searched_directories:
+      - "/home/mehmet/.bun/bin/bin/sphinx-build"
+      - "/home/mehmet/.bun/bin/sphinx-build"
+      - "/home/mehmet/Masa\u00fcst\u00fc/PatiOS-3.0/aarch64-linux-musl-cross/bin/bin/sphinx-build"
+      - "/home/mehmet/Masa\u00fcst\u00fc/PatiOS-3.0/aarch64-linux-musl-cross/bin/sphinx-build"
+      - "/home/mehmet/.cargo/bin/bin/sphinx-build"
+      - "/home/mehmet/.cargo/bin/sphinx-build"
+      - "/home/mehmet/.local/bin/bin/sphinx-build"
+      - "/home/mehmet/.local/bin/sphinx-build"
+      - "/home/mehmet/.opencode/bin/bin/sphinx-build"
+      - "/home/mehmet/.opencode/bin/sphinx-build"
+      - "/usr/local/bin/bin/sphinx-build"
+      - "/usr/local/bin/sphinx-build"
+      - "/usr/bin/bin/sphinx-build"
+      - "/usr/bin/sphinx-build"
+      - "/bin/bin/sphinx-build"
+      - "/bin/sphinx-build"
+      - "/usr/local/sbin/bin/sphinx-build"
+      - "/usr/local/sbin/sphinx-build"
+      - "/var/lib/flatpak/exports/bin/bin/sphinx-build"
+      - "/var/lib/flatpak/exports/bin/sphinx-build"
+      - "/usr/lib/jvm/default/bin/bin/sphinx-build"
+      - "/usr/lib/jvm/default/bin/sphinx-build"
+      - "/usr/bin/site_perl/bin/sphinx-build"
+      - "/usr/bin/site_perl/sphinx-build"
+      - "/usr/bin/vendor_perl/bin/sphinx-build"
+      - "/usr/bin/vendor_perl/sphinx-build"
+      - "/usr/bin/core_perl/bin/sphinx-build"
+      - "/usr/bin/core_perl/sphinx-build"
+      - "/usr/lib/rustup/bin/bin/sphinx-build"
+      - "/usr/lib/rustup/bin/sphinx-build"
+      - "/usr/local/bin/bin/sphinx-build"
+      - "/usr/local/bin/sphinx-build"
+      - "/usr/local/sbin/bin/sphinx-build"
+      - "/usr/local/sbin/sphinx-build"
+      - "/usr/local/bin/sphinx-build"
+      - "/usr/local/sphinx-build"
+      - "/usr/bin/bin/sphinx-build"
+      - "/usr/bin/sphinx-build"
+      - "/usr/sbin/bin/sphinx-build"
+      - "/usr/sbin/sphinx-build"
+      - "/usr/bin/sphinx-build"
+      - "/usr/sphinx-build"
+      - "/bin/bin/sphinx-build"
+      - "/bin/sphinx-build"
+      - "/sbin/bin/sphinx-build"
+      - "/sbin/sphinx-build"
+      - "/usr/X11R6/bin/bin/sphinx-build"
+      - "/usr/X11R6/bin/sphinx-build"
+      - "/usr/X11R6/sbin/bin/sphinx-build"
+      - "/usr/X11R6/sbin/sphinx-build"
+      - "/usr/X11R6/bin/sphinx-build"
+      - "/usr/X11R6/sphinx-build"
+      - "/usr/pkg/bin/bin/sphinx-build"
+      - "/usr/pkg/bin/sphinx-build"
+      - "/usr/pkg/sbin/bin/sphinx-build"
+      - "/usr/pkg/sbin/sphinx-build"
+      - "/usr/pkg/bin/sphinx-build"
+      - "/usr/pkg/sphinx-build"
+      - "/opt/bin/bin/sphinx-build"
+      - "/opt/bin/sphinx-build"
+      - "/opt/sbin/bin/sphinx-build"
+      - "/opt/sbin/sphinx-build"
+      - "/opt/bin/sphinx-build"
+      - "/opt/sphinx-build"
+    found: false
+    search_context:
+      ENV{PATH}:
+        - "/home/mehmet/.bun/bin"
+        - "/home/mehmet/Masa\u00fcst\u00fc/PatiOS-3.0/aarch64-linux-musl-cross/bin"
+        - "/home/mehmet/.cargo/bin"
+        - "/home/mehmet/.local/bin"
+        - "/home/mehmet/.opencode/bin"
+        - "/home/mehmet/.bun/bin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/local/sbin"
+        - "/var/lib/flatpak/exports/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+        - "/usr/lib/rustup/bin"
+      CMAKE_INSTALL_PREFIX: "/usr/local"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/usr/local"
+        - "/usr"
+        - "/"
+        - "/usr"
+        - "/usr/local"
+        - "/usr/X11R6"
+        - "/usr/pkg"
+        - "/opt"
+...

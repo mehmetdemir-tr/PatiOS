@@ -1,0 +1,8 @@
+- cmd: echo alpha
+   when:       1111122222
+   added_when: 1111111111
+- cmd: function foo\necho bar\nend
+   when: 1339717377
+- cmd: echo this has\\\nbackslashes
+   when: 1339717385
+- cmd: I should be ignored no trailing newline

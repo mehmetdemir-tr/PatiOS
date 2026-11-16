@@ -1,0 +1,17 @@
+/home/mehmet/Masaüstü/PatiOS-3.0/fish-shell/build-arm64/cargo/aarch64-unknown-linux-musl/release/deps/fish_fluent-aa0e68c4af8b6f8e.d: crates/fluent/src/lib.rs /home/mehmet/Masaüstü/PatiOS-3.0/fish-shell/localization/fluent/de.ftl /home/mehmet/Masaüstü/PatiOS-3.0/fish-shell/localization/fluent/en.ftl /home/mehmet/Masaüstü/PatiOS-3.0/fish-shell/localization/fluent/es.ftl /home/mehmet/Masaüstü/PatiOS-3.0/fish-shell/localization/fluent/fr.ftl /home/mehmet/Masaüstü/PatiOS-3.0/fish-shell/localization/fluent/ja_JP.ftl /home/mehmet/Masaüstü/PatiOS-3.0/fish-shell/localization/fluent/pl.ftl /home/mehmet/Masaüstü/PatiOS-3.0/fish-shell/localization/fluent/pt_BR.ftl /home/mehmet/Masaüstü/PatiOS-3.0/fish-shell/localization/fluent/sv.ftl /home/mehmet/Masaüstü/PatiOS-3.0/fish-shell/localization/fluent/zh_CN.ftl /home/mehmet/Masaüstü/PatiOS-3.0/fish-shell/localization/fluent/zh_TW.ftl
+
+/home/mehmet/Masaüstü/PatiOS-3.0/fish-shell/build-arm64/cargo/aarch64-unknown-linux-musl/release/deps/libfish_fluent-aa0e68c4af8b6f8e.rlib: crates/fluent/src/lib.rs /home/mehmet/Masaüstü/PatiOS-3.0/fish-shell/localization/fluent/de.ftl /home/mehmet/Masaüstü/PatiOS-3.0/fish-shell/localization/fluent/en.ftl /home/mehmet/Masaüstü/PatiOS-3.0/fish-shell/localization/fluent/es.ftl /home/mehmet/Masaüstü/PatiOS-3.0/fish-shell/localization/fluent/fr.ftl /home/mehmet/Masaüstü/PatiOS-3.0/fish-shell/localization/fluent/ja_JP.ftl /home/mehmet/Masaüstü/PatiOS-3.0/fish-shell/localization/fluent/pl.ftl /home/mehmet/Masaüstü/PatiOS-3.0/fish-shell/localization/fluent/pt_BR.ftl /home/mehmet/Masaüstü/PatiOS-3.0/fish-shell/localization/fluent/sv.ftl /home/mehmet/Masaüstü/PatiOS-3.0/fish-shell/localization/fluent/zh_CN.ftl /home/mehmet/Masaüstü/PatiOS-3.0/fish-shell/localization/fluent/zh_TW.ftl
+
+/home/mehmet/Masaüstü/PatiOS-3.0/fish-shell/build-arm64/cargo/aarch64-unknown-linux-musl/release/deps/libfish_fluent-aa0e68c4af8b6f8e.rmeta: crates/fluent/src/lib.rs /home/mehmet/Masaüstü/PatiOS-3.0/fish-shell/localization/fluent/de.ftl /home/mehmet/Masaüstü/PatiOS-3.0/fish-shell/localization/fluent/en.ftl /home/mehmet/Masaüstü/PatiOS-3.0/fish-shell/localization/fluent/es.ftl /home/mehmet/Masaüstü/PatiOS-3.0/fish-shell/localization/fluent/fr.ftl /home/mehmet/Masaüstü/PatiOS-3.0/fish-shell/localization/fluent/ja_JP.ftl /home/mehmet/Masaüstü/PatiOS-3.0/fish-shell/localization/fluent/pl.ftl /home/mehmet/Masaüstü/PatiOS-3.0/fish-shell/localization/fluent/pt_BR.ftl /home/mehmet/Masaüstü/PatiOS-3.0/fish-shell/localization/fluent/sv.ftl /home/mehmet/Masaüstü/PatiOS-3.0/fish-shell/localization/fluent/zh_CN.ftl /home/mehmet/Masaüstü/PatiOS-3.0/fish-shell/localization/fluent/zh_TW.ftl
+
+crates/fluent/src/lib.rs:
+/home/mehmet/Masaüstü/PatiOS-3.0/fish-shell/localization/fluent/de.ftl:
+/home/mehmet/Masaüstü/PatiOS-3.0/fish-shell/localization/fluent/en.ftl:
+/home/mehmet/Masaüstü/PatiOS-3.0/fish-shell/localization/fluent/es.ftl:
+/home/mehmet/Masaüstü/PatiOS-3.0/fish-shell/localization/fluent/fr.ftl:
+/home/mehmet/Masaüstü/PatiOS-3.0/fish-shell/localization/fluent/ja_JP.ftl:
+/home/mehmet/Masaüstü/PatiOS-3.0/fish-shell/localization/fluent/pl.ftl:
+/home/mehmet/Masaüstü/PatiOS-3.0/fish-shell/localization/fluent/pt_BR.ftl:
+/home/mehmet/Masaüstü/PatiOS-3.0/fish-shell/localization/fluent/sv.ftl:
+/home/mehmet/Masaüstü/PatiOS-3.0/fish-shell/localization/fluent/zh_CN.ftl:
+/home/mehmet/Masaüstü/PatiOS-3.0/fish-shell/localization/fluent/zh_TW.ftl:

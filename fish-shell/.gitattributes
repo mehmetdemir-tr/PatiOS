@@ -1,0 +1,27 @@
+# normalize newlines
+* text=auto eol=lf
+
+# let git show off diff hunk headers, help git diff -L:
+# https://git-scm.com/docs/gitattributes
+*.c diff=cpp
+*.h diff=cpp
+*.py diff=py
+*.rs diff=rust
+# add a [diff "fish"] to git config with pattern
+*.fish diff=fish
+
+# omit from git archive
+.gitattributes export-ignore
+.gitignore export-ignore
+/build_tools/make_tarball.sh export-ignore
+/.github export-ignore
+/.github/* export-ignore
+/.builds export-ignore
+/.builds/* export-ignore
+
+# for linguist, which drives GitHub's language statistics
+alpine.js linguist-vendored
+doc_src/** linguist-documentation
+*.fish linguist-language=fish
+# see 70f2899fcd which attempts to "rig the count"
+share/completions/*.fish linguist-documentation

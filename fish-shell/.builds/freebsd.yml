@@ -1,0 +1,30 @@
+image: freebsd/latest
+packages:
+  - cmake
+  - gcc
+  - gettext
+  - gmake
+  - llvm
+  - ninja
+  - pcre2
+  - py311-pexpect
+  - py311-sphinx
+  - python
+  - rust
+  - tmux
+sources:
+  - https://github.com/fish-shell/fish-shell
+tasks:
+  - build: |
+          cd fish-shell
+          mkdir build
+          cd build
+          cmake -GNinja .. \
+            -DCMAKE_INSTALL_PREFIX=/usr \
+            -DCMAKE_INSTALL_DATADIR=share \
+            -DCMAKE_INSTALL_DOCDIR=share/doc/fish \
+            -DCMAKE_INSTALL_SYSCONFDIR=/etc
+          ninja
+  - test: |
+          cd fish-shell/build
+          ninja fish_run_tests

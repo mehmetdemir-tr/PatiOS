@@ -1,0 +1,33 @@
+name: Build Docker test images
+
+on:
+  push:
+    paths:
+      - 'docker/**'
+  workflow_dispatch:
+
+concurrency:
+  group: docker-builds
+
+jobs:
+  docker-build:
+    if: github.repository_owner == 'fish-shell'
+    permissions:
+      contents: read
+      packages: write
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            target: alpine
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1, build_tools/update-dependencies.sh
+      - run: |
+          printf %s "${{ secrets.GITHUB_TOKEN }}" |
+            docker login ghcr.io --username=${{ github.actor }} --password-stdin
+          sh -x docker/push.sh docker/${{ matrix.target }}.Dockerfile

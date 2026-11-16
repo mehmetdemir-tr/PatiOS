@@ -1,0 +1,3 @@
+- cmd: this_command_is_ok
+- cmd: no_newline_at_end_of_file
+   when: 1403531898

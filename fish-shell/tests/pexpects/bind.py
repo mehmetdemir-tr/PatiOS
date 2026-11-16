@@ -1,0 +1,704 @@
+#!/usr/bin/env python3
+from pexpect_helper import SpawnedProc, control
+import os
+import platform
+import sys
+
+# Skip on macOS on Github Actions because it's too resource-starved
+# and fails this a lot.
+#
+# Presumably we still have users on macOS that would notice binding errors
+if "CI" in os.environ and platform.system() == "Darwin":
+    sys.exit(127)
+
+sp = SpawnedProc()
+send, sendline, sleep, expect_prompt, expect_re, expect_str = (
+    sp.send,
+    sp.sendline,
+    sp.sleep,
+    sp.expect_prompt,
+    sp.expect_re,
+    sp.expect_str,
+)
+expect_prompt()
+
+sendline("bind ctrl-l repaint")
+expect_prompt()
+# Clear twice (regression test for #7280).
+send("\f")
+expect_prompt(increment=False)
+send("\f")
+expect_prompt(increment=False)
+
+# Test that kill-selection after selection is cleared doesn't crash
+sendline("bind ctrl-space begin-selection")
+expect_prompt()
+sendline("bind ctrl-w kill-selection end-selection")
+expect_prompt()
+send("echo 123")
+# Send Ctrl-Space using CSI u encoding
+send("\x1b[32;5u")
+# Send Ctrl-C to clear the command line
+send("\x1b[99;5u")
+# Send Ctrl-W which used to crash
+send("\x1b[119;5u")
+sendline("bind --erase ctrl-space ctrl-w")
+expect_prompt()
+
+# Fish should start in default-mode (i.e., emacs) bindings. The default escape
+# timeout is 30ms.
+#
+# Because common CI systems are awful, we have to increase this:
+
+sendline("set -g fish_escape_delay_ms 120")
+expect_prompt("")
+
+# Verify the emacs transpose word (\et) behavior using various delays,
+# including none, after the escape character.
+
+# Start by testing with no delay. This should transpose the words.
+send("echo abc def")
+send("\033t\r")
+expect_prompt("\r\n.*def abc\r\n")  # emacs transpose words, default timeout: no delay
+
+# Now test with a delay > 0 and < the escape timeout. This should transpose
+# the words.
+send("echo ghi jkl")
+send("\033")
+sleep(0.010)
+send("t\r")
+# emacs transpose words, default timeout: short delay
+expect_prompt("\r\n.*jkl ghi\r\n")
+
+# Now test with a delay > the escape timeout. The transposition should not
+# occur and the "t" should become part of the text that is echoed.
+send("echo mno pqr")
+send("\033")
+sleep(0.250)
+send("t\r")
+# emacs transpose words, default timeout: long delay
+expect_prompt("\r\n.*mno pqrt\r\n")
+
+# Now test that exactly the expected bind modes are defined
+sendline("bind --list-modes")
+expect_prompt("\r\n.*default", unmatched="Unexpected bind modes")
+
+# Test vi key bindings.
+# This should leave vi mode in the insert state.
+sendline("set -g fish_key_bindings fish_vi_key_bindings")
+expect_prompt()
+
+# Go through a prompt cycle to let fish catch up, it may be slow due to ASAN
+sendline("echo success: default escape timeout")
+expect_prompt(
+    "\r\n.*success: default escape timeout", unmatched="prime vi mode, default timeout"
+)
+
+send("echo fail: default escape timeout")
+expect_str("echo fail: default escape timeout")
+send("\033")
+
+# Delay needed to allow fish to transition to vi "normal" mode. The delay is
+# longer than strictly necessary to let fish catch up as it may be slow due to
+# ASAN.
+sleep(0.250)
+send("ddi")
+sendline("echo success: default escape timeout")
+expect_prompt(
+    "\r\n.*success: default escape timeout\r\n",
+    unmatched="vi replace line, default timeout: long delay",
+)
+
+# Test replacing a single character.
+send("echo TEXT")
+send("\033")
+# Delay needed to allow fish to transition to vi "normal" mode.
+# Specifically alt+h *is* bound to __fish_man_page,
+# and I have seen this think that trigger with 300ms.
+#
+# The next step is to rip out this test because it's much more pain than it is worth
+sleep(0.400)
+send("hhrAi\r")
+expect_prompt(
+    "\r\n.*TAXT\r\n", unmatched="vi mode replace char, default timeout: long delay"
+)
+
+# Test deleting characters with 'x'.
+send("echo MORE-TEXT")
+send("\033")
+# Delay needed to allow fish to transition to vi "normal" mode.
+sleep(0.400)
+send("xxxxx\r")
+
+# vi mode delete char, default timeout: long delay
+expect_prompt(
+    "\r\n.*MORE\r\n", unmatched="vi mode delete char, default timeout: long delay"
+)
+
+# Test jumping forward til before a character with t
+send("echo MORE-TEXT-IS-NICE")
+send("\033")
+# Delay needed to allow fish to transition to vi "normal" mode.
+sleep(0.250)
+send("0tTD\r")
+
+# vi mode forward-jump-till character, default timeout: long delay
+expect_prompt(
+    "\r\n.*MORE\r\n",
+    unmatched="vi mode forward-jump-till character, default timeout: long delay",
+)
+
+# DISABLED BECAUSE IT FAILS ON GITHUB ACTIONS
+# Test jumping backward til before a character with T
+# send("echo MORE-TEXT-IS-NICE")
+# send("\033")
+# # Delay needed to allow fish to transition to vi "normal" mode.
+# sleep(0.250)
+# send("TSD\r")
+# # vi mode backward-jump-till character, default timeout: long delay
+# expect_prompt(
+#     "\r\n.*MORE-TEXT-IS\r\n",
+#     unmatched="vi mode backward-jump-till character, default timeout: long delay",
+# )
+
+# Test jumping backward with F and repeating
+send("echo MORE-TEXT-IS-NICE")
+send("\033")
+# Delay needed to allow fish to transition to vi "normal" mode.
+sleep(0.250)
+send("F-;D\r")
+# vi mode backward-jump-to character and repeat, default timeout: long delay
+expect_prompt(
+    "\r\n.*MORE-TEXT\r\n",
+    unmatched="vi mode backward-jump-to character and repeat, default timeout: long delay",
+)
+
+# Test jumping backward with F w/reverse jump
+send("echo MORE-TEXT-IS-NICE")
+send("\033")
+# Delay needed to allow fish to transition to vi "normal" mode.
+sleep(0.250)
+send("F-F-,D\r")
+# vi mode backward-jump-to character, and reverse, default timeout: long delay
+expect_prompt(
+    "\r\n.*MORE-TEXT-IS\r\n",
+    unmatched="vi mode backward-jump-to character, and reverse, default timeout: long delay",
+)
+
+# Verify that changing the escape timeout has an effect.
+send("set -g fish_escape_delay_ms 100\r")
+expect_prompt()
+
+send("echo fail: lengthened escape timeout")
+send("\033")
+sleep(0.400)
+send("ddi")
+sleep(0.25)
+send("echo success: lengthened escape timeout\r")
+expect_prompt(
+    "\r\n.*success: lengthened escape timeout\r\n",
+    unmatched="vi replace line, 100ms timeout: long delay",
+)
+
+# Verify that we don't switch to vi normal mode if we don't wait long enough
+# after sending escape.
+send("echo fail: no normal mode")
+send("\033")
+sleep(0.010)
+send("ddi")
+send("inserted\r")
+expect_prompt(
+    "\r\n.*fail: no normal modediinserted\r\n",
+    unmatched="vi replace line, 100ms timeout: short delay",
+)
+
+# Now set it back to speed up the tests - these don't use any escape+thing bindings!
+send("set -g fish_escape_delay_ms 50\r")
+expect_prompt()
+
+# Test 't' binding that contains non-zero arity function (forward-jump) followed
+# by another function (and) https://github.com/fish-shell/fish-shell/issues/2357
+send("\033")
+sleep(0.200)
+send("ddiecho TEXT")
+expect_str("echo TEXT")
+send("\033")
+sleep(0.200)
+send("hhtTrN\r")
+expect_prompt("\r\n.*TENT\r\n", unmatched="Couldn't find expected output 'TENT'")
+
+# Test sequence key delay
+send("set -g fish_sequence_key_delay_ms 200\r")
+expect_prompt()
+send("bind -M insert jk 'commandline -i foo'\r")
+expect_prompt()
+send("echo jk")
+send("\r")
+expect_prompt("foo")
+send("echo j")
+sleep(0.300)
+send("k\r")
+expect_prompt("jk")
+send("set -e fish_sequence_key_delay_ms\r")
+expect_prompt()
+send("echo j")
+sleep(0.300)
+send("k\r")
+expect_prompt("foo")
+
+
+# Test '~' (togglecase-char)
+# HACK: Deactivated because it keeps failing on CI
+# send("\033")
+# sleep(0.100)
+# send("cc")
+# sleep(0.50)
+# send("echo some TExT\033")
+# sleep(0.300)
+# send("hh~~bbve~\r")
+# expect_prompt("\r\n.*SOME TeXT\r\n", unmatched="Couldn't find expected output 'SOME TeXT")
+
+send("echo echo")
+send("\033")
+sleep(0.200)
+send("bgU\r")
+expect_prompt("echo ECHO")
+
+send("echo 125")
+send("\033")
+sleep(0.200)
+send("0$i34\r")
+expect_prompt("echo 12345")
+
+# Test operator mode with count (d3w)
+send("echo one two three four five")
+send("\033")
+sleep(0.200)
+send("0w")
+send("d3w")
+sendline("")
+expect_prompt("echo four five")
+
+# Test count before operator (3dw)
+send("echo one two three four five")
+send("\033")
+sleep(0.200)
+send("0w")
+send("3dw")
+sendline("")
+expect_prompt("echo four five")
+
+# Test count on both (2d2w -> 4 words)
+send("echo one two three four five six")
+send("\033")
+sleep(0.200)
+send("0w")
+send("2d2w")
+sendline("")
+expect_prompt("echo five six")
+
+# Test change operator with count (c2w)
+send("echo one two three")
+send("\033")
+sleep(0.200)
+send("0w")
+send("c2wREPLACED")
+sendline("")
+expect_prompt("echo REPLACED three")
+
+# Test escape cancelling count
+send("echo one two three")
+send("\033")
+sleep(0.200)
+send("0w")
+send("3")
+send("\033")
+sleep(0.100)
+send("dw")
+sendline("")
+expect_prompt("echo two three")
+
+# Now test that exactly the expected bind modes are defined
+sendline("bind --list-modes")
+expect_prompt(
+    "F\r\nT\r\ndefault\r\nf\r\ninsert\r\noperator\r\nreplace\r\nreplace_one\r\nt\r\nvisual\r\n",
+    unmatched="Unexpected vi bind modes",
+)
+
+# Test word movements
+# Test 'w' with underscore - should not jump over single punctuation
+send("echo abc_def")
+send("\033")
+sleep(0.200)
+send("0wwD\r")  # From start, 'w' twice should stop at underscore, delete from there
+expect_prompt(
+    "\r\n.*abc\r\n", unmatched="vi mode 'w' should stop at single punctuation"
+)
+
+# Test 'w' with multiple spaces - should skip spaces and land at start of next word
+send("echo abc  def")
+send("\033")
+sleep(0.200)
+send("0wwwD\r")  # Skip 'echo', 'abc', 'def', then delete last char
+expect_prompt("\r\n.*abc de\r\n", unmatched="vi mode 'w' with multiple spaces")
+
+# Test 'w' with multiple punctuations - should stop at punctuation group
+send("echo abc...def")
+send("\033")
+sleep(0.200)
+send("0wwD\r")  # Skip 'echo', then 'w' should stop at first '.', delete to end
+expect_prompt("\r\n.*abc\r\n", unmatched="vi mode 'w' with multiple punctuations")
+
+# Test 'diw' when cursor is on space - should delete only spaces
+send("echo abc  def")
+send("\033")
+sleep(0.200)
+send("0wwhdiw\r")  # Move to 'def', back to space, delete inner word (spaces only)
+expect_prompt(
+    "\r\n.*abcdef\r\n", unmatched="vi mode 'diw' on space should delete spaces"
+)
+
+# Test 'daw' - should delete word and trim trailing space
+send("echo abc def ghi")
+send("\033")
+sleep(0.200)
+send("0wwdaw\r")  # Skip 'echo', move to 'def', delete word with space
+expect_prompt("\r\n.*abc ghi\r\n", unmatched="vi mode 'daw' should trim trailing space")
+
+# Test 'b' backward movement with punctuation - should stop at punctuation
+send("echo abc_def")
+send("\033")
+sleep(0.200)
+send("bD\r")  # From end, 'b' should stop at 'd', delete to end
+expect_prompt("\r\n.*abc_\r\n", unmatched="vi mode 'b' should stop at punctuation")
+
+# Test 'e' end-of-word movement
+send("echo abc_def")
+send("\033")
+sleep(0.200)
+send("0weD\r")  # From start, 'w' to 'abc', 'e' to end of 'abc', delete to end
+expect_prompt("\r\n.*ab\r\n", unmatched="vi mode 'e' should move to word end")
+
+# Test 'W' WORD movement - should skip punctuation within WORD
+send("echo abc-def ghi")
+send("\033")
+sleep(0.200)
+send("0wWD\r")  # From start, 'w' to 'abc', 'W' should skip 'abc-def', delete 'ghi'
+expect_prompt(
+    "\r\n.*abc-def\r\n",
+    unmatched="vi mode 'W' should treat punctuation as part of WORD",
+)
+
+# Test 'E' end-of-WORD movement
+send("echo abc-def ghi")
+send("\033")
+sleep(0.200)
+send("0wED\r")  # From start, 'w' to 'abc', 'E' to end of 'abc-def', delete to end
+expect_prompt("\r\n.*abc-de\r\n", unmatched="vi mode 'E' should move to WORD end")
+
+# Test 'B' backward WORD movement
+send("echo abc-def ghi")
+send("\033")
+sleep(0.200)
+send("BD\r")  # From end, 'B' backward to 'ghi', delete to end
+expect_prompt("\r\n.*abc-def\r\n", unmatched="vi mode 'B' backward WORD movement")
+
+# Test 'ge' backward to end of previous word
+send("echo abc def")
+send("\033")
+sleep(0.200)
+send("0wwgex\r")  # Move to 'def', 'ge' to 'c' of 'abc', delete char with 'x'
+expect_prompt(
+    "\r\n.*ab def\r\n", unmatched="vi mode 'ge' should move to previous word end"
+)
+
+# Test 'gE' backward to end of previous WORD
+send("echo abc-def ghi")
+send("\033")
+sleep(0.200)
+send(
+    "0WWgEx\r"
+)  # Use 'W' to move by WORDs: to 'abc-def', then 'ghi', then 'gE' back to 'f' of 'abc-def', delete char
+expect_prompt(
+    "\r\n.*abc-de ghi\r\n", unmatched="vi mode 'gE' should move to previous WORD end"
+)
+
+# Test 'diW' (delete inner WORD) with punctuation
+send("echo abc-def ghi")
+send("\033")
+sleep(0.200)
+send("0wldiW\r")  # Move to 'bc-def', delete inner WORD
+expect_prompt("\r\n.*ghi\r\n", unmatched="vi mode 'diW' should delete entire WORD")
+
+# Test 'daW' (delete a WORD) with punctuation
+send("echo abc-def ghi")
+send("\033")
+sleep(0.200)
+send("0wldaW\r")  # Move to 'bc-def', delete a WORD with space
+expect_prompt("\r\n.*ghi\r\n", unmatched="vi mode 'daW' should delete WORD and space")
+
+# Test Unicode character category separation
+# In vim, different unicode categories are separated into words
+send("echo abcあいう")
+send("\033")
+sleep(0.200)
+send("0wwD\r")  # Skip 'echo', then from 'a' of 'abc', 'w' should stop at 'あ'
+expect_prompt(
+    "\r\n.*abc\r\n", unmatched="vi mode 'w' should stop at Unicode category boundary"
+)
+
+# Test Unicode with multiple categories
+send("echo abcあいう甲乙")
+send("\033")
+sleep(0.200)
+send("0wwwD\r")  # Skip 'echo', 'abc', hiragana, then at kanji, delete to end
+expect_prompt(
+    "\r\n.*abcあいう\r\n", unmatched="vi mode 'w' should separate hiragana and kanji"
+)
+
+# Test 'cw' - change word, deletes to start of next word (like vim's 'dw')
+send("echo abc def")
+send("\033")
+sleep(0.200)
+send("0wcwXXX\r")  # Move to 'abc', 'cw' deletes 'abc', type 'XXX'
+expect_prompt(
+    "\r\n.*XXX def\r\n", unmatched="vi mode 'cw' should delete to start of next word"
+)
+
+# Test 'ce' - change to end of word (like vim's 'de')
+send("echo abc def")
+send("\033")
+sleep(0.200)
+send("0wceXXX\r")  # Move to 'abc', 'ce' deletes 'abc' (not the space), type 'XXX'
+expect_prompt(
+    "\r\n.*XXX def\r\n", unmatched="vi mode 'ce' should change to end of word"
+)
+
+# Test 'cW' - change WORD, changes to end of WORD keeping trailing space (like 'cE')
+send("echo abc-def ghi")
+send("\033")
+sleep(0.200)
+send(
+    "0wcWXXX\r"
+)  # Move to 'abc-def', 'cW' changes 'abc-def' (not the space), type 'XXX'
+expect_prompt(
+    "\r\n.*XXX ghi\r\n", unmatched="vi mode 'cW' should change to end of WORD"
+)
+
+# Test 'cE' - change to end of WORD (like vim's 'dE')
+send("echo abc-def ghi")
+send("\033")
+sleep(0.200)
+send(
+    "0wcEXXX\r"
+)  # Move to 'abc-def', 'cE' deletes 'abc-def' (not the space), type 'XXX'
+expect_prompt(
+    "\r\n.*XXX ghi\r\n", unmatched="vi mode 'cE' should change to end of WORD"
+)
+
+# Test running commands on empty line (should not crash)
+send("\033")
+sleep(0.200)
+send("dawdiwdwdedgedgE\r")  # run many commands
+expect_prompt()
+
+# Test accepting autosuggestions with w/W
+sendline("echo test-suggestion   test-suggestion")
+expect_prompt()
+send("echo te")
+sleep(0.100)
+send("\033")  # Enter normal mode
+sleep(0.200)
+send("w")  # forward-word-vi should accept 'st' from autosuggestion
+expect_str("echo test")
+send("w")  # forward-word-vi should accept '-'
+expect_str("echo test-")
+send("w")  # forward-word-vi should accept 'suggestion  ' from autosuggestion
+expect_str("echo test-suggestion   ")
+send("W\r")  # forward-word-vi should accept 'test-suggestion' from autosuggestion
+expect_prompt("test-suggestion   test-suggestion")
+
+# Switch back to regular (emacs mode) key bindings.
+sendline("set -g fish_key_bindings fish_default_key_bindings")
+expect_prompt()
+
+# Verify the custom escape timeout set earlier is still in effect.
+sendline("echo fish_escape_delay_ms=$fish_escape_delay_ms")
+expect_prompt(
+    "\r\n.*fish_escape_delay_ms=50\r\n",
+    unmatched="default-mode custom timeout not set correctly",
+)
+
+sendline("set -g fish_escape_delay_ms 200")
+expect_prompt()
+
+# Verify the emacs transpose word (\et) behavior using various delays,
+# including none, after the escape character.
+
+# Start by testing with no delay. This should transpose the words.
+send("echo abc def")
+send("\033")
+send("t\r")
+expect_prompt(
+    "\r\n.*def abc\r\n", unmatched="emacs transpose words fail, 200ms timeout: no delay"
+)
+
+# Verify special characters, such as \cV, are not intercepted by the kernel
+# tty driver. Rather, they can be bound and handled by fish.
+sendline("bind ctrl-v 'echo ctrl-v seen'")
+expect_prompt()
+send("\026\r")
+expect_prompt("ctrl-v seen", unmatched="ctrl-v not seen")
+
+send("bind ctrl-o 'echo ctrl-o seen'\r")
+expect_prompt()
+send("\017\r")
+expect_prompt("ctrl-o seen", unmatched="ctrl-o not seen")
+
+# \x17 is ctrl-w.
+send("echo git@github.com:fish-shell/fish-shell")
+send("\x17\x17\r")
+expect_prompt("git@github.com:", unmatched="ctrl-w does not stop at :")
+
+send("echo git@github.com:fish-shell/fish-shell")
+send("\x17\x17\x17\r")
+expect_prompt("git@", unmatched="ctrl-w does not stop at @")
+
+sendline("abbr --add foo 'echo foonanana'")
+expect_prompt()
+sendline("bind ' ' expand-abbr or self-insert")
+expect_prompt()
+send("foo ")
+expect_str("echo foonanana")
+send(" banana\r")
+expect_str(" banana\r")
+expect_prompt("foonanana banana")
+
+# Ensure that nul can be bound properly (#3189).
+send("bind ctrl-space 'echo nul seen'\r")
+expect_prompt()
+send("\0" * 3)
+# We need to sleep briefly before emitting a newline, because when we execute the
+# key bindings above we place the tty in external-proc mode (see #7483) and restoring
+# the mode to shell-mode races with the newline emitted below (i.e. sometimes it may
+# be echoed).
+sleep(0.1)
+send("\r")
+expect_prompt("nul seen\r\n.*nul seen\r\n.*nul seen", unmatched="nul not seen")
+
+# Test self-insert-notfirst. (#6603)
+# Here the leading 'q's should be stripped, but the trailing ones not.
+sendline("bind q self-insert-notfirst")
+expect_prompt()
+sendline("qqqecho qqq")
+expect_prompt("qqq", unmatched="Leading qs not stripped")
+
+# Test bigword with single-character words.
+sendline("bind ctrl-g kill-bigword")
+expect_prompt()
+send("a b c d\x01")  # ctrl-a, move back to the beginning of the line
+send("\x07")  # ctrl-g, kill bigword
+sendline("echo")
+expect_prompt("\n.*b c d")
+
+# Test that overriding the escape binding works
+# and does not inhibit other escape sequences (up-arrow in this case).
+sendline("bind escape 'echo foo'")
+expect_prompt()
+send("\x1b")
+expect_str("foo")
+send("\x1b[A")
+expect_str("bind escape 'echo foo'")
+sendline("bind --erase escape")
+expect_prompt()
+
+send("    a b c d\x01")  # ctrl-a, move back to the beginning of the line
+send("\x07")  # ctrl-g, kill bigword
+sendline("echo")
+expect_prompt("\n.*b c d")
+
+# Check that ctrl-z can be bound
+sendline('bind ctrl-z "echo bound ctrl-z"')
+expect_prompt()
+send("\x1a")
+expect_str("bound ctrl-z")
+
+send("echo foobar")
+send("\x02\x02\x02")  # ctrl-b, backward-char
+sendline("\x1bu")  # alt+u, upcase word
+expect_prompt("fooBAR")
+
+sendline("bind ctrl-z history-prefix-search-backward")
+expect_prompt()
+sendline("echo this continues")
+expect_prompt()
+send("\x1a")
+sendline(" with this text")
+expect_prompt("this continues with this text")
+
+sendline(
+    """
+    bind ctrl-g "
+        commandline --insert 'echo foo ar'
+        commandline -f backward-word
+        commandline --insert b
+        commandline -f backward-char
+        commandline -f backward-char
+        commandline -f delete-char
+    "
+""".strip()
+)
+expect_prompt()
+send("\x07")  # ctrl-g
+send("\r")
+expect_prompt("foobar")
+
+# This should do nothing instead of crash
+sendline("commandline -f backward-jump")
+expect_prompt()
+sendline("commandline -f self-insert")
+expect_prompt()
+sendline("commandline -f and")
+expect_prompt()
+
+sendline("bind ctrl-g 'sleep 1' history-pager")
+expect_prompt()
+send("\x07")  # ctrl-g
+send("\x1b[27u")  # escape, to close pager
+
+sendline("bind ctrl-g kill-inner-word")
+expect_prompt()
+send("echo foo-bar")
+send("\x07")  # ctrl-g
+sendline("baz")
+expect_str("foo-barbaz")
+expect_prompt()
+
+sendline("bind ctrl-g kill-a-word")
+expect_prompt()
+send("echo foo-bar")
+send("\x07")  # ctrl-g
+sendline("qux")
+expect_str("foo-barqux")
+expect_prompt()
+
+sendline("bind ctrl-g backward-word-end")
+sendline("eco 12" + control("g") + "h")
+expect_str("12")
+expect_prompt()
+
+# Check that the builtin version of `exit` works
+# (for obvious reasons this MUST BE LAST)
+sendline("function myexit; echo exit; exit; end; bind ctrl-z myexit")
+expect_prompt()
+send("\x1a")
+expect_str("exit")
+
+for t in range(0, 50):
+    if not sp.spawn.isalive():
+        break
+    # This is cheesy, but on CI with thread-sanitizer this can be slow enough that the process is still running, so we sleep for a bit.
+    sleep(0.1)
+else:
+    print("Fish did not exit via binding!")
+    sys.exit(1)

@@ -1,0 +1,75 @@
+cargo:rustc-check-cfg=cfg(nightly)
+cargo:rerun-if-env-changed=PREFIX
+cargo:rustc-env=PREFIX=/usr/local
+cargo:rerun-if-env-changed=SYSCONFDIR
+cargo:rustc-env=SYSCONFDIR=/usr/local/etc
+cargo:rerun-if-env-changed=DATADIR
+cargo:rustc-env=DATADIR=/usr/local/share
+cargo:rerun-if-env-changed=BINDIR
+cargo:rustc-env=BINDIR=/usr/local/bin
+cargo:rerun-if-env-changed=DOCDIR
+cargo:rustc-env=DOCDIR=/usr/local/share/doc/fish
+cargo:rustc-env=FISH_RESOLVED_BUILD_DIR=/home/mehmet/Masaüstü/PatiOS-3.0/fish-shell/build-arm64
+cargo:rustc-env=CARGO_MANIFEST_DIR=/home/mehmet/Masaüstü/PatiOS-3.0/fish-shell
+cargo:rustc-env=BUILD_TARGET_TRIPLE=aarch64-unknown-linux-musl
+cargo:rustc-env=BUILD_HOST_TRIPLE=x86_64-unknown-linux-gnu
+cargo:rustc-env=BUILD_PROFILE=release
+cargo:rustc-env=FISH_BUILD_VERSION=4.9.3-81-g4a5ab8ca9-dirty
+cargo:rerun-if-changed=share
+cargo:rustc-check-cfg=cfg()
+cargo:rustc-check-cfg=cfg(apple)
+cargo:rustc-check-cfg=cfg(bsd)
+cargo:rustc-check-cfg=cfg(cygwin)
+cargo:rerun-if-env-changed=CC_aarch64-unknown-linux-musl
+CC_aarch64-unknown-linux-musl = None
+cargo:rerun-if-env-changed=CC_aarch64_unknown_linux_musl
+CC_aarch64_unknown_linux_musl = Some(/home/mehmet/Masaüstü/PatiOS-3.0/aarch64-linux-musl-cross/bin/aarch64-linux-musl-gcc)
+cargo:rerun-if-env-changed=CC_ENABLE_DEBUG_OUTPUT
+cargo:rerun-if-env-changed=CRATE_CC_NO_DEFAULTS
+CRATE_CC_NO_DEFAULTS = None
+cargo:rerun-if-env-changed=CFLAGS
+CFLAGS = None
+cargo:rerun-if-env-changed=TARGET_CFLAGS
+TARGET_CFLAGS = None
+cargo:rerun-if-env-changed=CFLAGS_aarch64_unknown_linux_musl
+CFLAGS_aarch64_unknown_linux_musl = None
+cargo:rerun-if-env-changed=CFLAGS_aarch64-unknown-linux-musl
+CFLAGS_aarch64-unknown-linux-musl = None
+cargo:rustc-check-cfg=cfg(have_eventfd)
+cargo:rustc-cfg=have_eventfd
+cargo:rerun-if-env-changed=CC_aarch64-unknown-linux-musl
+CC_aarch64-unknown-linux-musl = None
+cargo:rerun-if-env-changed=CC_aarch64_unknown_linux_musl
+CC_aarch64_unknown_linux_musl = Some(/home/mehmet/Masaüstü/PatiOS-3.0/aarch64-linux-musl-cross/bin/aarch64-linux-musl-gcc)
+cargo:rerun-if-env-changed=CRATE_CC_NO_DEFAULTS
+CRATE_CC_NO_DEFAULTS = None
+cargo:rerun-if-env-changed=CFLAGS
+CFLAGS = None
+cargo:rerun-if-env-changed=TARGET_CFLAGS
+TARGET_CFLAGS = None
+cargo:rerun-if-env-changed=CFLAGS_aarch64_unknown_linux_musl
+CFLAGS_aarch64_unknown_linux_musl = None
+cargo:rerun-if-env-changed=CFLAGS_aarch64-unknown-linux-musl
+CFLAGS_aarch64-unknown-linux-musl = None
+cargo:rustc-check-cfg=cfg(have_localeconv_l)
+cargo:rustc-check-cfg=cfg(have_getexecpath)
+cargo:rerun-if-env-changed=CC_aarch64-unknown-linux-musl
+CC_aarch64-unknown-linux-musl = None
+cargo:rerun-if-env-changed=CC_aarch64_unknown_linux_musl
+CC_aarch64_unknown_linux_musl = Some(/home/mehmet/Masaüstü/PatiOS-3.0/aarch64-linux-musl-cross/bin/aarch64-linux-musl-gcc)
+cargo:rerun-if-env-changed=CRATE_CC_NO_DEFAULTS
+CRATE_CC_NO_DEFAULTS = None
+cargo:rerun-if-env-changed=CFLAGS
+CFLAGS = None
+cargo:rerun-if-env-changed=TARGET_CFLAGS
+TARGET_CFLAGS = None
+cargo:rerun-if-env-changed=CFLAGS_aarch64_unknown_linux_musl
+CFLAGS_aarch64_unknown_linux_musl = None
+cargo:rerun-if-env-changed=CFLAGS_aarch64-unknown-linux-musl
+CFLAGS_aarch64-unknown-linux-musl = None
+cargo:rustc-check-cfg=cfg(have_posix_spawn)
+cargo:rustc-cfg=have_posix_spawn
+cargo:rustc-check-cfg=cfg(small_main_stack)
+cargo:rustc-check-cfg=cfg(solarish)
+cargo:rustc-check-cfg=cfg(using_cmake)
+cargo:rustc-cfg=using_cmake

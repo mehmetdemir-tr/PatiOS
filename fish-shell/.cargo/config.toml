@@ -1,0 +1,3 @@
+[target.aarch64-unknown-linux-musl]
+linker = "/home/mehmet/Masaüstü/PatiOS-3.0/aarch64-linux-musl-cross/bin/aarch64-linux-musl-gcc"
+ar = "/home/mehmet/Masaüstü/PatiOS-3.0/aarch64-linux-musl-cross/bin/aarch64-linux-musl-ar"

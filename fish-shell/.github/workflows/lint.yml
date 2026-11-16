@@ -1,0 +1,100 @@
+name: Lint
+
+on: [push, pull_request]
+
+permissions:
+  contents: read
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1, build_tools/update-dependencies.sh
+    - uses: ./.github/actions/rust-toolchain@stable
+      with:
+        components: rustfmt
+    - name: install dependencies
+      run: pip install ruff
+    - name: build fish
+      run: cargo build --bin fish_indent
+    - name: check format
+      run: PATH="target/debug:$PATH" cargo xtask format --all --check
+    - name: check rustfmt
+      run: find build.rs crates src -type f -name '*.rs' | xargs rustfmt --check
+    - name: check import conventions
+      run: |
+        if git grep -En 'unistd::Pid|unistd::.*\bPid,' 'src/**.rs' 'crates/**.rs'; then
+          echo "Make sure to import 'nix::unistd::Pid' as 'NullablePid'"
+          exit 1
+        fi
+
+  shellcheck:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1, build_tools/update-dependencies.sh
+    - uses: ./.github/actions/rust-toolchain@stable
+    - name: Update package database
+      run: sudo apt-get update
+    - name: Install shellcheck
+      run: sudo apt install shellcheck
+    - name: shellcheck
+      run: cargo xtask shellcheck
+
+  po_files_up_to_date:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1, build_tools/update-dependencies.sh
+    - uses: ./.github/actions/rust-toolchain@stable
+    - name: Install deps
+      uses: ./.github/actions/install-dependencies
+    - name: Check PO files
+      run: cargo xtask gettext check
+
+  clippy:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - rust_version: "stable"
+            features: ""
+          - rust_version: "stable"
+            features: "--no-default-features"
+          - rust_version: "stable"
+            features: "--all-features"
+          - rust_version: "msrv"
+            features: ""
+    steps:
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1, build_tools/update-dependencies.sh
+    - uses: ./.github/actions/rust-toolchain
+      with:
+        toolchain_channel: ${{ matrix.rust_version }}
+        components: clippy
+    - name: Update package database
+      run: sudo apt-get update
+    - name: Install deps
+      run: |
+        sudo apt install gettext
+    - name: Patch Cargo.toml to deny unknown lints
+      run: |
+        if [ "${{ matrix.rust_version }}" = stable ]; then
+          sed -i /^rust.unknown_lints/d Cargo.toml
+        fi
+    - name: cargo clippy
+      run: cargo clippy --workspace --all-targets ${{ matrix.features }} -- --deny=warnings
+
+  rustdoc:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1, build_tools/update-dependencies.sh
+    - uses: ./.github/actions/rust-toolchain@stable
+    - name: Update package database
+      run: sudo apt-get update
+    - name: Install deps
+      run: |
+        sudo apt install gettext
+    - name: cargo doc
+      run: |
+        RUSTDOCFLAGS='-D warnings' cargo doc --workspace
+    - name: cargo doctest
+      run: |
+        cargo test --doc --workspace

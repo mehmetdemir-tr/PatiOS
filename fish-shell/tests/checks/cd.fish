@@ -1,0 +1,481 @@
+# RUN: fish=%fish %fish %s
+
+set -g fish (realpath $fish)
+
+cygwin_nosymlinks && set nosymlinks
+
+# Store pwd to later go back before cleaning up
+set -l oldpwd (pwd)
+
+set -l tmp (mktemp -d)
+cd $tmp
+# resolve CDPATH (issue 6220)
+begin
+    mkdir -p x
+    # CHECK: /{{.*}}/x
+    cd x
+    pwd
+
+    # CHECK: /{{.*}}/x
+    set -lx CDPATH ..
+    cd x
+    pwd
+end
+cd $oldpwd
+rm -rf $tmp
+
+# Create a test directory to store our stuff.
+# macOS likes to return symlinks from (mktemp -d), make sure it does not.
+set -l base (realpath (mktemp -d))
+
+if not set -q nosymlinks
+    set real (realpath (mktemp -d))
+    set link $base/link
+    ln -s $real $link
+    cd $link
+    prevd
+    nextd
+    test "$PWD" = "$link" || echo "\$PWD != \$link:"\n "\$PWD: $PWD"\n "\$link: $link"\n
+    test (pwd) = "$link" || echo "(pwd) != \$link:"\n "\$PWD: "(pwd)\n "\$link: $link"\n
+    test (pwd -P) = "$real" || echo "(pwd -P) != \$real:"\n "\$PWD: $PWD"\n "\$real: $real"\n
+    test (pwd -P -L) = "$link" || echo "(pwd -P -L) != \$link:"\n "\$PWD: $PWD"\n "\$link: $link"\n
+end
+# Expect no output on success.
+pwd abc
+# CHECKERR: pwd: expected 0 arguments; got 1
+
+if set -q nosymlinks
+    echo "pwd: realpath failed: No such file or directory" >&2
+else
+    mkdir -p $base/pwd_real/subdir
+    ln -s $base/pwd_real $base/pwd_link
+    cd $base/pwd_link/subdir
+    rmdir $base/pwd_real/subdir $base/pwd_real
+    pwd -P
+end
+# CHECKERR: pwd: realpath failed: {{.+}}
+
+if not set -q nosymlinks
+    mkdir $real/subdir
+    cd $link
+    test "$PWD" = "$link" || echo "Default cd should keep symlink:"\n "\$PWD: $PWD"\n "\$link: $link"\n
+    cd -P $link
+    test "$PWD" = "$real" || echo "cd -P should resolve symlink:"\n "\$PWD: $PWD"\n "\$real: $real"\n
+    cd $link/subdir
+    test "$PWD" = "$link/subdir" || echo "Logical cd should keep subdir symlink:"\n "\$PWD: $PWD"\n "\$link/subdir: $link/subdir"\n
+    cd -P ..
+    test "$PWD" = "$real" || echo "cd -P .. should use physical parent:"\n "\$PWD: $PWD"\n "\$real: $real"\n
+    cd $link/subdir
+    cd -L ..
+    test "$PWD" = "$link" || echo "cd -L .. should use logical parent:"\n "\$PWD: $PWD"\n "\$link: $link"\n
+    cd $base
+end
+
+# Create a symlink and verify logical completion.
+# create directory $base/through/the/looking/glass
+# symlink $base/somewhere/rabbithole -> $base/through/the/looking/glass
+# verify that .. completions work
+cd $base
+mkdir -p $base/through/the/looking/glass
+
+mkdir -p $base/somewhere
+mkdir $base/somewhere/a1
+mkdir $base/somewhere/a2
+mkdir $base/somewhere/a3
+touch $base/through/the/looking/b(seq 1 3)
+mkdir $base/through/the/looking/d1
+mkdir $base/through/the/looking/d2
+mkdir $base/through/the/looking/d3
+ln -s $base/through/the/looking/glass $base/somewhere/rabbithole
+
+if set -q nosymlinks
+    # This is where we would be going if symlinks were working. This invalidates
+    # that particular test case, but now we can proceed with the tests
+    cd $base/through/the/looking/glass
+else
+    cd $base/somewhere/rabbithole
+end
+echo "ls:"
+complete -C'ls ../'
+#CHECK: ls:
+#CHECK: ../b1
+#CHECK: ../b2
+#CHECK: ../b3
+#CHECK: ../d1/
+#CHECK: ../d2/
+#CHECK: ../d3/
+#CHECK: ../glass/
+
+if set -q nosymlinks
+    cd $base/somewhere/rabbithole
+end
+echo "cd:"
+complete -C'cd ../'
+#CHECK: cd:
+#CHECK: ../a1/
+#CHECK: ../a2/
+#CHECK: ../a3/
+#CHECK: ../rabbithole/
+
+# PWD should be imported and respected by fish
+cd $oldpwd
+mkdir -p $base/realhome
+ln -s $base/realhome $base/linkhome
+cd $base/linkhome
+set -l real_getcwd (pwd -P)
+env HOME=$base/linkhome $fish -c 'echo PWD is $PWD'
+#CHECK: PWD is {{.*}}/linkhome
+
+# Do not inherit a virtual PWD that fails to resolve to getcwd (#5647)
+env HOME=$base/linkhome PWD=/tmp $fish -c 'echo $PWD' | read output_pwd
+test (realpath $output_pwd) = $real_getcwd
+and echo "BogusPWD test 1 succeeded"
+or echo "BogusPWD test 1 failed: $output_pwd vs $real_getcwd"
+#CHECK: BogusPWD test 1 succeeded
+
+env HOME=$base/linkhome PWD=/path/to/nowhere $fish -c 'echo $PWD' | read output_pwd
+test (realpath $output_pwd) = $real_getcwd
+and echo "BogusPWD test 2 succeeded"
+or echo "BogusPWD test 2 failed: $output_pwd vs $real_getcwd"
+#CHECK: BogusPWD test 2 succeeded
+
+# $CDPATH
+set -g CDPATH $base
+cd linkhome
+test $PWD = $base/linkhome; and echo Gone to linkhome via CDPATH
+#CHECK: Gone to linkhome via CDPATH
+
+set -g CDPATH /tmp
+cd $base
+test $PWD = $base; and echo Gone to base
+#CHECK: Gone to base
+
+cd linkhome
+test $PWD = $base/linkhome; and echo Gone to linkhome via implicit . in CDPATH
+#CHECK: Gone to linkhome via implicit . in CDPATH
+
+set -g CDPATH ./
+cd $base
+test $PWD = $base; and echo No crash with ./ CDPATH
+#CHECK: No crash with ./ CDPATH
+
+# test for directories beginning with a hyphen
+mkdir $base/-testdir
+cd $base
+cd -- -testdir
+test $PWD = $base/-testdir
+echo $status
+#CHECK: 0
+
+# An implicit cd must also accept a directory name beginning with a hyphen.
+mkdir $base/-h
+cd $base
+-h/
+test $PWD = $base/-h
+echo $status
+#CHECK: 0
+
+# test a few error cases - nonexistent directory
+set -l old_cdpath $CDPATH
+set -l old_path $PWD
+cd nonexistent
+#CHECKERR: cd: The directory 'nonexistent' does not exist
+#CHECKERR: {{.*}}/cd.fish (line {{\d+}}):
+#CHECKERR: {{^}}    builtin cd $argv
+#CHECKERR: {{^}}    ^
+#CHECKERR: in function 'cd' with arguments 'nonexistent'
+#CHECKERR: called on line {{\d+}} of file {{.*}}/cd.fish
+
+touch file
+cd file
+#CHECKERR: cd: 'file' is not a directory
+#CHECKERR: {{.*}}/cd.fish (line {{\d+}}):
+#CHECKERR: {{^}}    builtin cd $argv
+#CHECKERR: {{^}}    ^
+#CHECKERR: in function 'cd' with arguments 'file'
+#CHECKERR: called on line {{\d+}} of file {{.*}}/cd.fish
+
+# a directory that isn't executable
+if cygwin_noacl ./
+    echo "cd: Permission denied: 'bad-perms'" >&2
+    echo "fake/cd.fish (line 123):" >&2
+    echo "    builtin cd \$argv" >&2
+    echo "    ^" >&2
+    echo "in function 'cd' with arguments 'bad-perms'" >&2
+    echo "called on line 123 of file fake/cd.fish" >&2
+else
+    mkdir bad-perms
+    chmod -x bad-perms
+    cd bad-perms
+end
+#CHECKERR: cd: Permission denied: 'bad-perms'
+#CHECKERR: {{.*}}/cd.fish (line {{\d+}}):
+#CHECKERR: {{^}}    builtin cd $argv
+#CHECKERR: {{^}}    ^
+#CHECKERR: in function 'cd' with arguments 'bad-perms'
+#CHECKERR: called on line {{\d+}} of file {{.*}}/cd.fish
+
+cd $old_path
+mkdir -p cdpath-dir/bad-perms
+mkdir -p cdpath-dir/nonexistent
+mkdir -p cdpath-dir/file
+set CDPATH $PWD/cdpath-dir $old_cdpath
+
+# See that the completions also check the current directory
+complete -C'cd ' | string match -q cdpath-dir/
+and echo cdpath-dir is in
+# CHECK: cdpath-dir is in
+
+# A different directory with the same name that is first in $CDPATH works.
+cd bad-perms
+cd $old_path
+cd nonexistent
+cd $old_path
+cd file
+cd $old_path
+
+# Even if the good dirs are later in $CDPATH most errors still aren't a problem
+# - they just cause us to keep looking.
+cd $old_path
+set CDPATH $old_cdpath $PWD/cdpath-dir
+cd nonexistent
+cd $old_path
+if cygwin_noacl ./
+    echo "cd: Permission denied: 'bad-perms'" >&2
+    echo "fake/cd.fish (line 123):" >&2
+    echo "    builtin cd \$argv" >&2
+    echo "    ^" >&2
+    echo "in function 'cd' with arguments 'bad-perms'" >&2
+    echo "called on line 123 of file fake/cd.fish" >&2
+else
+    cd bad-perms
+end
+# Permission errors are still a problem!
+#CHECKERR: cd: Permission denied: 'bad-perms'
+#CHECKERR: {{.*}}/cd.fish (line {{\d+}}):
+#CHECKERR: {{^}}    builtin cd $argv
+#CHECKERR: {{^}}    ^
+#CHECKERR: in function 'cd' with arguments 'bad-perms'
+#CHECKERR: called on line {{\d+}} of file {{.*}}/cd.fish
+cd $old_path
+cd file
+cd $old_path
+
+# Test that going up to the root directory using .. works
+cd /(string split --no-empty -f 1 / (pwd))
+cd ..
+pwd
+#CHECK: /
+
+# cd back before removing the test directory again.
+cd $oldpwd
+rm -Rf $base
+set -g CDPATH ./
+
+# Verify that PWD on-variable events are sent
+function __fish_test_changed_pwd --on-variable PWD
+    echo "Changed to $PWD"
+end
+cd /
+functions --erase __fish_test_changed_pwd
+#CHECK: Changed to /
+
+# Verify that cds don't stomp on each other.
+function __fish_test_thrash_cd
+    set -l dir (mktemp -d)
+    cd $dir
+    for i in (seq 50)
+        test (command pwd) = $dir
+        and test $PWD = $dir
+        or echo "cd test failed" 1>&2
+        sleep .002
+    end
+end
+__fish_test_thrash_cd |
+    __fish_test_thrash_cd |
+    __fish_test_thrash_cd |
+    __fish_test_thrash_cd |
+    __fish_test_thrash_cd
+
+cd ""
+# CHECKERR: cd: Empty directory '' does not exist
+# CHECKERR: {{.*}}/cd.fish (line {{\d+}}):
+# CHECKERR: {{^}}    builtin cd $argv
+# CHECKERR: {{^}}    ^
+# CHECKERR: in function 'cd' with arguments '""'
+# CHECKERR: called on line {{\d+}} of file {{.*}}/cd.fish
+echo $status
+# CHECK: 1
+
+cd (mktemp -d)
+if set -q nosymlinks
+    echo "cd: 'fake/broken-symbolic-link' is a broken symbolic link to 'no/such/directory'" >&2
+    echo "fake/cd.fish (line 123):" >&2
+    echo "    builtin cd \$argv" >&2
+    echo "    ^" >&2
+    echo "in function 'cd' with arguments 'broken-symbolic-link'" >&2
+    echo "called on line 123 of file fake/cd.fish" >&2
+else
+    ln -s no/such/directory broken-symbolic-link
+    begin
+        set -lx CDPATH
+        cd broken-symbolic-link
+    end
+end
+# CHECKERR: cd: '{{.*}}/broken-symbolic-link' is a broken symbolic link to 'no/such/directory'
+# CHECKERR: {{.*}}/cd.fish (line {{\d+}}):
+# CHECKERR: {{^}}    builtin cd $argv
+# CHECKERR: {{^}}    ^
+# CHECKERR: in function 'cd' with arguments 'broken-symbolic-link'
+# CHECKERR: called on line {{\d+}} of file {{.*}}/cd.fish
+
+# Make sure that "broken symlink" is reported over "no such file or directory".
+if set -q nosymlinks
+    echo "cd: 'fake/broken-symbolic-link' is a broken symbolic link to 'no/such/directory'" >&2
+    echo "fake/cd.fish (line 123):" >&2
+    echo "    builtin cd \$argv" >&2
+    echo "    ^" >&2
+    echo "in function 'cd' with arguments 'broken-symbolic-link'" >&2
+    echo "called on line 123 of file fake/cd.fish" >&2
+else
+    begin
+        set -lx CDPATH other
+        cd broken-symbolic-link
+    end
+end
+# CHECKERR: cd: '{{.*}}/broken-symbolic-link' is a broken symbolic link to 'no/such/directory'
+# CHECKERR: {{.*}}/cd.fish (line {{\d+}}):
+# CHECKERR: {{^}}    builtin cd $argv
+# CHECKERR: {{^}}    ^
+# CHECKERR: in function 'cd' with arguments 'broken-symbolic-link'
+# CHECKERR: called on line {{\d+}} of file {{.*}}/cd.fish
+
+begin
+    mkdir -p foo/bar/muf
+    set -lx CDPATH foo/bar
+    cd muf
+    echo $PWD | grep -q ^/ && echo '$PWD is absolute'
+    # CHECK: $PWD is absolute
+    cd ../../..
+end
+
+complete -C'cd .'
+# CHECK: ./
+# CHECK: ../
+
+# Check that cd works with minimal permissions (issue #10432).
+# This is first supported on macOS 12.
+# `sysctl kern.osproductversion` emits something like:
+#   kern.osproductversion: 14.3.1
+# Note that there is no kern.osproductversion under older OS X releases!
+#
+# NetBSD 10 does not support it.
+# Cygwin/MSYS does not support it when using ACL. And without ACL, a directory
+# cannot be made unreadable, making the test pointless. So either way, skip it
+if test (uname) = NetBSD || __fish_is_cygwin ||
+    { test (uname) = Darwin &&
+        test \
+        (sysctl kern.osproductversion 2>/dev/null | string match -r \\d+; or echo 10) \
+        -lt 12 }
+    # Not supported. Satisfy the CHECKs below.
+    echo fake/a
+    echo fake/a/b
+    echo c
+else
+    set -l oldpwd (pwd)
+    set -l tmp (mktemp -d)
+    cd $tmp
+    mkdir -p a/b/c
+    chmod -r a
+
+    cd a
+    pwd
+    # CHECK: {{.*}}/a
+
+    cd b
+    pwd
+    ls
+    # CHECK: {{.*}}/a/b
+    # CHECK: c
+
+    cd $oldpwd
+    chmod -R +rx $tmp # we must be able to list the directory to delete its children
+    rm -rf $tmp
+end
+
+HOME="" cd
+# CHECKERR: cd: Could not find home directory
+
+if set -q nosymlinks
+    echo "cd: Too many levels of symbolic links: 'loop1'" >&2
+    echo "fake/cd.fish (line 123):" >&2
+    echo "    builtin cd \$argv" >&2
+    echo "    ^" >&2
+    echo "in function 'cd' with arguments 'loop1'" >&2
+    echo "called on line 123 of file fake/cd.fish" >&2
+else
+    ln -s loop1 loop2
+    ln -s loop2 loop1
+    cd loop1
+end
+# CHECKERR: cd: Too many levels of symbolic links: 'loop1'
+# CHECKERR: {{.*}}/cd.fish (line {{\d+}}):
+# CHECKERR: {{^}}    builtin cd $argv
+# CHECKERR: {{^}}    ^
+# CHECKERR: in function 'cd' with arguments 'loop1'
+# CHECKERR: called on line {{\d+}} of file {{.*}}/cd.fish
+
+# According to https://en.wikipedia.org/wiki/Comparison_of_file_systems#Limits,
+# the longest filename supported is with Reiser4 (3976 bytes)
+cd (string repeat 4096 a)
+# CHECKERR: cd: {{.+}}
+# CHECKERR: cd: Unknown error trying to locate directory '{{.*}}'
+# CHECKERR: {{.*}}/cd.fish (line {{\d+}}):
+# CHECKERR: {{^}}    builtin cd $argv
+# CHECKERR: {{^}}    ^
+# CHECKERR: in function 'cd' with arguments '{{.*}}'
+# CHECKERR: called on line {{\d+}} of file {{.*}}/cd.fish
+
+# Ensures `cd` doesn't create `<pwd>+/+<dir>` internally, when pwd is `/`, i.e.
+# results in `//<dir>`. This test will (hopefully) fail on platforms where such
+# a path has a special meaning (e.g. Windows would fail trying to access a server
+# named "bin")
+cd /
+cd bin
+
+# Test that cd works after the current directory has been moved (issue #12700)
+if __fish_is_cygwin
+    # Not supported on Cygwin/MSYS. Satisfy the CHECK below.
+    echo "cd after move succeeded"
+else
+    # cd is updated to the real PWD if PWD is moved.
+    set -l tmp (mktemp -d)
+    set -l tmp_moved {$tmp}_moved
+    cd $tmp
+    mv $tmp $tmp_moved
+    cd .
+    test $PWD = $tmp_moved
+    and echo "cd after move succeeded"
+end
+# CHECK: cd after move succeeded
+
+if not __fish_is_cygwin
+    # If updating to the real PWD is possible, but cd still fails, fish reports an error
+    # and keeps $PWD the same.
+    set tmp (mktemp -d)
+    set tmp_moved {$tmp}_moved
+    cd $tmp
+    mv $tmp $tmp_moved
+    touch $tmp_moved/not_a_directory
+    # Now we have two problems: $tmp has been moved to $tmp_moved, AND we can't cd into the directory
+    # even after repairing $PWD because it's not a directory.
+    # Here we should print an error about the failed target and NOT change $PWD.
+    cd ./not_a_directory 2>$tmp_moved/log.txt
+    if not string match -q "cd: './not_a_directory' is not a directory" <$tmp_moved/log.txt
+        echo "Expected error message not found in log"
+    end
+    # Note we stay in the old $PWD because of the error.
+    if test $PWD != $tmp
+        echo "PWD was changed unexpectedly to $PWD"
+    end
+end
