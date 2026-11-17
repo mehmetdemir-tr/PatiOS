@@ -1,3 +1,6 @@
 [submodule "fish-shell"]
 	path = fish-shell
 	url = https://github.com/fish-shell/fish-shell
+[submodule "coreutils"]
+	path = coreutils
+	url = https://github.com/uutils/coreutils

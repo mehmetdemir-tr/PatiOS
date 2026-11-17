@@ -56,6 +56,9 @@ REQUIRED_TOOLS := sfdisk dd mkfs.ext4 debugfs cpio gzip find file tune2fs e2fsck
         system init recovery initramfs  clean distclean help
 
 all: banner $(DISK) extract compile fish nodes move system init recovery initramfs
+	@if [ ! -f "fish-shell/CMakeLists.txt" ]; then \
+		git submodule update --init --recursive; \
+	fi
 	@printf "  Disk  : $(DISK)\n  Initrd: $(INITRAMFS)\n"
 	@printf "  Çalıştır: ./run.sh   (recovery: ./run.sh -r, grafik: ./run.sh -g)\n"
 
