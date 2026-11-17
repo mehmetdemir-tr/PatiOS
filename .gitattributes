@@ -9,6 +9,12 @@
 *.cmake linguist-detectable=false
 *.ts linguist-vendored=true
 *.ts linguist-detectable=false
+*.bash linguist-detectable=false
+*.bash linguist-vendored=true
+*.ftl linguist-vendored=true
+*.ftl linguist-detectable=false
+*.roff linguist-vendored=true
+*.roff linguist-detectable=false
 *.py linguist-vendored=true
 *.c linguist-detectable=true
 *.h linguist-detectable=true
