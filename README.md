@@ -2,7 +2,7 @@
 [![Language: C](https://img.shields.io/badge/Language-C-A8B9CC.svg)](https://ibm.com)
 [![AI Assisted](https://img.shields.io/badge/AI_Assisted-orange)](#)
 
-**PatiOS** is a Linux From Scratch (LFS) distribution that runs on the Linux kernel, with core system components—such as the system manager, shell, and service utilities—written entirely in C.
+**PatiOS** is a Linux From Scratch (LFS) distribution that runs on the Linux kernel, with core system components—such as the system manager and service utilities—written entirely in C.
 
 * **codename:** `watermelon-karpuz`
 
@@ -51,9 +51,7 @@ PatiOS doesn't uses any Debian / Ubuntu like rootfs. It has own rootfs and user-
 ---
 
 ## Screenshots from the system
-
-![Shell](https://raw.githubusercontent.com/mehmetdemir-tr/Pati/main/screenshots/genel.jpeg)  
-
+ 
 ![Yardım](https://raw.githubusercontent.com/mehmetdemir-tr/Pati/main/screenshots/yardim.jpeg)  
 *`help` command.*
 
