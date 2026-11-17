@@ -18,7 +18,6 @@ UNZIP   := /usr/bin/unzip
 DISK      := pati_disk.img
 INITRAMFS := initramfs.cpio.gz
 ROOTFS    := rootfs
-ARCHIVE   := filesystem.zip
 CMDDIR    := pati-commands
 BUILDDIR  := build
 
@@ -134,25 +133,6 @@ disk: root-check tools
 	done
 	@printf "$(G)[+] Disk hazır: $(DISK)$(N)\n"
 
-extract: root-check tools
-	@printf "$(G)[*] Dosya sistemi çıkarılıyor...$(N)\n"
-	for f in $(SAVE_C); do
-		if [ -f "$(CMDDIR)/$$f" ]; then cp -f "$(CMDDIR)/$$f" "/tmp/pati-bak-$$f"; fi
-	done
-	rc=0
-	"$(UNZIP)" -oqq "$(ARCHIVE)" -d "$(ROOTFS)/" || rc=$$?
-	if [ "$$rc" -gt 1 ]; then
-		printf "$(R)[-] ZIP çıkartma başarısız, çıkılıyor.$(N)\n" >&2
-		exit 1
-	fi
-	for f in $(SAVE_C); do
-		if [ -f "/tmp/pati-bak-$$f" ]; then
-			cp -f "/tmp/pati-bak-$$f" "$(CMDDIR)/$$f"
-			rm -f "/tmp/pati-bak-$$f"
-		fi
-	done
-	@printf "$(G)[+] Dosya sistemi hazır.$(N)\n"
-
 compile: $(BINS)
 	@basari=0; hata=0
 	for b in $(BINS); do
@@ -210,7 +190,7 @@ nodes: root-check
 	@printf "$(G)[+] Device nodes hazır.$(N)\n"
 
 move: root-check
-	@printf "$(G)[*] Binalar $(ROOTFS)/ içine taşınıyor...$(N)\n"
+	@printf "$(G)[*] Moving to $(ROOTFS).. $(N)\n"
 	mkdir -p $(ROOTFS)/lib/paticommands $(ROOTFS)/bin $(ROOTFS)/sbin $(ROOTFS)/etc/mauvyd
 	if [ -f "$(CMDDIR)/mauvyd" ]; then
 		cp -f "$(CMDDIR)/mauvyd" "$(ROOTFS)/sbin/init"
@@ -298,7 +278,6 @@ clean: root-check
 distclean: clean
 	@printf "$(G)[*] Üretilen tüm çıktılar siliniyor...$(N)\n"
 	rm -f "$(DISK)" "$(INITRAMFS)"
-	rm -rf $(ROOTFS)
 
 help:
 	@printf "$(C)KedyBox — PatiOS ENV Builder$(N)\n\n"
