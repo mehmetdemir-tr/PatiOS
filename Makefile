@@ -13,8 +13,7 @@ N := \033[0m
 
 CROSS   := /usr/sbin/aarch64-linux-musl-gcc
 UNZIP   := /usr/bin/unzip
-ZLIB    := /tmp/zlib-aarch64
-OPENSSL := /tmp/openssl-aarch64
+
 
 DISK      := pati_disk.img
 INITRAMFS := initramfs.cpio.gz
@@ -173,8 +172,6 @@ $(BINS): $(CMDDIR)/%: $(CMDDIR)/%.c
 	inc=""; libs=""; extra=""
 	case "$$stem" in
 		mauvyd) inc="-I $(CMDDIR)/mauvyd-headers"; extra="$(CMDDIR)/mauvyd-headers/pcg.c" ;;
-		tar)    inc="-I $(ZLIB)/include";    libs="$(ZLIB)/lib/libz.a" ;;
-		psp)    inc="-I $(OPENSSL)/include"; libs="$(OPENSSL)/libcrypto.a" ;;
 	esac
 	if $(CROSS) $(CFLAGS) $$inc -o "$$out" "$$src" $$extra $$libs; then
 		printf "$(G)[+] Derlendi: %s -> %s$(N)\n" "$$src" "$$out"
