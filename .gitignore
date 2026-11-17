@@ -3,6 +3,7 @@ build/
 *.o
 *.img
 initramfs.cpio.gz
+*.zip
 
 pati-commands/*
 !pati-commands/*.c
