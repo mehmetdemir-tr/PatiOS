@@ -1,1 +1,0 @@
-typst completions fish | source

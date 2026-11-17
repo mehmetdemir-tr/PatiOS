@@ -1,1 +1,0 @@
-dlv completion fish | source

@@ -1,1 +1,0 @@
-niri completions fish | source

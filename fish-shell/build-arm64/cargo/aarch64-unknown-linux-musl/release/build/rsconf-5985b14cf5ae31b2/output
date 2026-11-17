@@ -1,2 +1,0 @@
-cargo:rustc-env=RSCONF_TARGET=aarch64-unknown-linux-musl
-cargo:rustc-env=RSCONF_HOST=x86_64-unknown-linux-gnu

@@ -1,1 +1,0 @@
-rumdl completions fish | source

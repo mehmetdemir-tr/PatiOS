@@ -1,1 +1,0 @@
-dua completions fish | source

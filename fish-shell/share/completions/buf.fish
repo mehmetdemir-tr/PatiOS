@@ -1,1 +1,0 @@
-buf completion fish | source

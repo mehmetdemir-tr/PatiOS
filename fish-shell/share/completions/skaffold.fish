@@ -1,1 +1,0 @@
-skaffold completion fish | source

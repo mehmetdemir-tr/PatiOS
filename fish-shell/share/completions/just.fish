@@ -1,1 +1,0 @@
-just --completions fish | source

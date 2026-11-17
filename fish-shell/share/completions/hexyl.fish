@@ -1,1 +1,0 @@
-hexyl --completion fish | source
