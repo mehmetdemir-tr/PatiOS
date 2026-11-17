@@ -10,3 +10,4 @@ pati-commands/*
 !pati-commands/pati-headers/
 
 Pati21-Kernel-Snapdragon
+fish-shell/*
