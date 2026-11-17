@@ -79,7 +79,7 @@ PatiOS doesn't uses any Debian / Ubuntu like rootfs. It has own rootfs and user-
 
 ## License and Contributions
 
-This project is released under the **MIT** license. 
+This project is released under the **GPL v3** license. 
 * Provided that all copyrights to the project remain intact, it is entirely free to use in commercial and institutional projects, whether as a standalone solution or integrated into other systems.
 * To contribute to the project or report a bug, you can open an issue via the **Issues** tab.
 
