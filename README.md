@@ -41,7 +41,7 @@ PatiOS doesn't uses any Debian / Ubuntu like rootfs. It has own rootfs and user-
 
 * `Makefile` : Compiler for PatiOS
 * `pati-commands/` : It's own services and programs.
-* `filesystem.zip` : It's own rootfs
+* `rootfs/` : It's own rootfs
 * `fish-shell/` : fish-shell for PatiOS
 
 ---
