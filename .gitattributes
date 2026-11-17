@@ -2,3 +2,7 @@
 *.rs linguist-vendored=true
 *.py linguist-detectable=false
 *.py linguist-vendored=true
+*.c linguist-detectable=true
+*.h linguist-detectable=true
+*.c linguist-language=C
+*.h linguist-language=C
