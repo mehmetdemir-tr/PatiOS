@@ -1,0 +1,31 @@
+.ie \n(.g .ds Aq \(aq
+.el .ds Aq '
+.TH BASENAME 1 "2026-11-15"
+.SH NAME
+basename \- Print NAME with any leading directory components removed
+If specified, also remove a trailing SUFFIX
+.SH SYNOPSIS
+\fBbasename\fR [\-z] NAME [SUFFIX]
+.br
+\fBbasename\fR OPTION... NAME...
+.SH DESCRIPTION
+Print NAME with any leading directory components removed
+If specified, also remove a trailing SUFFIX
+.SH OPTIONS
+.TP
+\fB\-a\fR, \fB\-\-multiple\fR
+support multiple arguments and treat each as a NAME
+.TP
+\fB\-s\fR, \fB\-\-suffix\fR \fI<SUFFIX>\fR
+remove a trailing SUFFIX; implies \-a
+.TP
+\fB\-z\fR, \fB\-\-zero\fR
+end each output line with NUL, not newline
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Print help
+.TP
+\fB\-V\fR, \fB\-\-version\fR
+Print version
+.SH VERSION
+v0.13.0

@@ -1,0 +1,85 @@
+.ie \n(.g .ds Aq \(aq
+.el .ds Aq '
+.TH LN 1 "2026-11-15"
+.SH NAME
+ln \- Make links between files.
+.SH SYNOPSIS
+\fBln\fR [OPTION]... [\-T] TARGET LINK_NAME
+.br
+\fBln\fR [OPTION]... TARGET
+.br
+\fBln\fR [OPTION]... TARGET... DIRECTORY
+.br
+\fBln\fR [OPTION]... \-t DIRECTORY TARGET...
+.SH DESCRIPTION
+Make links between files.
+.SH OPTIONS
+.TP
+\fB\-\-backup\fR[=\fI<CONTROL>\fR]
+make a backup of each existing destination file
+.TP
+\fB\-b\fR
+like \-\-backup but does not accept an argument
+.TP
+\fB\-f\fR, \fB\-\-force\fR
+remove existing destination files
+.TP
+\fB\-i\fR, \fB\-\-interactive\fR
+prompt whether to remove existing destination files
+.TP
+\fB\-n\fR, \fB\-\-no\-dereference\fR
+treat LINK_NAME as a normal file if it is a
+symbolic link to a directory
+.TP
+\fB\-L\fR, \fB\-\-logical\fR
+follow TARGETs that are symbolic links
+.TP
+\fB\-P\fR, \fB\-\-physical\fR
+make hard links directly to symbolic links
+.TP
+\fB\-s\fR, \fB\-\-symbolic\fR
+make symbolic links instead of hard links
+.TP
+\fB\-S\fR, \fB\-\-suffix\fR \fI<SUFFIX>\fR
+override the usual backup suffix
+.TP
+\fB\-t\fR, \fB\-\-target\-directory\fR \fI<DIRECTORY>\fR
+specify the DIRECTORY in which to create the links
+.TP
+\fB\-T\fR, \fB\-\-no\-target\-directory\fR
+treat LINK_NAME as a normal file always
+.TP
+\fB\-r\fR, \fB\-\-relative\fR
+create symbolic links relative to link location
+.TP
+\fB\-v\fR, \fB\-\-verbose\fR
+print name of each linked file
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Print help
+.TP
+\fB\-V\fR, \fB\-\-version\fR
+Print version
+.TP
+<\fIfiles\fR>
+
+.SH EXTRA
+In the 1st form, create a link to TARGET with the name LINK_NAME.
+In the 2nd form, create a link to TARGET in the current directory.
+In the 3rd and 4th forms, create links to each TARGET in DIRECTORY.
+Create hard links by default, symbolic links with \-\-symbolic.
+By default, each destination (name of new link) should not already exist.
+When creating hard links, each TARGET must exist. Symbolic links
+can hold arbitrary text; if later resolved, a relative link is
+interpreted in relation to its parent directory.
+
+The backup suffix is \*(Aq~\*(Aq, unless set with \-\-suffix or SIMPLE_BACKUP_SUFFIX.
+The version control method may be selected via the \-\-backup option or through
+the VERSION_CONTROL environment variable.  Here are the values:
+
+  none, off       never make backups (even if \-\-backup is given)
+  numbered, t     make numbered backups
+  existing, nil   numbered if numbered backups exist, simple otherwise
+  simple, never   always make simple backups
+.SH VERSION
+v0.13.0

@@ -1,0 +1,25 @@
+.ie \n(.g .ds Aq \(aq
+.el .ds Aq '
+.TH NOHUP 1 "2026-11-15"
+.SH NAME
+nohup \- Run COMMAND ignoring hangup signals.
+.SH SYNOPSIS
+\fBnohup\fR COMMAND [ARG]...
+.br
+\fBnohup\fR OPTION
+.SH DESCRIPTION
+Run COMMAND ignoring hangup signals.
+.SH OPTIONS
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Print help
+.TP
+\fB\-V\fR, \fB\-\-version\fR
+Print version
+.SH EXTRA
+If standard input is terminal, it\*(Aqll be replaced with /dev/null.
+If standard output is terminal, it\*(Aqll be appended to nohup.out instead,
+or $HOME/nohup.out, if nohup.out open failed.
+If standard error is terminal, it\*(Aqll be redirected to stdout.
+.SH VERSION
+v0.13.0

@@ -1,0 +1,28 @@
+.ie \n(.g .ds Aq \(aq
+.el .ds Aq '
+.TH SUM 1 "2026-11-15"
+.SH NAME
+sum \- Checksum and count the blocks in a file.
+
+With no FILE, or when FILE is \-, read standard input.
+.SH SYNOPSIS
+\fBsum\fR [OPTION]... [FILE]...
+.SH DESCRIPTION
+Checksum and count the blocks in a file.
+.PP
+With no FILE, or when FILE is \-, read standard input.
+.SH OPTIONS
+.TP
+\fB\-r\fR
+use the BSD sum algorithm, use 1K blocks (default)
+.TP
+\fB\-s\fR, \fB\-\-sysv\fR
+use System V sum algorithm, use 512 bytes blocks
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Print help
+.TP
+\fB\-V\fR, \fB\-\-version\fR
+Print version
+.SH VERSION
+v0.13.0

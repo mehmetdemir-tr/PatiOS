@@ -1,0 +1,24 @@
+.ie \n(.g .ds Aq \(aq
+.el .ds Aq '
+.TH DIRNAME 1 "2026-11-15"
+.SH NAME
+dirname \- Strip last component from file name
+.SH SYNOPSIS
+\fBdirname\fR [OPTION] NAME...
+.SH DESCRIPTION
+Strip last component from file name
+.SH OPTIONS
+.TP
+\fB\-z\fR, \fB\-\-zero\fR
+separate output with NUL rather than newline
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Print help
+.TP
+\fB\-V\fR, \fB\-\-version\fR
+Print version
+.SH EXTRA
+Output each NAME with its last non\-slash component and trailing slashes
+removed; if NAME contains no /\*(Aqs, output \*(Aq.\*(Aq (meaning the current directory).
+.SH VERSION
+v0.13.0

@@ -1,0 +1,77 @@
+.ie \n(.g .ds Aq \(aq
+.el .ds Aq '
+.TH PTX 1 "2026-11-15"
+.SH NAME
+ptx \- Produce a permuted index of file contents
+Output a permuted index, including context, of the words in the input files.
+Mandatory arguments to long options are mandatory for short options too.
+With no FILE, or when FILE is \-, read standard input. Default is \*(Aq\-F /\*(Aq.
+.SH SYNOPSIS
+\fBptx\fR [OPTION]... [INPUT]...
+.br
+\fBptx\fR \-G [OPTION]... [INPUT [OUTPUT]]
+.SH DESCRIPTION
+Produce a permuted index of file contents
+Output a permuted index, including context, of the words in the input files.
+Mandatory arguments to long options are mandatory for short options too.
+With no FILE, or when FILE is \-, read standard input. Default is \*(Aq\-F /\*(Aq.
+.SH OPTIONS
+.TP
+\fB\-A\fR, \fB\-\-auto\-reference\fR
+output automatically generated references
+.TP
+\fB\-G\fR, \fB\-\-traditional\fR
+behave more like System V \*(Aqptx\*(Aq
+.TP
+\fB\-F\fR, \fB\-\-flag\-truncation\fR \fI<STRING>\fR
+use STRING for flagging line truncations
+.TP
+\fB\-M\fR, \fB\-\-macro\-name\fR \fI<STRING>\fR
+macro name to use instead of \*(Aqxx\*(Aq
+.TP
+\fB\-O\fR
+generate output as roff directives
+.TP
+\fB\-T\fR
+generate output as TeX directives
+.TP
+\fB\-R\fR, \fB\-\-right\-side\-refs\fR
+put references at right, not counted in \-w
+.TP
+\fB\-S\fR, \fB\-\-sentence\-regexp\fR \fI<REGEXP>\fR
+for end of lines or end of sentences
+.TP
+\fB\-W\fR, \fB\-\-word\-regexp\fR \fI<REGEXP>\fR
+use REGEXP to match each keyword
+.TP
+\fB\-b\fR, \fB\-\-break\-file\fR \fI<FILE>\fR
+word break characters in this FILE
+.TP
+\fB\-f\fR, \fB\-\-ignore\-case\fR
+fold lower case to upper case for sorting
+.TP
+\fB\-g\fR, \fB\-\-gap\-size\fR \fI<NUMBER>\fR
+gap size in columns between output fields
+.TP
+\fB\-i\fR, \fB\-\-ignore\-file\fR \fI<FILE>\fR
+read ignore word list from FILE
+.TP
+\fB\-o\fR, \fB\-\-only\-file\fR \fI<FILE>\fR
+read only word list from this FILE
+.TP
+\fB\-r\fR, \fB\-\-references\fR
+first field of each line is a reference
+.TP
+\fB\-t\fR, \fB\-\-typeset\-mode\fR
+change the default width from 72 to 100
+.TP
+\fB\-w\fR, \fB\-\-width\fR \fI<NUMBER>\fR
+output width in columns, reference excluded
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Print help
+.TP
+\fB\-V\fR, \fB\-\-version\fR
+Print version
+.SH VERSION
+v0.13.0

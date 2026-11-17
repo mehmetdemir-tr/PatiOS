@@ -1,0 +1,41 @@
+.ie \n(.g .ds Aq \(aq
+.el .ds Aq '
+.TH CSPLIT 1 "2026-11-15"
+.SH NAME
+csplit \- Split a file into sections determined by context lines
+.SH SYNOPSIS
+\fBcsplit\fR [OPTION]... FILE PATTERN...
+.SH DESCRIPTION
+Split a file into sections determined by context lines
+.SH OPTIONS
+.TP
+\fB\-b\fR, \fB\-\-suffix\-format\fR \fI<FORMAT>\fR
+use sprintf FORMAT instead of %02d
+.TP
+\fB\-f\fR, \fB\-\-prefix\fR \fI<PREFIX>\fR
+use PREFIX instead of \*(Aqxx\*(Aq
+.TP
+\fB\-k\fR, \fB\-\-keep\-files\fR
+do not remove output files on errors
+.TP
+\fB\-\-suppress\-matched\fR
+suppress the lines matching PATTERN
+.TP
+\fB\-n\fR, \fB\-\-digits\fR \fI<DIGITS>\fR
+use specified number of digits instead of 2
+.TP
+\fB\-q\fR, \fB\-\-quiet\fR
+do not print counts of output file sizes
+.TP
+\fB\-z\fR, \fB\-\-elide\-empty\-files\fR
+remove empty output files
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Print help
+.TP
+\fB\-V\fR, \fB\-\-version\fR
+Print version
+.SH EXTRA
+Output pieces of FILE separated by PATTERN(s) to files \*(Aqxx00\*(Aq, \*(Aqxx01\*(Aq, ..., and output byte counts of each piece to standard output.
+.SH VERSION
+v0.13.0

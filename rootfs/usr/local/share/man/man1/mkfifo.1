@@ -1,0 +1,27 @@
+.ie \n(.g .ds Aq \(aq
+.el .ds Aq '
+.TH MKFIFO 1 "2026-11-15"
+.SH NAME
+mkfifo \- Create a FIFO with the given name.
+.SH SYNOPSIS
+\fBmkfifo\fR [OPTION]... NAME...
+.SH DESCRIPTION
+Create a FIFO with the given name.
+.SH OPTIONS
+.TP
+\fB\-m\fR, \fB\-\-mode\fR \fI<MODE>\fR
+file permissions for the fifo
+.TP
+\fB\-Z\fR
+set the SELinux security context to default type
+.TP
+\fB\-\-context\fR[=\fI<CTX>\fR]
+like \-Z, or if CTX is specified then set the SELinux or SMACK security context to CTX
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Print help
+.TP
+\fB\-V\fR, \fB\-\-version\fR
+Print version
+.SH VERSION
+v0.13.0

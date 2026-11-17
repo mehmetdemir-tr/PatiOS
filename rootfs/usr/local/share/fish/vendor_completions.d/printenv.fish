@@ -1,0 +1,13 @@
+complete -c printenv -l quoting-style -d 'Set quoting style' -r -f -a "literal\t''
+locale\t''
+shell\t''
+shell-escape\t''
+shell-always\t''
+shell-escape-always\t''
+clocale\t''
+c\t''
+c-maybe\t''
+escape\t''"
+complete -c printenv -s 0 -l null -d 'end each output line with 0 byte rather than newline'
+complete -c printenv -s h -l help -d 'Print help'
+complete -c printenv -s V -l version -d 'Print version'

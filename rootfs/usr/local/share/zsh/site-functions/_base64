@@ -1,0 +1,43 @@
+#compdef base64
+
+autoload -U is-at-least
+
+_base64() {
+    typeset -A opt_args
+    typeset -a _arguments_options
+    local ret=1
+
+    if is-at-least 5.2; then
+        _arguments_options=(-s -S -C)
+    else
+        _arguments_options=(-s -C)
+    fi
+
+    local context curcontext="$curcontext" state line
+    _arguments "${_arguments_options[@]}" : \
+'-w+[wrap encoded lines after COLS character (default 76, 0 to disable wrapping)]:COLS:_default' \
+'--wrap=[wrap encoded lines after COLS character (default 76, 0 to disable wrapping)]:COLS:_default' \
+'-d[decode data]' \
+'-D[decode data]' \
+'--decode[decode data]' \
+'-i[when decoding, ignore non-alphabetic characters]' \
+'--ignore-garbage[when decoding, ignore non-alphabetic characters]' \
+'-h[Print help]' \
+'--help[Print help]' \
+'-V[Print version]' \
+'--version[Print version]' \
+'::file:_files' \
+&& ret=0
+}
+
+(( $+functions[_base64_commands] )) ||
+_base64_commands() {
+    local commands; commands=()
+    _describe -t commands 'base64 commands' commands "$@"
+}
+
+if [ "$funcstack[1]" = "_base64" ]; then
+    _base64 "$@"
+else
+    compdef _base64 base64
+fi

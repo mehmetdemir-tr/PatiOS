@@ -1,0 +1,47 @@
+.ie \n(.g .ds Aq \(aq
+.el .ds Aq '
+.TH ECHO 1 "2026-11-15"
+.SH NAME
+echo \- Display a line of text
+.SH SYNOPSIS
+\fBecho\fR [OPTIONS]... [STRING]...
+.SH DESCRIPTION
+Display a line of text
+.SH OPTIONS
+.TP
+\fB\-n\fR
+do not output the trailing newline
+.TP
+\fB\-e\fR
+enable interpretation of backslash escapes
+.TP
+\fB\-E\fR
+disable interpretation of backslash escapes (default)
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Print help
+.TP
+\fB\-V\fR, \fB\-\-version\fR
+Print version
+.TP
+[\fISTRING\fR]
+
+.SH EXTRA
+Echo the STRING(s) to standard output.
+
+If \-e is in effect, the following sequences are recognized:
+
+  \- \\\\ backslash
+  \- \\a alert (BEL)
+  \- \\b backspace
+  \- \\c produce no further output
+  \- \\e escape
+  \- \\f form feed
+  \- \\n new line
+  \- \\r carriage return
+  \- \\t horizontal tab
+  \- \\v vertical tab
+  \- \e0NNN byte with octal value NNN (1 to 3 digits)
+  \- \\xHH byte with hexadecimal value HH (1 to 2 digits)
+.SH VERSION
+v0.13.0

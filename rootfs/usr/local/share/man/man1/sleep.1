@@ -1,0 +1,29 @@
+.ie \n(.g .ds Aq \(aq
+.el .ds Aq '
+.TH SLEEP 1 "2026-11-15"
+.SH NAME
+sleep \- Pause for NUMBER seconds.
+.SH SYNOPSIS
+\fBsleep\fR NUMBER[SUFFIX]...
+.br
+\fBsleep\fR OPTION
+.SH DESCRIPTION
+Pause for NUMBER seconds.
+.SH OPTIONS
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Print help
+.TP
+\fB\-V\fR, \fB\-\-version\fR
+Print version
+.TP
+<\fINUMBER\fR>
+pause for NUMBER seconds
+.SH EXTRA
+Pause for NUMBER seconds. SUFFIX may be \*(Aqs\*(Aq for seconds (the default),
+\*(Aqm\*(Aq for minutes, \*(Aqh\*(Aq for hours or \*(Aqd\*(Aq for days. Unlike most implementations
+that require NUMBER be an integer, here NUMBER may be an arbitrary floating
+point number. Given two or more arguments, pause for the amount of time
+specified by the sum of their values.
+.SH VERSION
+v0.13.0

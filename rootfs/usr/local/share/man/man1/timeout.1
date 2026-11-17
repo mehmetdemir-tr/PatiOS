@@ -1,0 +1,49 @@
+.ie \n(.g .ds Aq \(aq
+.el .ds Aq '
+.TH TIMEOUT 1 "2026-11-15"
+.SH NAME
+timeout \- Start COMMAND, and kill it if still running after DURATION.
+.SH SYNOPSIS
+\fBtimeout\fR [OPTION] DURATION COMMAND...
+.SH DESCRIPTION
+Start COMMAND, and kill it if still running after DURATION.
+.SH OPTIONS
+.TP
+\fB\-f\fR, \fB\-\-foreground\fR
+when not running timeout directly from a shell prompt, allow COMMAND to read from the TTY and get TTY signals; in this mode, children of COMMAND will not be timed out
+.TP
+\fB\-k\fR, \fB\-\-kill\-after\fR
+also send a KILL signal if COMMAND is still running this long after the initial signal was sent
+.TP
+\fB\-p\fR, \fB\-\-preserve\-status\fR
+exit with the same status as COMMAND, even when the command times out
+.TP
+\fB\-s\fR, \fB\-\-signal\fR \fI<SIGNAL>\fR
+specify the signal to be sent on timeout; SIGNAL may be a name like \*(AqHUP\*(Aq or a number; see \*(Aqkill \-l\*(Aq for a list of signals
+.TP
+\fB\-v\fR, \fB\-\-verbose\fR
+diagnose to stderr any signal sent upon timeout
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Print help
+.TP
+\fB\-V\fR, \fB\-\-version\fR
+Print version
+.TP
+<\fIduration\fR>
+a floating point number with an optional suffix: \*(Aqs\*(Aq for seconds (the default), \*(Aqm\*(Aq for minutes, \*(Aqh\*(Aq for hours or \*(Aqd\*(Aq for days ; a duration of 0 disables the associated timeout
+.TP
+<\fIcommand\fR>
+a command to execute with optional arguments
+.SH EXTRA
+Upon timeout, send the TERM signal to COMMAND, if no other SIGNAL specified. The TERM signal kills any process that does not block or catch that signal. It may be necessary to use the KILL signal, since this signal can\*(Aqt be caught.
+
+Exit status:
+  124  if COMMAND times out, and \-\-preserve\-status is not specified
+  125  if the timeout command itself fails
+  126  if COMMAND is found but cannot be invoked
+  127  if COMMAND cannot be found
+  137  if COMMAND (or timeout itself) is sent the KILL (9) signal (128+9)
+  \-    the exit status of COMMAND otherwise
+.SH VERSION
+v0.13.0

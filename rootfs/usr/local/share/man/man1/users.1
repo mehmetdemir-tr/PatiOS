@@ -1,0 +1,24 @@
+.ie \n(.g .ds Aq \(aq
+.el .ds Aq '
+.TH USERS 1 "2026-11-15"
+.SH NAME
+users \- Print the user names of users currently logged in to the current host.
+.SH SYNOPSIS
+\fBusers\fR [FILE]
+.SH DESCRIPTION
+Print the user names of users currently logged in to the current host.
+.SH OPTIONS
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Print help
+.TP
+\fB\-V\fR, \fB\-\-version\fR
+Print version
+.TP
+[\fIfile\fR]
+
+.SH EXTRA
+Output who is currently logged in according to FILE.
+If FILE is not specified, use /var/run/utmp.  /var/log/wtmp as FILE is common.
+.SH VERSION
+v0.13.0

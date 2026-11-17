@@ -1,0 +1,129 @@
+.ie \n(.g .ds Aq \(aq
+.el .ds Aq '
+.TH PR 1 "2026-11-15"
+.SH NAME
+pr \- paginate or columnate FILE(s) for printing
+.SH SYNOPSIS
+\fBpr\fR [OPTION]... [FILE]...
+.SH DESCRIPTION
+paginate or columnate FILE(s) for printing
+.SH OPTIONS
+.TP
+\fB\-\-pages\fR \fI<FIRST_PAGE[:LAST_PAGE]>\fR
+Begin and stop printing with page FIRST_PAGE[:LAST_PAGE]
+.TP
+\fB\-h\fR, \fB\-\-header\fR \fI<STRING>\fR
+Use the string header to replace the file name
+                in the header line.
+.TP
+\fB\-D\fR, \fB\-\-date\-format\fR \fI<FORMAT>\fR
+Use \*(Aqdate\*(Aq\-style FORMAT for the header date.
+.TP
+\fB\-d\fR, \fB\-\-double\-space\fR
+Produce output that is double spaced. An extra `<newline>`
+                character is output following every `<newline>` found in the input.
+.TP
+\fB\-n\fR, \fB\-\-number\-lines\fR [\fI<[char][width]>\fR]
+Provide width digit line numbering.  The default for width,
+                if not specified, is 5.  The number occupies the first width column
+                positions of each text column or each line of \-m output.  If char
+                (any non\-digit character) is given, it is appended to the line number
+                to separate it from whatever follows.  The default for char is a `<tab>`.
+                Line numbers longer than width columns are truncated.
+.TP
+\fB\-N\fR, \fB\-\-first\-line\-number\fR \fI<NUMBER>\fR
+start counting with NUMBER at 1st line of first page printed
+.TP
+\fB\-t\fR, \fB\-\-omit\-header\fR
+Write neither the five\-line identifying header nor the five\-line
+                trailer usually supplied for each page. Quit writing after the last line
+                 of each file without spacing to the end of the page.
+.TP
+\fB\-T\fR, \fB\-\-omit\-pagination\fR
+omit page headers and trailers, eliminate any pagination
+                by form feeds set in input files
+.TP
+\fB\-l\fR, \fB\-\-length\fR \fI<PAGE_LENGTH>\fR
+Override the 66\-line default (default number of lines of text 56,
+                and with \-F 63) and reset the page length to lines.  If lines is not
+                greater than the sum  of  both the  header  and trailer depths (in lines),
+                the pr utility shall suppress both the header and trailer, as if the \-t
+                option were in effect.
+.TP
+\fB\-r\fR, \fB\-\-no\-file\-warnings\fR
+omit warning when a file cannot be opened
+.TP
+\fB\-F\fR, \fB\-\-form\-feed\fR
+Use a `<form\-feed>` for new pages, instead of the default behavior that
+                uses a sequence of `<newline>`s.
+.TP
+\fB\-w\fR, \fB\-\-width\fR \fI<width>\fR
+Set the width of the line to width column positions for multiple
+                text\-column output only. If the \-w option is not specified and the \-s option
+                is not specified, the default width shall be 72. If the \-w option is not specified
+                and the \-s option is specified, the default width shall be 512.
+.TP
+\fB\-W\fR, \fB\-\-page\-width\fR \fI<width>\fR
+set page width to PAGE_WIDTH (72) characters always,
+                truncate lines, except \-J option is set, no interference
+                with \-S or \-s
+.TP
+\fB\-a\fR, \fB\-\-across\fR
+Modify the effect of the \-COLUMN option so that the columns are filled
+                across the page in a  round\-robin  order (for example, when column is 2, the
+                first input line heads column 1, the second heads column 2, the third is the
+                second line in column 1, and so on).
+.TP
+\fB\-\-columns\fR \fI<columns>\fR
+Produce multi\-column output that is arranged in column columns
+                (the default shall be 1) and is written down each column  in  the order in which
+                the text is received from the input file. This option should not be used with \-m.
+                The options \-e and \-i shall be assumed for multiple text\-column output.  Whether
+                or not text columns are produced with identical vertical lengths is unspecified,
+                but a text column shall never exceed the length of the page (see the \-l option).
+                When used with \-t, use the minimum number of lines to write the output.
+.TP
+\fB\-s\fR, \fB\-\-separator\fR [\fI<char>\fR]
+Separate text columns by the single character char instead of by the
+                appropriate number of `<space>`s (default for char is the `<tab>` character).
+.TP
+\fB\-S\fR, \fB\-\-sep\-string\fR [\fI<string>\fR]
+separate columns by STRING,
+                without \-S: Default separator `<TAB>` with \-J and `<space>`
+                otherwise (same as \-S\\" \\"), no effect on column options
+.TP
+\fB\-m\fR, \fB\-\-merge\fR
+Merge files. Standard output shall be formatted so the pr utility
+                writes one line from each file specified by a file operand, side by side
+                into text columns of equal fixed widths, in terms of the number of column
+                positions. Implementations shall support merging of at least nine file operands.
+.TP
+\fB\-o\fR, \fB\-\-indent\fR \fI<margin>\fR
+Each line of output shall be preceded by offset `<space>`s. If the \-o
+                option is not specified, the default offset shall be zero. The space taken is
+                in addition to the output line width (see the \-w option below).
+.TP
+\fB\-J\fR, \fB\-\-join\-lines\fR
+merge full lines, turns off \-W line truncation, no column
+                alignment, \-\-sep\-string[=STRING] sets separators
+.TP
+\fB\-\-help\fR
+Print help information
+.TP
+\fB\-e\fR, \fB\-\-expand\-tabs\fR \fI<[CHAR][WIDTH]>\fR
+expand input CHARs (TABs) to tab WIDTH (8)
+.TP
+\fB\-V\fR, \fB\-\-version\fR
+Print version
+.TP
+[\fIfiles\fR] [default: \-]
+
+.SH EXTRA
+If no FILE(s) are given, or if FILE is \-, read standard input.
+
+When creating multicolumn output, columns will be of equal width. When using
+the \*(Aq\-s\*(Aq option to separate columns, the default separator is a single tab
+character. When using the \*(Aq\-S\*(Aq option to separate columns, the default separator
+is a single space character.
+.SH VERSION
+v0.13.0

@@ -1,0 +1,32 @@
+.ie \n(.g .ds Aq \(aq
+.el .ds Aq '
+.TH FOLD 1 "2026-11-15"
+.SH NAME
+fold \- Writes each file (or standard input if no files are given)
+to standard output whilst breaking long lines
+.SH SYNOPSIS
+\fBfold\fR [OPTION]... [FILE]...
+.SH DESCRIPTION
+Writes each file (or standard input if no files are given)
+to standard output whilst breaking long lines
+.SH OPTIONS
+.TP
+\fB\-b\fR, \fB\-\-bytes\fR
+count using bytes rather than columns (meaning control characters such as newline are not treated specially)
+.TP
+\fB\-c\fR, \fB\-\-characters\fR
+count using character positions rather than display columns
+.TP
+\fB\-s\fR, \fB\-\-spaces\fR
+break lines at word boundaries rather than a hard cut\-off
+.TP
+\fB\-w\fR, \fB\-\-width\fR \fI<WIDTH>\fR
+set WIDTH as the maximum line width rather than 80
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Print help
+.TP
+\fB\-V\fR, \fB\-\-version\fR
+Print version
+.SH VERSION
+v0.13.0

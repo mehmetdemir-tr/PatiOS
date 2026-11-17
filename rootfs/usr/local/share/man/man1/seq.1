@@ -1,0 +1,37 @@
+.ie \n(.g .ds Aq \(aq
+.el .ds Aq '
+.TH SEQ 1 "2026-11-15"
+.SH NAME
+seq \- Display numbers from FIRST to LAST, in steps of INCREMENT.
+.SH SYNOPSIS
+\fBseq\fR [OPTION]... LAST
+.br
+\fBseq\fR [OPTION]... FIRST LAST
+.br
+\fBseq\fR [OPTION]... FIRST INCREMENT LAST
+.SH DESCRIPTION
+Display numbers from FIRST to LAST, in steps of INCREMENT.
+.SH OPTIONS
+.TP
+\fB\-s\fR, \fB\-\-separator\fR
+Separator character (defaults to \\n)
+.TP
+\fB\-t\fR, \fB\-\-terminator\fR
+Terminator character (defaults to \\n)
+.TP
+\fB\-w\fR, \fB\-\-equal\-width\fR
+Equalize widths of all numbers by padding with zeros
+.TP
+\fB\-f\fR, \fB\-\-format\fR
+use printf style floating\-point FORMAT
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Print help
+.TP
+\fB\-V\fR, \fB\-\-version\fR
+Print version
+.TP
+[\fInumbers\fR]
+
+.SH VERSION
+v0.13.0

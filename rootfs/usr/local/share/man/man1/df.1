@@ -1,0 +1,107 @@
+.ie \n(.g .ds Aq \(aq
+.el .ds Aq '
+.TH DF 1 "2026-11-15"
+.SH NAME
+df \- Show information about the file system on which each FILE resides,
+or all file systems by default.
+.SH SYNOPSIS
+\fBdf\fR [OPTION]... [FILE]...
+.SH DESCRIPTION
+Show information about the file system on which each FILE resides,
+or all file systems by default.
+.SH OPTIONS
+.TP
+\fB\-\-help\fR
+Print help information.
+.TP
+\fB\-a\fR, \fB\-\-all\fR
+include dummy file systems
+.TP
+\fB\-B\fR, \fB\-\-block\-size\fR \fI<SIZE>\fR
+scale sizes by SIZE before printing them; e.g. \*(Aq\-BM\*(Aq prints sizes in units of 1,048,576 bytes
+.TP
+\fB\-\-total\fR
+produce a grand total
+.TP
+\fB\-h\fR, \fB\-\-human\-readable\fR
+print sizes in human readable format (e.g., 1K 234M 2G)
+.TP
+\fB\-H\fR, \fB\-\-si\fR
+likewise, but use powers of 1000 not 1024
+.TP
+\fB\-i\fR, \fB\-\-inodes\fR
+list inode information instead of block usage
+.TP
+\fB\-k\fR
+like \-\-block\-size=1K
+.TP
+\fB\-m\fR
+like \-\-block\-size=1M
+.TP
+\fB\-l\fR, \fB\-\-local\fR
+limit listing to local file systems
+.TP
+\fB\-\-no\-sync\fR
+do not invoke sync before getting usage info (default)
+.TP
+\fB\-\-output\fR[=\fI<FIELD_LIST>...\fR] [default: source,size,used,avail,pcent,target]
+use output format defined by FIELD_LIST, or print all fields if FIELD_LIST is omitted.
+
+\fIPossible values:\fR
+.RS 14
+.IP \(bu 2
+source
+.IP \(bu 2
+fstype
+.IP \(bu 2
+itotal
+.IP \(bu 2
+iused
+.IP \(bu 2
+iavail
+.IP \(bu 2
+ipcent
+.IP \(bu 2
+size
+.IP \(bu 2
+used
+.IP \(bu 2
+avail
+.IP \(bu 2
+pcent
+.IP \(bu 2
+file
+.IP \(bu 2
+target
+.RE
+.TP
+\fB\-P\fR, \fB\-\-portability\fR
+use the POSIX output format
+.TP
+\fB\-\-sync\fR
+invoke sync before getting usage info (non\-windows only)
+.TP
+\fB\-t\fR, \fB\-\-type\fR \fI<TYPE>\fR
+limit listing to file systems of type TYPE
+.TP
+\fB\-T\fR, \fB\-\-print\-type\fR
+print file system type
+.TP
+\fB\-x\fR, \fB\-\-exclude\-type\fR \fI<TYPE>\fR
+limit listing to file systems not of type TYPE
+.TP
+\fB\-V\fR, \fB\-\-version\fR
+Print version
+.TP
+[\fIpaths\fR]
+
+.SH EXTRA
+Display values are in units of the first available SIZE from \-\-block\-size,
+and the DF_BLOCK_SIZE, BLOCK_SIZE and BLOCKSIZE environment variables.
+Otherwise, units default to 1024 bytes (or 512 if POSIXLY_CORRECT is set).
+
+SIZE is an integer and optional unit (example: 10M is 10*1024*1024).
+Units are K, M, G, T, P, E, Z, Y (powers of 1024) or KB, MB,... (powers
+of 1000). Units can be decimal, hexadecimal, octal, binary.
+.SH VERSION
+v0.13.0

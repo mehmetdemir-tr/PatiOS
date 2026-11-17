@@ -1,0 +1,67 @@
+.ie \n(.g .ds Aq \(aq
+.el .ds Aq '
+.TH JOIN 1 "2026-11-15"
+.SH NAME
+join \- For each pair of input lines with identical join fields, write a line to
+standard output. The default join field is the first, delimited by blanks.
+
+When FILE1 or FILE2 (not both) is \-, read standard input.
+.SH SYNOPSIS
+\fBjoin\fR [OPTION]... FILE1 FILE2
+.SH DESCRIPTION
+For each pair of input lines with identical join fields, write a line to
+standard output. The default join field is the first, delimited by blanks.
+.PP
+When FILE1 or FILE2 (not both) is \-, read standard input.
+.SH OPTIONS
+.TP
+\fB\-a\fR \fI<FILENUM>\fR
+also print unpairable lines from file FILENUM, where
+FILENUM is 1 or 2, corresponding to FILE1 or FILE2
+.TP
+\fB\-v\fR \fI<FILENUM>\fR
+like \-a FILENUM, but suppress joined output lines
+.TP
+\fB\-e\fR \fI<EMPTY>\fR
+replace missing input fields with EMPTY
+.TP
+\fB\-i\fR, \fB\-\-ignore\-case\fR
+ignore differences in case when comparing fields
+.TP
+\fB\-n\fR, \fB\-\-numeric\-sort\fR
+compare join fields by numerical value, as \*(Aqsort \-n\*(Aq does
+.TP
+\fB\-j\fR \fI<FIELD>\fR
+equivalent to \*(Aq\-1 FIELD \-2 FIELD\*(Aq
+.TP
+\fB\-o\fR \fI<FORMAT>\fR
+obey FORMAT while constructing output line
+.TP
+\fB\-t\fR \fI<CHAR>\fR
+use CHAR as input and output field separator
+.TP
+\fB\-1\fR \fI<FIELD>\fR
+join on this FIELD of file 1
+.TP
+\fB\-2\fR \fI<FIELD>\fR
+join on this FIELD of file 2
+.TP
+\fB\-\-check\-order\fR
+check that the input is correctly sorted, even if all input lines are pairable
+.TP
+\fB\-\-nocheck\-order\fR
+do not check that the input is correctly sorted
+.TP
+\fB\-\-header\fR
+treat the first line in each file as field headers, print them without trying to pair them
+.TP
+\fB\-z\fR, \fB\-\-zero\-terminated\fR
+line delimiter is NUL, not newline
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Print help
+.TP
+\fB\-V\fR, \fB\-\-version\fR
+Print version
+.SH VERSION
+v0.13.0

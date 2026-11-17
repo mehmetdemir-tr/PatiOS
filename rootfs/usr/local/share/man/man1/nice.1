@@ -1,0 +1,28 @@
+.ie \n(.g .ds Aq \(aq
+.el .ds Aq '
+.TH NICE 1 "2026-11-15"
+.SH NAME
+nice \- Run COMMAND with an adjusted niceness, which affects process scheduling.
+With no COMMAND, print the current niceness.  Niceness values range from
+\-20 (most favorable to the process) to 19 (least favorable to the process).
+.SH SYNOPSIS
+\fBnice\fR [OPTION] [COMMAND [ARG]...]
+.SH DESCRIPTION
+Run COMMAND with an adjusted niceness, which affects process scheduling.
+With no COMMAND, print the current niceness.  Niceness values range from
+\-20 (most favorable to the process) to 19 (least favorable to the process).
+.SH OPTIONS
+.TP
+\fB\-n\fR, \fB\-\-adjustment\fR
+add N to the niceness (default is 10)
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Print help
+.TP
+\fB\-V\fR, \fB\-\-version\fR
+Print version
+.TP
+[\fICOMMAND\fR]
+
+.SH VERSION
+v0.13.0

@@ -1,0 +1,375 @@
+.ie \n(.g .ds Aq \(aq
+.el .ds Aq '
+.TH COREUTILS 1 "2026-11-15"
+.SH NAME
+coreutils
+.SH SYNOPSIS
+\fBcoreutils\fR [\fB\-h\fR|\fB\-\-help\fR] [\fB\-V\fR|\fB\-\-version\fR] [\fIsubcommands\fR]
+.SH DESCRIPTION
+.SH OPTIONS
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Print help
+.TP
+\fB\-V\fR, \fB\-\-version\fR
+Print version
+.SH SUBCOMMANDS
+.TP
+coreutils\-[(1)
+test\-about
+.TP
+coreutils\-arch(1)
+Display machine architecture
+.TP
+coreutils\-b2sum(1)
+b2sum\-about
+.TP
+coreutils\-base32(1)
+base32\-about
+.TP
+coreutils\-base64(1)
+base64\-about
+.TP
+coreutils\-basename(1)
+Print NAME with any leading directory components removed
+If specified, also remove a trailing SUFFIX
+.TP
+coreutils\-basenc(1)
+basenc\-about
+.TP
+coreutils\-cat(1)
+cat\-about
+.TP
+coreutils\-chgrp(1)
+chgrp\-about
+.TP
+coreutils\-chmod(1)
+chmod\-about
+.TP
+coreutils\-chown(1)
+Change file owner and group
+.TP
+coreutils\-chroot(1)
+chroot\-about
+.TP
+coreutils\-cksum(1)
+cksum\-about
+.TP
+coreutils\-comm(1)
+Compare two sorted files line by line.
+
+When FILE1 or FILE2 (not both) is \-, read standard input.
+
+With no options, produce three\-column output. Column one contains
+lines unique to FILE1, column two contains lines unique to FILE2,
+and column three contains lines common to both files.
+.TP
+coreutils\-cp(1)
+cp\-about
+.TP
+coreutils\-csplit(1)
+csplit\-about
+.TP
+coreutils\-cut(1)
+cut\-about
+.TP
+coreutils\-date(1)
+date\-about
+.TP
+coreutils\-dd(1)
+dd\-about
+.TP
+coreutils\-df(1)
+df\-about
+.TP
+coreutils\-dir(1)
+dir\-about
+.TP
+coreutils\-dircolors(1)
+Output commands to set the LS_COLORS environment variable.
+.TP
+coreutils\-dirname(1)
+dirname\-about
+.TP
+coreutils\-du(1)
+du\-about
+.TP
+coreutils\-echo(1)
+echo\-about
+.TP
+coreutils\-env(1)
+Set each NAME to VALUE in the environment and run COMMAND
+.TP
+coreutils\-expand(1)
+expand\-about
+.TP
+coreutils\-expr(1)
+Print the value of EXPRESSION to standard output
+.TP
+coreutils\-factor(1)
+factor\-about
+.TP
+coreutils\-false(1)
+Returns false, an unsuccessful exit status.
+
+Immediately returns with the exit status 1. When invoked with one of the recognized options it
+will try to write the help or version text. Any IO error during this operation is diagnosed, yet
+the program will also return 1.
+.TP
+coreutils\-fmt(1)
+Reformat paragraphs from input (or standard input) to stdout.
+.TP
+coreutils\-fold(1)
+fold\-about
+.TP
+coreutils\-groups(1)
+Print group memberships for each USERNAME or, if no USERNAME is specified, for
+the current process (which may differ if the groups data‐base has changed).
+.TP
+coreutils\-head(1)
+Print the first 10 lines of each FILE to standard output.
+With more than one FILE, precede each with a header giving the file name.
+With no FILE, or when FILE is \-, read standard input.
+
+Mandatory arguments to long options are mandatory for short options too.
+.TP
+coreutils\-hostid(1)
+Print the numeric identifier (in hexadecimal) for the current host
+.TP
+coreutils\-hostname(1)
+hostname\-about
+.TP
+coreutils\-id(1)
+Print user and group information for each specified USER,
+or (when USER omitted) for the current user.
+.TP
+coreutils\-install(1)
+Copy SOURCE to DEST or multiple SOURCE(s) to the existing
+DIRECTORY, while setting permission modes and owner/group
+.TP
+coreutils\-join(1)
+join\-about
+.TP
+coreutils\-kill(1)
+Send signal to processes or list information about signals.
+.TP
+coreutils\-link(1)
+Call the link function to create a link named FILE2 to an existing FILE1.
+.TP
+coreutils\-ln(1)
+Make links between files.
+.TP
+coreutils\-logname(1)
+Print user\*(Aqs login name
+.TP
+coreutils\-ls(1)
+ls\-about
+.TP
+coreutils\-md5sum(1)
+md5sum\-about
+.TP
+coreutils\-mkdir(1)
+Create the given DIRECTORY(ies) if they do not exist
+.TP
+coreutils\-mkfifo(1)
+Create a FIFO with the given name.
+.TP
+coreutils\-mknod(1)
+Create the special file NAME of the given TYPE.
+.TP
+coreutils\-mktemp(1)
+Create a temporary file or directory.
+.TP
+coreutils\-more(1)
+more\-about
+.TP
+coreutils\-mv(1)
+mv\-about
+.TP
+coreutils\-nice(1)
+nice\-about
+.TP
+coreutils\-nl(1)
+nl\-about
+.TP
+coreutils\-nohup(1)
+Run COMMAND ignoring hangup signals.
+.TP
+coreutils\-nproc(1)
+Print the number of cores available to the current process.
+If the OMP_NUM_THREADS or OMP_THREAD_LIMIT environment variables are set, then
+they will determine the minimum and maximum returned value respectively.
+.TP
+coreutils\-numfmt(1)
+Convert numbers from/to human\-readable strings
+.TP
+coreutils\-od(1)
+Dump files in octal and other formats
+.TP
+coreutils\-paste(1)
+Write lines consisting of the sequentially corresponding lines from each
+FILE, separated by TABs, to standard output.
+.TP
+coreutils\-pathchk(1)
+Check whether file names are valid or portable
+.TP
+coreutils\-pinky(1)
+pinky\-about
+.TP
+coreutils\-pr(1)
+paginate or columnate FILE(s) for printing
+.TP
+coreutils\-printenv(1)
+printenv\-about
+.TP
+coreutils\-printf(1)
+printf\-about
+.TP
+coreutils\-ptx(1)
+ptx\-about
+.TP
+coreutils\-pwd(1)
+Display the full filename of the current working directory.
+.TP
+coreutils\-readlink(1)
+Print value of a symbolic link or canonical file name.
+.TP
+coreutils\-realpath(1)
+Print the resolved path
+.TP
+coreutils\-rm(1)
+rm\-about
+.TP
+coreutils\-rmdir(1)
+Remove the DIRECTORY(ies), if they are empty.
+.TP
+coreutils\-seq(1)
+seq\-about
+.TP
+coreutils\-sha1sum(1)
+sha1sum\-about
+.TP
+coreutils\-sha224sum(1)
+sha224sum\-about
+.TP
+coreutils\-sha256sum(1)
+sha256sum\-about
+.TP
+coreutils\-sha384sum(1)
+sha384sum\-about
+.TP
+coreutils\-sha512sum(1)
+sha512sum\-about
+.TP
+coreutils\-shred(1)
+Overwrite the specified FILE(s) repeatedly, in order to make it harder for even
+very expensive hardware probing to recover the data.
+.TP
+coreutils\-shuf(1)
+shuf\-about
+.TP
+coreutils\-sleep(1)
+Pause for NUMBER seconds.
+.TP
+coreutils\-sort(1)
+sort\-about
+.TP
+coreutils\-split(1)
+split\-about
+.TP
+coreutils\-stat(1)
+Display file or file system status.
+.TP
+coreutils\-stty(1)
+Print or change terminal characteristics.
+.TP
+coreutils\-sum(1)
+Checksum and count the blocks in a file.
+
+With no FILE, or when FILE is \-, read standard input.
+.TP
+coreutils\-sync(1)
+Synchronize cached writes to persistent storage
+.TP
+coreutils\-tac(1)
+Write each file to standard output, last line first.
+.TP
+coreutils\-tail(1)
+Print the last 10 lines of each FILE to standard output.
+With more than one FILE, precede each with a header giving the file name.
+With no FILE, or when FILE is \-, read standard input.
+
+Mandatory arguments to long options are mandatory for short options too.
+.TP
+coreutils\-tee(1)
+Copy standard input to each FILE, and also to standard output.
+.TP
+coreutils\-test(1)
+test\-about
+.TP
+coreutils\-timeout(1)
+Start COMMAND, and kill it if still running after DURATION.
+.TP
+coreutils\-touch(1)
+Update the access and modification times of each FILE to the current time.
+.TP
+coreutils\-tr(1)
+Translate or delete characters
+.TP
+coreutils\-true(1)
+Returns true, a successful exit status.
+
+Immediately returns with the exit status 0, except when invoked with one of the recognized
+options. In those cases it will try to write the help or version text. Any IO error during this
+operation causes the program to return 1 instead.
+.TP
+coreutils\-truncate(1)
+truncate\-about
+.TP
+coreutils\-tsort(1)
+Topological sort the strings in FILE.
+Strings are defined as any sequence of tokens separated by whitespace (tab, space, or newline), ordering them based on dependencies in a directed acyclic graph (DAG).
+Useful for scheduling and determining execution order.
+If FILE is not passed in, stdin is used instead.
+.TP
+coreutils\-tty(1)
+tty\-about
+.TP
+coreutils\-uname(1)
+Print certain system information.
+With no OPTION, same as \-s.
+.TP
+coreutils\-unexpand(1)
+unexpand\-about
+.TP
+coreutils\-uniq(1)
+uniq\-about
+.TP
+coreutils\-unlink(1)
+Unlink the file at FILE.
+.TP
+coreutils\-uptime(1)
+uptime\-about
+.TP
+coreutils\-users(1)
+users\-about
+.TP
+coreutils\-vdir(1)
+vdir\-about
+.TP
+coreutils\-wc(1)
+wc\-about
+.TP
+coreutils\-who(1)
+who\-about
+.TP
+coreutils\-whoami(1)
+Print the current username.
+.TP
+coreutils\-yes(1)
+Repeatedly display a line with STRING (or \*(Aqy\*(Aq)
+.TP
+coreutils\-help(1)
+Print this message or the help of the given subcommand(s)
+.SH VERSION
+v0.13.0

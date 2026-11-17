@@ -1,0 +1,5 @@
+complete -c pathchk -s p -d 'check for most POSIX systems'
+complete -c pathchk -s P -d 'check for empty names and leading "-"'
+complete -c pathchk -l portability -d 'check for all POSIX systems (equivalent to -p -P)'
+complete -c pathchk -s h -l help -d 'Print help'
+complete -c pathchk -s V -l version -d 'Print version'

@@ -1,0 +1,16 @@
+Türkiye  = As bayrakları 🇹🇷
+imeiflasher = IMEI Flashlayıcı
+psp      = Pati Sistem Yamalayıcı
+cat      = Dosya okur
+temizle  = Ekranı temizler
+ls       = Klasörleri listeler
+karabaş  = Çalışan processleri listeler
+miyav    = miyav <adres> (ping)
+touch    = dosya oluşturur
+patifetch = Sistem Bilgisi
+rm       = belirli bir dosyayı siler
+cp       = dosya kopyalar
+mkdir    = Klasör oluşturur
+pwd      = Mevcut bulunan dizini gösterir
+çıkış    = Sistemi kapatır
+

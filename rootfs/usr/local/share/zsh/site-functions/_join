@@ -1,0 +1,55 @@
+#compdef join
+
+autoload -U is-at-least
+
+_join() {
+    typeset -A opt_args
+    typeset -a _arguments_options
+    local ret=1
+
+    if is-at-least 5.2; then
+        _arguments_options=(-s -S -C)
+    else
+        _arguments_options=(-s -C)
+    fi
+
+    local context curcontext="$curcontext" state line
+    _arguments "${_arguments_options[@]}" : \
+'*-a+[also print unpairable lines from file FILENUM, where FILENUM is 1 or 2, corresponding to FILE1 or FILE2]:FILENUM:_default' \
+'*-v+[like -a FILENUM, but suppress joined output lines]:FILENUM:_default' \
+'*-e+[replace missing input fields with EMPTY]:EMPTY:_default' \
+'-j+[equivalent to '\''-1 FIELD -2 FIELD'\'']:FIELD:_default' \
+'*-o+[obey FORMAT while constructing output line]:FORMAT:_default' \
+'-t+[use CHAR as input and output field separator]:CHAR:_default' \
+'-1+[join on this FIELD of file 1]:FIELD:_default' \
+'-2+[join on this FIELD of file 2]:FIELD:_default' \
+'-i[ignore differences in case when comparing fields]' \
+'--ignore-case[ignore differences in case when comparing fields]' \
+'-n[compare join fields by numerical value, as '\''sort -n'\'' does]' \
+'--numeric-sort[compare join fields by numerical value, as '\''sort -n'\'' does]' \
+'--check-order[check that the input is correctly sorted, even if all input lines are pairable]' \
+'--nocheck-order[do not check that the input is correctly sorted]' \
+'--header[treat the first line in each file as field headers, print them without trying to pair them]' \
+'-z[line delimiter is NUL, not newline]' \
+'--zero-terminated[line delimiter is NUL, not newline]' \
+'-h[Print help]' \
+'--help[Print help]' \
+'-V[Print version]' \
+'--version[Print version]' \
+'::file1:_files' \
+'::file2:_files' \
+'*::extra:_default' \
+&& ret=0
+}
+
+(( $+functions[_join_commands] )) ||
+_join_commands() {
+    local commands; commands=()
+    _describe -t commands 'join commands' commands "$@"
+}
+
+if [ "$funcstack[1]" = "_join" ]; then
+    _join "$@"
+else
+    compdef _join join
+fi

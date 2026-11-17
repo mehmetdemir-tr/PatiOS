@@ -1,0 +1,112 @@
+.ie \n(.g .ds Aq \(aq
+.el .ds Aq '
+.TH CKSUM 1 "2026-11-15"
+.SH NAME
+cksum \- Print CRC and size for each file
+.SH SYNOPSIS
+\fBcksum\fR [OPTIONS] [FILE]...
+.SH DESCRIPTION
+Print CRC and size for each file
+.SH OPTIONS
+.TP
+\fB\-a\fR, \fB\-\-algorithm\fR \fI<ALGORITHM>\fR
+select the digest type to use. See DIGEST below
+
+\fIPossible values:\fR
+.RS 14
+.IP \(bu 2
+sysv
+.IP \(bu 2
+bsd
+.IP \(bu 2
+crc
+.IP \(bu 2
+crc32b
+.IP \(bu 2
+md5
+.IP \(bu 2
+sha1
+.IP \(bu 2
+sha2
+.IP \(bu 2
+sha3
+.IP \(bu 2
+blake2b
+.IP \(bu 2
+sm3
+.IP \(bu 2
+sha224
+.IP \(bu 2
+sha256
+.IP \(bu 2
+sha384
+.IP \(bu 2
+sha512
+.IP \(bu 2
+blake3
+.IP \(bu 2
+shake128
+.IP \(bu 2
+shake256
+.RE
+.TP
+\fB\-\-untagged\fR
+create a reversed style checksum, without digest type
+.TP
+\fB\-\-tag\fR
+create a BSD style checksum (default)
+.TP
+\fB\-l\fR, \fB\-\-length\fR
+digest length in bits; must not exceed the max size and must be a multiple of 8 for blake2b; must be 224, 256, 384, or 512 for sha2 or sha3
+.TP
+\fB\-\-raw\fR
+emit a raw binary digest, not hexadecimal
+.TP
+\fB\-c\fR, \fB\-\-check\fR
+read checksums from the FILEs and check them
+.TP
+\fB\-w\fR, \fB\-\-warn\fR
+warn about improperly formatted checksum lines
+.TP
+\fB\-\-status\fR
+don\*(Aqt output anything, status code shows success
+.TP
+\fB\-\-quiet\fR
+don\*(Aqt print OK for each successfully verified file
+.TP
+\fB\-\-ignore\-missing\fR
+don\*(Aqt fail or report status for missing files
+.TP
+\fB\-\-strict\fR
+exit non\-zero for improperly formatted checksum lines
+.TP
+\fB\-\-base64\fR
+emit base64\-encoded digests, not hexadecimal
+.TP
+\fB\-z\fR, \fB\-\-zero\fR
+end each output line with NUL, not newline, and disable file name escaping
+.TP
+\fB\-\-debug\fR
+print CPU hardware capability detection info used by cksum
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Print help
+.TP
+\fB\-V\fR, \fB\-\-version\fR
+Print version
+.SH EXTRA
+DIGEST determines the digest algorithm and default output
+format:
+
+  \- sysv: equivalent to sum \-s
+  \- bsd: equivalent to sum \-r
+  \- crc: equivalent to cksum
+  \- crc32b: only available through cksum
+  \- md5: equivalent to md5sum
+  \- sha1: equivalent to sha1sum
+  \- sha2: equivalent to sha{224,256,384,512}sum
+  \- sha3: only available through cksum
+  \- blake2b: equivalent to b2sum
+  \- sm3: only available through cksum
+.SH VERSION
+v0.13.0

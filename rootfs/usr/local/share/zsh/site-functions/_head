@@ -1,0 +1,48 @@
+#compdef head
+
+autoload -U is-at-least
+
+_head() {
+    typeset -A opt_args
+    typeset -a _arguments_options
+    local ret=1
+
+    if is-at-least 5.2; then
+        _arguments_options=(-s -S -C)
+    else
+        _arguments_options=(-s -C)
+    fi
+
+    local context curcontext="$curcontext" state line
+    _arguments "${_arguments_options[@]}" : \
+'-c+[print the first NUM bytes of each file; with a leading '\''-'\'', print all but the last NUM bytes of each file]:[-]NUM:_default' \
+'--bytes=[print the first NUM bytes of each file; with a leading '\''-'\'', print all but the last NUM bytes of each file]:[-]NUM:_default' \
+'-n+[print the first NUM lines instead of the first 10; with a leading '\''-'\'', print all but the last NUM lines of each file]:[-]NUM:_default' \
+'--lines=[print the first NUM lines instead of the first 10; with a leading '\''-'\'', print all but the last NUM lines of each file]:[-]NUM:_default' \
+'-q[never print headers giving file names]' \
+'--quiet[never print headers giving file names]' \
+'--silent[never print headers giving file names]' \
+'-v[always print headers giving file names]' \
+'--verbose[always print headers giving file names]' \
+'--presume-input-pipe[]' \
+'-z[line delimiter is NUL, not newline]' \
+'--zero-terminated[line delimiter is NUL, not newline]' \
+'-h[Print help]' \
+'--help[Print help]' \
+'-V[Print version]' \
+'--version[Print version]' \
+'::FILE:_files' \
+&& ret=0
+}
+
+(( $+functions[_head_commands] )) ||
+_head_commands() {
+    local commands; commands=()
+    _describe -t commands 'head commands' commands "$@"
+}
+
+if [ "$funcstack[1]" = "_head" ]; then
+    _head "$@"
+else
+    compdef _head head
+fi

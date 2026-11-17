@@ -1,0 +1,4 @@
+location=/bin/shell
+wait=0
+restart=1
+watch=1

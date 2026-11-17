@@ -1,0 +1,76 @@
+.ie \n(.g .ds Aq \(aq
+.el .ds Aq '
+.TH TAIL 1 "2026-11-15"
+.SH NAME
+tail \- Print the last 10 lines of each FILE to standard output.
+With more than one FILE, precede each with a header giving the file name.
+With no FILE, or when FILE is \-, read standard input.
+
+Mandatory arguments to long options are mandatory for short options too.
+.SH SYNOPSIS
+\fBtail\fR [OPTION]... [FILE]...
+.SH DESCRIPTION
+Print the last 10 lines of each FILE to standard output.
+With more than one FILE, precede each with a header giving the file name.
+With no FILE, or when FILE is \-, read standard input.
+.PP
+Mandatory arguments to long options are mandatory for short options too.
+.SH OPTIONS
+.TP
+\fB\-c\fR, \fB\-\-bytes\fR \fI<[+]NUM>\fR
+Print the last NUM bytes; use \-c +NUM to print from byte NUM onward (counting from 1)
+.TP
+\fB\-f\fR, \fB\-\-follow\fR
+Print the file as it grows
+
+\fIPossible values:\fR
+.RS 14
+.IP \(bu 2
+descriptor
+.IP \(bu 2
+name
+.RE
+.TP
+\fB\-n\fR, \fB\-\-lines\fR \fI<[+]NUM>\fR
+Print the last NUM lines; use \-n +NUM to print from line NUM onward (counting from 1)
+.TP
+\fB\-\-pid\fR \fI<PID>\fR
+With \-f, terminate after process ID, PID dies
+.TP
+\fB\-q\fR, \fB\-\-quiet\fR
+Never output headers giving file names
+.TP
+\fB\-s\fR, \fB\-\-sleep\-interval\fR \fI<N>\fR
+Number of seconds to sleep between polling the file when running with \-f
+.TP
+\fB\-\-max\-unchanged\-stats\fR \fI<N>\fR
+Reopen a FILE which has not changed size after N (default 5) iterations to see if it has been unlinked or renamed (this is the usual case of rotated log files); This option is meaningful only when polling (i.e., with \-\-use\-polling) and when \-\-follow=name
+.TP
+\fB\-v\fR, \fB\-\-verbose\fR
+Always output headers giving file names
+.TP
+\fB\-z\fR, \fB\-\-zero\-terminated\fR
+Line delimiter is NUL, not newline
+.TP
+\fB\-\-use\-polling\fR
+Disable \*(Aqinotify\*(Aq support and use polling instead
+.TP
+\fB\-\-retry\fR
+Keep trying to open a file if it is inaccessible
+.TP
+\fB\-F\fR
+Same as \-\-follow=name \-\-retry
+.TP
+\fB\-\-debug\fR
+indicate which \-\-follow implementation is used
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Print help
+.TP
+\fB\-V\fR, \fB\-\-version\fR
+Print version
+.TP
+[\fIfiles\fR]
+
+.SH VERSION
+v0.13.0

@@ -1,0 +1,6 @@
+complete -c hostname -s d -l domain -d 'Display the name of the DNS domain if possible'
+complete -c hostname -s i -l ip-address -d 'Display the network address(es) of the host'
+complete -c hostname -s f -l fqdn -d 'Display the FQDN (Fully Qualified Domain Name) (default)'
+complete -c hostname -s s -l short -d 'Display the short hostname (the portion before the first dot) if possible'
+complete -c hostname -s h -l help -d 'Print help'
+complete -c hostname -s V -l version -d 'Print version'

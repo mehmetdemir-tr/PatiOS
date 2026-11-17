@@ -1,0 +1,6 @@
+complete -c dircolors -s b -l sh -l bourne-shell -d 'output Bourne shell code to set LS_COLORS'
+complete -c dircolors -s c -l csh -l c-shell -d 'output C shell code to set LS_COLORS'
+complete -c dircolors -s p -l print-database -d 'print the default color database'
+complete -c dircolors -l print-ls-colors -d 'output fully escaped colors for display'
+complete -c dircolors -s h -l help -d 'Print help'
+complete -c dircolors -s V -l version -d 'Print version'

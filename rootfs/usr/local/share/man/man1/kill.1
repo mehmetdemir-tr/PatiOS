@@ -1,0 +1,27 @@
+.ie \n(.g .ds Aq \(aq
+.el .ds Aq '
+.TH KILL 1 "2026-11-15"
+.SH NAME
+kill \- Send signal to processes or list information about signals.
+.SH SYNOPSIS
+\fBkill\fR [OPTIONS]... PID...
+.SH DESCRIPTION
+Send signal to processes or list information about signals.
+.SH OPTIONS
+.TP
+\fB\-l\fR, \fB\-\-list\fR
+Lists signals
+.TP
+\fB\-t\fR, \fB\-\-table\fR
+Lists table of signals
+.TP
+\fB\-s\fR, \fB\-\-signal\fR \fI<signal>\fR
+Sends given signal instead of SIGTERM
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Print help
+.TP
+\fB\-V\fR, \fB\-\-version\fR
+Print version
+.SH VERSION
+v0.13.0

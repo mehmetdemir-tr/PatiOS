@@ -1,0 +1,38 @@
+#compdef tty
+
+autoload -U is-at-least
+
+_tty() {
+    typeset -A opt_args
+    typeset -a _arguments_options
+    local ret=1
+
+    if is-at-least 5.2; then
+        _arguments_options=(-s -S -C)
+    else
+        _arguments_options=(-s -C)
+    fi
+
+    local context curcontext="$curcontext" state line
+    _arguments "${_arguments_options[@]}" : \
+'-s[print nothing, only return an exit status]' \
+'--silent[print nothing, only return an exit status]' \
+'--quiet[print nothing, only return an exit status]' \
+'-h[Print help]' \
+'--help[Print help]' \
+'-V[Print version]' \
+'--version[Print version]' \
+&& ret=0
+}
+
+(( $+functions[_tty_commands] )) ||
+_tty_commands() {
+    local commands; commands=()
+    _describe -t commands 'tty commands' commands "$@"
+}
+
+if [ "$funcstack[1]" = "_tty" ]; then
+    _tty "$@"
+else
+    compdef _tty tty
+fi

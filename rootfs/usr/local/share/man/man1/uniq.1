@@ -1,0 +1,79 @@
+.ie \n(.g .ds Aq \(aq
+.el .ds Aq '
+.TH UNIQ 1 "2026-11-15"
+.SH NAME
+uniq \- Report or omit repeated lines.
+.SH SYNOPSIS
+\fBuniq\fR [OPTION]... [INPUT [OUTPUT]]
+.SH DESCRIPTION
+Report or omit repeated lines.
+.SH OPTIONS
+.TP
+\fB\-D\fR
+print all duplicate lines
+.TP
+\fB\-\-all\-repeated\fR[=\fI<delimit\-method>\fR]
+print all duplicate lines. Delimiting is done with blank lines. [default: none]
+
+\fIPossible values:\fR
+.RS 14
+.IP \(bu 2
+none
+.IP \(bu 2
+prepend
+.IP \(bu 2
+separate
+.RE
+.TP
+\fB\-\-group\fR[=\fI<group\-method>\fR]
+show all items, separating groups with an empty line. [default: separate]
+
+\fIPossible values:\fR
+.RS 14
+.IP \(bu 2
+separate
+.IP \(bu 2
+prepend
+.IP \(bu 2
+append
+.IP \(bu 2
+both
+.RE
+.TP
+\fB\-w\fR, \fB\-\-check\-chars\fR \fI<N>\fR
+compare no more than N characters in lines
+.TP
+\fB\-c\fR, \fB\-\-count\fR
+prefix lines by the number of occurrences
+.TP
+\fB\-i\fR, \fB\-\-ignore\-case\fR
+ignore differences in case when comparing
+.TP
+\fB\-d\fR, \fB\-\-repeated\fR
+only print duplicate lines
+.TP
+\fB\-s\fR, \fB\-\-skip\-chars\fR \fI<N>\fR
+avoid comparing the first N characters
+.TP
+\fB\-f\fR, \fB\-\-skip\-fields\fR \fI<N>\fR
+avoid comparing the first N fields
+.TP
+\fB\-u\fR, \fB\-\-unique\fR
+only print unique lines
+.TP
+\fB\-z\fR, \fB\-\-zero\-terminated\fR
+end lines with 0 byte, not newline
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Print help
+.TP
+\fB\-V\fR, \fB\-\-version\fR
+Print version
+.SH EXTRA
+Filter adjacent matching lines from INPUT (or standard input),
+writing to OUTPUT (or standard output).
+
+Note: uniq does not detect repeated lines unless they are adjacent.
+You may want to sort the input first, or use sort \-u without uniq.
+.SH VERSION
+v0.13.0

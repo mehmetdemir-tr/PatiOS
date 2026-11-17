@@ -1,0 +1,51 @@
+.ie \n(.g .ds Aq \(aq
+.el .ds Aq '
+.TH PRINTENV 1 "2026-11-15"
+.SH NAME
+printenv \- Display the values of the specified environment VARIABLE(s), or (with no VARIABLE) display name and value pairs for them all.
+.SH SYNOPSIS
+\fBprintenv\fR [OPTION]... [VARIABLE]...
+.SH DESCRIPTION
+Display the values of the specified environment VARIABLE(s), or (with no VARIABLE) display name and value pairs for them all.
+.SH OPTIONS
+.TP
+\fB\-0\fR, \fB\-\-null\fR
+end each output line with 0 byte rather than newline
+.TP
+\fB\-\-quoting\-style\fR
+Set quoting style
+
+\fIPossible values:\fR
+.RS 14
+.IP \(bu 2
+literal
+.IP \(bu 2
+locale
+.IP \(bu 2
+shell
+.IP \(bu 2
+shell\-escape
+.IP \(bu 2
+shell\-always
+.IP \(bu 2
+shell\-escape\-always
+.IP \(bu 2
+clocale
+.IP \(bu 2
+c
+.IP \(bu 2
+c\-maybe
+.IP \(bu 2
+escape
+.RE
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Print help
+.TP
+\fB\-V\fR, \fB\-\-version\fR
+Print version
+.TP
+[\fIvariables\fR]
+
+.SH VERSION
+v0.13.0

@@ -1,0 +1,42 @@
+.ie \n(.g .ds Aq \(aq
+.el .ds Aq '
+.TH SHA256SUM 1 "2026-11-15"
+.SH NAME
+sha256sum \- Print or check the SHA256 checksums
+.SH SYNOPSIS
+\fBsha256sum\fR [OPTIONS] [FILE]...
+.SH DESCRIPTION
+Print or check the SHA256 checksums
+.SH OPTIONS
+.TP
+\fB\-c\fR, \fB\-\-check\fR
+read checksums from the FILEs and check them
+.TP
+\fB\-w\fR, \fB\-\-warn\fR
+warn about improperly formatted checksum lines
+.TP
+\fB\-\-status\fR
+don\*(Aqt output anything, status code shows success
+.TP
+\fB\-\-quiet\fR
+don\*(Aqt print OK for each successfully verified file
+.TP
+\fB\-\-ignore\-missing\fR
+don\*(Aqt fail or report status for missing files
+.TP
+\fB\-\-strict\fR
+exit non\-zero for improperly formatted checksum lines
+.TP
+\fB\-\-tag\fR
+create a BSD style checksum
+.TP
+\fB\-z\fR, \fB\-\-zero\fR
+end each output line with NUL, not newline, and disable file name escaping
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Print help
+.TP
+\fB\-V\fR, \fB\-\-version\fR
+Print version
+.SH VERSION
+v0.13.0

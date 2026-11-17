@@ -1,0 +1,26 @@
+.ie \n(.g .ds Aq \(aq
+.el .ds Aq '
+.TH TRUE 1 "2026-11-15"
+.SH NAME
+true \- Returns true, a successful exit status.
+
+Immediately returns with the exit status 0, except when invoked with one of the recognized
+options. In those cases it will try to write the help or version text. Any IO error during this
+operation causes the program to return 1 instead.
+.SH SYNOPSIS
+\fBtrue\fR [\fB\-\-help\fR] [\fB\-\-version\fR]
+.SH DESCRIPTION
+Returns true, a successful exit status.
+.PP
+Immediately returns with the exit status 0, except when invoked with one of the recognized
+options. In those cases it will try to write the help or version text. Any IO error during this
+operation causes the program to return 1 instead.
+.SH OPTIONS
+.TP
+\fB\-\-help\fR
+Print help information
+.TP
+\fB\-\-version\fR
+Print version information
+.SH VERSION
+v0.13.0

@@ -1,0 +1,56 @@
+#compdef cut
+
+autoload -U is-at-least
+
+_cut() {
+    typeset -A opt_args
+    typeset -a _arguments_options
+    local ret=1
+
+    if is-at-least 5.2; then
+        _arguments_options=(-s -S -C)
+    else
+        _arguments_options=(-s -C)
+    fi
+
+    local context curcontext="$curcontext" state line
+    _arguments "${_arguments_options[@]}" : \
+'*-b+[extract bytes listed in LIST]:LIST:_default' \
+'*--bytes=[extract bytes listed in LIST]:LIST:_default' \
+'*-c+[extract characters listed in LIST]:LIST:_default' \
+'*--characters=[extract characters listed in LIST]:LIST:_default' \
+'-d+[use DELIM as field separator (default\: Tab)]:DELIM:_default' \
+'--delimiter=[use DELIM as field separator (default\: Tab)]:DELIM:_default' \
+'-w+[use any run of blanks (Space/Tab, plus Unicode spaces in a UTF-8 locale) as delimiter; ignore leading and trailing blanks with '\''trimmed'\'']::trimmed:(trimmed)' \
+'--whitespace-delimited=[use any run of blanks (Space/Tab, plus Unicode spaces in a UTF-8 locale) as delimiter; ignore leading and trailing blanks with '\''trimmed'\'']::trimmed:(trimmed)' \
+'*-f+[extract fields listed in LIST]:LIST:_default' \
+'*--fields=[extract fields listed in LIST]:LIST:_default' \
+'*-F+[like -f, but merge adjacent delimiters; the delimiter defaults to whitespace and the output delimiter to a space]:LIST:_default' \
+'-O+[replace input delimiter with NEW_DELIM in output]:NEW_DELIM:_default' \
+'--output-delimiter=[replace input delimiter with NEW_DELIM in output]:NEW_DELIM:_default' \
+'--complement[invert selection\: print all columns except the specified ones]' \
+'-s[suppress lines that do not contain the delimiter]' \
+'--only-delimited[suppress lines that do not contain the delimiter]' \
+'-z[use NULL (\\0) instead of newline as line terminator]' \
+'--zero-terminated[use NULL (\\0) instead of newline as line terminator]' \
+'-n[with -b, do not output partial multi-byte characters]' \
+'--no-partial[with -b, do not output partial multi-byte characters]' \
+'-h[Print help]' \
+'--help[Print help]' \
+'-V[Print version]' \
+'--version[Print version]' \
+'::file:_files' \
+&& ret=0
+}
+
+(( $+functions[_cut_commands] )) ||
+_cut_commands() {
+    local commands; commands=()
+    _describe -t commands 'cut commands' commands "$@"
+}
+
+if [ "$funcstack[1]" = "_cut" ]; then
+    _cut "$@"
+else
+    compdef _cut cut
+fi

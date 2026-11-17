@@ -1,0 +1,128 @@
+.ie \n(.g .ds Aq \(aq
+.el .ds Aq '
+.TH NUMFMT 1 "2026-11-15"
+.SH NAME
+numfmt \- Convert numbers from/to human\-readable strings
+.SH SYNOPSIS
+\fBnumfmt\fR [OPTION]... [NUMBER]...
+.SH DESCRIPTION
+Convert numbers from/to human\-readable strings
+.SH OPTIONS
+.TP
+\fB\-\-debug\fR
+print warnings about invalid input
+.TP
+\fB\-\-grouping\fR
+use locale\-defined grouping of digits, for example 1,000,000 (which means it has no effect in the C/POSIX locale)
+.TP
+\fB\-d\fR, \fB\-\-delimiter\fR \fI<X>\fR
+use X instead of whitespace for field delimiter
+.TP
+\fB\-\-field\fR \fI<FIELDS>\fR [default: 1]
+replace the numbers in these input fields; see FIELDS below
+.TP
+\fB\-\-format\fR \fI<FORMAT>\fR
+use printf style floating\-point FORMAT; see FORMAT below for details
+.TP
+\fB\-\-from\fR \fI<UNIT>\fR [default: none]
+auto\-scale input numbers to UNITs; see UNIT below
+.TP
+\fB\-\-from\-unit\fR \fI<N>\fR [default: 1]
+specify the input unit size
+.TP
+\fB\-\-to\fR \fI<UNIT>\fR [default: none]
+auto\-scale output numbers to UNITs; see UNIT below
+.TP
+\fB\-\-to\-unit\fR \fI<N>\fR [default: 1]
+the output unit size
+.TP
+\fB\-\-padding\fR \fI<N>\fR
+pad the output to N characters; positive N will right\-align; negative N will left\-align; padding is ignored if the output is wider than N; the default is to automatically pad if a whitespace is found
+.TP
+\fB\-\-header\fR[=\fI<N>\fR]
+print (without converting) the first N header lines; N defaults to 1 if not specified
+.TP
+\fB\-\-round\fR \fI<METHOD>\fR [default: from\-zero]
+use METHOD for rounding when scaling
+
+\fIPossible values:\fR
+.RS 14
+.IP \(bu 2
+up
+.IP \(bu 2
+down
+.IP \(bu 2
+from\-zero
+.IP \(bu 2
+towards\-zero
+.IP \(bu 2
+nearest
+.RE
+.TP
+\fB\-\-suffix\fR \fI<SUFFIX>\fR
+print SUFFIX after each formatted number, and accept inputs optionally ending with SUFFIX
+.TP
+\fB\-\-unit\-separator\fR \fI<STRING>\fR
+use STRING to separate the number from any unit when printing; by default, no separator is used
+.TP
+\fB\-\-invalid\fR \fI<INVALID>\fR [default: abort]
+set the failure mode for invalid input
+
+\fIPossible values:\fR
+.RS 14
+.IP \(bu 2
+abort
+.IP \(bu 2
+fail
+.IP \(bu 2
+warn
+.IP \(bu 2
+ignore
+.RE
+.TP
+\fB\-z\fR, \fB\-\-zero\-terminated\fR
+line delimiter is NUL, not newline
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Print help
+.TP
+\fB\-V\fR, \fB\-\-version\fR
+Print version
+.SH EXTRA
+UNIT options:
+
+\- none: no auto\-scaling is done; suffixes will trigger an error
+
+\- auto: accept optional single/two letter suffix:
+
+    1K = 1000, 1Ki = 1024, 1M = 1000000, 1Mi = 1048576,
+
+\- si: accept optional single letter suffix:
+
+    1K = 1000, 1M = 1000000, ...
+
+\- iec: accept optional single letter suffix:
+
+    1K = 1024, 1M = 1048576, ...
+
+\- iec\-i: accept optional two\-letter suffix:
+
+    1Ki = 1024, 1Mi = 1048576, ...
+
+\- FIELDS supports cut(1) style field ranges:
+
+    N N\*(Aqth field, counted from 1
+    N\- from N\*(Aqth field, to end of line
+    N\-M from N\*(Aqth to M\*(Aqth field (inclusive)
+    \-M from first to M\*(Aqth field (inclusive)
+    \- all fields
+
+Multiple fields/ranges can be separated with commas
+
+FORMAT must be suitable for printing one floating\-point argument %f.
+Optional quote (%\*(Aqf) will enable \-\-grouping (if supported by current locale).
+Optional width value (%10f) will pad output. Optional zero (%010f) width
+will zero pad the number. Optional negative values (%\-10f) will left align.
+Optional precision (%.1f) will override the input determined precision.
+.SH VERSION
+v0.13.0

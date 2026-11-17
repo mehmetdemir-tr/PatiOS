@@ -1,0 +1,54 @@
+.ie \n(.g .ds Aq \(aq
+.el .ds Aq '
+.TH MORE 1 "2026-11-15"
+.SH NAME
+more \- Display the contents of a text file
+.SH SYNOPSIS
+\fBmore\fR [OPTIONS] FILE...
+.SH DESCRIPTION
+Display the contents of a text file
+.SH OPTIONS
+.TP
+\fB\-d\fR, \fB\-\-silent\fR
+Display help instead of ringing bell when an illegal key is pressed
+.TP
+\fB\-f\fR, \fB\-\-logical\fR
+Count logical lines, rather than screen lines
+.TP
+\fB\-e\fR, \fB\-\-exit\-on\-eof\fR
+Exit on End\-Of\-File
+.TP
+\fB\-l\fR, \fB\-\-no\-pause\fR
+Do not pause after any line containing a ^L (form feed)
+.TP
+\fB\-p\fR, \fB\-\-print\-over\fR
+Do not scroll, clear screen and display text
+.TP
+\fB\-c\fR, \fB\-\-clean\-print\fR
+Do not scroll, display text and clean line ends
+.TP
+\fB\-s\fR, \fB\-\-squeeze\fR
+Squeeze multiple blank lines into one
+.TP
+\fB\-n\fR, \fB\-\-lines\fR \fI<number>\fR
+The number of lines per screen full
+.TP
+\fB\-\-number\fR
+Same as \-\-lines option argument
+.TP
+\fB\-F\fR, \fB\-\-from\-line\fR \fI<number>\fR
+Start displaying each file at line number
+.TP
+\fB\-P\fR, \fB\-\-pattern\fR \fI<pattern>\fR
+The string to be searched in each file before starting to display it
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Print help
+.TP
+\fB\-V\fR, \fB\-\-version\fR
+Print version
+.TP
+[\fIfiles\fR]
+Path to the files to be read
+.SH VERSION
+v0.13.0

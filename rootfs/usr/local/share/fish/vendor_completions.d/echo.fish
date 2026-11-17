@@ -1,0 +1,5 @@
+complete -c echo -s n -d 'do not output the trailing newline'
+complete -c echo -s e -d 'enable interpretation of backslash escapes'
+complete -c echo -s E -d 'disable interpretation of backslash escapes (default)'
+complete -c echo -s h -l help -d 'Print help'
+complete -c echo -s V -l version -d 'Print version'

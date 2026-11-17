@@ -1,0 +1,32 @@
+.ie \n(.g .ds Aq \(aq
+.el .ds Aq '
+.TH PASTE 1 "2026-11-15"
+.SH NAME
+paste \- Write lines consisting of the sequentially corresponding lines from each
+FILE, separated by TABs, to standard output.
+.SH SYNOPSIS
+\fBpaste\fR [OPTIONS] [FILE]...
+.SH DESCRIPTION
+Write lines consisting of the sequentially corresponding lines from each
+FILE, separated by TABs, to standard output.
+.SH OPTIONS
+.TP
+\fB\-s\fR, \fB\-\-serial\fR
+paste one file at a time instead of in parallel
+.TP
+\fB\-d\fR, \fB\-\-delimiters\fR \fI<LIST>\fR
+reuse characters from LIST instead of TABs
+.TP
+\fB\-z\fR, \fB\-\-zero\-terminated\fR
+line delimiter is NUL, not newline
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Print help
+.TP
+\fB\-V\fR, \fB\-\-version\fR
+Print version
+.TP
+[\fIFILE\fR] [default: \-]
+
+.SH VERSION
+v0.13.0

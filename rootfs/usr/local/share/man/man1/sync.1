@@ -1,0 +1,27 @@
+.ie \n(.g .ds Aq \(aq
+.el .ds Aq '
+.TH SYNC 1 "2026-11-15"
+.SH NAME
+sync \- Synchronize cached writes to persistent storage
+.SH SYNOPSIS
+\fBsync\fR [OPTION]... FILE...
+.SH DESCRIPTION
+Synchronize cached writes to persistent storage
+.SH OPTIONS
+.TP
+\fB\-f\fR, \fB\-\-file\-system\fR
+sync the file systems that contain the files (Linux and Windows only)
+.TP
+\fB\-d\fR, \fB\-\-data\fR
+sync only file data, no unneeded metadata (Linux only)
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Print help
+.TP
+\fB\-V\fR, \fB\-\-version\fR
+Print version
+.TP
+[\fIfiles\fR]
+
+.SH VERSION
+v0.13.0

@@ -1,0 +1,216 @@
+.ie \n(.g .ds Aq \(aq
+.el .ds Aq '
+.TH DATE 1 "2026-11-15"
+.SH NAME
+date \- Print or set the system date and time
+.SH SYNOPSIS
+\fBdate\fR [OPTION]... [+FORMAT]...
+.br
+\fBdate\fR [OPTION]... [MMDDhhmm[[CC]YY][.ss]]
+.br
+FORMAT controls the output.  Interpreted sequences are:
+.br
+| Sequence | Description                                                          | Example                |
+.br
+| \-\-\-\-\-\-\-\- | \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\- | \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\- |
+.br
+| %%       | a literal %                                                          | %                      |
+.br
+| %a       | locale\*(Aqs abbreviated weekday name                                    | Sun                    |
+.br
+| %A       | locale\*(Aqs full weekday name                                           | Sunday                 |
+.br
+| %b       | locale\*(Aqs abbreviated month name                                      | Jan                    |
+.br
+| %B       | locale\*(Aqs full month name                                             | January                |
+.br
+| %c       | locale\*(Aqs date and time                                               | Thu Mar 3 23:05:25 2005|
+.br
+| %C       | century; like %Y, except omit last two digits                        | 20                     |
+.br
+| %d       | day of month                                                         | 01                     |
+.br
+| %D       | date; same as %m/%d/%y                                               | 12/31/99               |
+.br
+| %e       | day of month, space padded; same as %_d                              | 3                      |
+.br
+| %F       | full date; same as %Y\-%m\-%d                                          | 2005\-03\-03             |
+.br
+| %g       | last two digits of year of ISO week number (see %G)                  | 05                     |
+.br
+| %G       | year of ISO week number (see %V); normally useful only with %V       | 2005                   |
+.br
+| %h       | same as %b                                                           | Jan                    |
+.br
+| %H       | hour (00..23)                                                        | 23                     |
+.br
+| %I       | hour (01..12)                                                        | 11                     |
+.br
+| %j       | day of year (001..366)                                               | 062                    |
+.br
+| %k       | hour, space padded ( 0..23); same as %_H                             |  3                     |
+.br
+| %l       | hour, space padded ( 1..12); same as %_I                             |  9                     |
+.br
+| %m       | month (01..12)                                                       | 03                     |
+.br
+| %M       | minute (00..59)                                                      | 30                     |
+.br
+| %n       | a newline                                                            | \\n                     |
+.br
+| %N       | nanoseconds (000000000..999999999)                                   | 123456789              |
+.br
+| %p       | locale\*(Aqs equivalent of either AM or PM; blank if not known           | PM                     |
+.br
+| %P       | like %p, but lower case                                              | pm                     |
+.br
+| %q       | quarter of year (1..4)                                               | 1                      |
+.br
+| %r       | locale\*(Aqs 12\-hour clock time                                          | 11:11:04 PM            |
+.br
+| %R       | 24\-hour hour and minute; same as %H:%M                               | 23:30                  |
+.br
+| %s       | seconds since 1970\-01\-01 00:00:00 UTC                                | 1615432800             |
+.br
+| %S       | second (00..60)                                                      | 30                     |
+.br
+| %t       | a tab                                                                | \\t                     |
+.br
+| %T       | time; same as %H:%M:%S                                               | 23:30:30               |
+.br
+| %u       | day of week (1..7); 1 is Monday                                      | 4                      |
+.br
+| %U       | week number of year, with Sunday as first day of week (00..53)       | 10                     |
+.br
+| %V       | ISO week number, with Monday as first day of week (01..53)           | 12                     |
+.br
+| %w       | day of week (0..6); 0 is Sunday                                      | 4                      |
+.br
+| %W       | week number of year, with Monday as first day of week (00..53)       | 11                     |
+.br
+| %x       | locale\*(Aqs date representation                                         | 03/03/2005             |
+.br
+| %X       | locale\*(Aqs time representation                                         | 23:30:30               |
+.br
+| %y       | last two digits of year (00..99)                                     | 05                     |
+.br
+| %Y       | year                                                                 | 2005                   |
+.br
+| %z       | +hhmm numeric time zone                                              | \-0400                  |
+.br
+| %:z      | +hh:mm numeric time zone                                             | \-04:00                 |
+.br
+| %::z     | +hh:mm:ss numeric time zone                                          | \-04:00:00              |
+.br
+| %:::z    | numeric time zone with : to necessary precision                      | \-04, +05:30            |
+.br
+| %Z       | alphabetic time zone abbreviation                                    | EDT                    |
+.br
+By default, date pads numeric fields with zeroes.
+.br
+The following optional flags may follow \*(Aq%\*(Aq:
+.br
+* `\-` (hyphen) do not pad the field
+.br
+* `_` (underscore) pad with spaces
+.br
+* `0` (zero) pad with zeros
+.br
+* `^` use upper case if possible
+.br
+* `#` use opposite case if possible
+.br
+After any flags comes an optional field width, as a decimal number;
+.br
+then an optional modifier, which is either
+.br
+* `E` to use the locale\*(Aqs alternate representations if available, or
+.br
+* `O` to use the locale\*(Aqs alternate numeric symbols if available.
+.br
+Examples:
+.br
+Convert seconds since the epoch (1970\-01\-01 UTC) to a date
+.br
+\fBdate\fR \-\-date=\*(Aq@2147483647\*(Aq
+.br
+Show the time on the west coast of the US (use tzselect(1) to find TZ)
+.br
+TZ=\*(AqAmerica/Los_Angeles\*(Aq date
+.SH DESCRIPTION
+Print or set the system date and time
+.SH OPTIONS
+.TP
+\fB\-d\fR, \fB\-\-date\fR \fI<STRING>\fR
+display time described by STRING, not \*(Aqnow\*(Aq
+.TP
+\fB\-f\fR, \fB\-\-file\fR \fI<DATEFILE>\fR
+like \-\-date; once for each line of DATEFILE
+.TP
+\fB\-I\fR, \fB\-\-iso\-8601\fR[=\fI<FMT>\fR]
+output date/time in ISO 8601 format.
+FMT=\*(Aqdate\*(Aq for date only (the default),
+\*(Aqhours\*(Aq, \*(Aqminutes\*(Aq, \*(Aqseconds\*(Aq, or \*(Aqns\*(Aq
+for date and time to the indicated precision.
+Example: 2006\-08\-14T02:34:56\-06:00
+
+\fIPossible values:\fR
+.RS 14
+.IP \(bu 2
+date
+.IP \(bu 2
+hours
+.IP \(bu 2
+minutes
+.IP \(bu 2
+seconds
+.IP \(bu 2
+ns
+.RE
+.TP
+\fB\-\-resolution\fR
+output the available resolution of timestamps
+Example: 0.000000001
+.TP
+\fB\-R\fR, \fB\-\-rfc\-email\fR
+output date and time in RFC 5322 format.
+Example: Mon, 14 Aug 2006 02:34:56 \-0600
+.TP
+\fB\-\-rfc\-3339\fR \fI<FMT>\fR
+output date/time in RFC 3339 format.
+FMT=\*(Aqdate\*(Aq, \*(Aqseconds\*(Aq, or \*(Aqns\*(Aq
+for date and time to the indicated precision.
+Example: 2006\-08\-14 02:34:56\-06:00
+
+\fIPossible values:\fR
+.RS 14
+.IP \(bu 2
+date
+.IP \(bu 2
+seconds
+.IP \(bu 2
+ns
+.RE
+.TP
+\fB\-\-debug\fR
+annotate the parsed date, and warn about questionable usage to stderr
+.TP
+\fB\-r\fR, \fB\-\-reference\fR \fI<FILE>\fR
+display the last modification time of FILE
+.TP
+\fB\-s\fR, \fB\-\-set\fR \fI<STRING>\fR
+set time described by STRING
+.TP
+\fB\-u\fR, \fB\-\-universal\fR
+print or set Coordinated Universal Time (UTC)
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Print help
+.TP
+\fB\-V\fR, \fB\-\-version\fR
+Print version
+.TP
+[\fIformat\fR]
+
+.SH VERSION
+v0.13.0

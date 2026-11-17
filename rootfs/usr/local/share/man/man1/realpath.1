@@ -1,0 +1,51 @@
+.ie \n(.g .ds Aq \(aq
+.el .ds Aq '
+.TH REALPATH 1 "2026-11-15"
+.SH NAME
+realpath \- Print the resolved path
+.SH SYNOPSIS
+\fBrealpath\fR [OPTION]... FILE...
+.SH DESCRIPTION
+Print the resolved path
+.SH OPTIONS
+.TP
+\fB\-q\fR, \fB\-\-quiet\fR
+Do not print warnings for invalid paths
+.TP
+\fB\-s\fR, \fB\-\-strip\fR
+Only strip \*(Aq.\*(Aq and \*(Aq..\*(Aq components, but don\*(Aqt resolve symbolic links
+.TP
+\fB\-z\fR, \fB\-\-zero\fR
+Separate output filenames with \e0 rather than newline
+.TP
+\fB\-L\fR, \fB\-\-logical\fR
+resolve \*(Aq..\*(Aq components before symlinks
+.TP
+\fB\-P\fR, \fB\-\-physical\fR
+resolve symlinks as encountered (default)
+.TP
+\fB\-E\fR, \fB\-\-canonicalize\fR
+all but the last component must exist (default)
+.TP
+\fB\-e\fR, \fB\-\-canonicalize\-existing\fR
+canonicalize by following every symlink in every component of the given name recursively, all components must exist
+.TP
+\fB\-m\fR, \fB\-\-canonicalize\-missing\fR
+canonicalize by following every symlink in every component of the given name recursively, without requirements on components existence
+.TP
+\fB\-\-relative\-to\fR \fI<DIR>\fR
+print the resolved path relative to DIR
+.TP
+\fB\-\-relative\-base\fR \fI<DIR>\fR
+print absolute paths unless paths below DIR
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Print help
+.TP
+\fB\-V\fR, \fB\-\-version\fR
+Print version
+.TP
+<\fIfiles\fR>
+
+.SH VERSION
+v0.13.0

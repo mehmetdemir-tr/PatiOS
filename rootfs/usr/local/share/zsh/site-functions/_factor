@@ -1,0 +1,37 @@
+#compdef factor
+
+autoload -U is-at-least
+
+_factor() {
+    typeset -A opt_args
+    typeset -a _arguments_options
+    local ret=1
+
+    if is-at-least 5.2; then
+        _arguments_options=(-s -S -C)
+    else
+        _arguments_options=(-s -C)
+    fi
+
+    local context curcontext="$curcontext" state line
+    _arguments "${_arguments_options[@]}" : \
+'-h[Print factors in the form p^e]' \
+'--exponents[Print factors in the form p^e]' \
+'--help[Print help information.]' \
+'-V[Print version]' \
+'--version[Print version]' \
+'::NUMBER:_default' \
+&& ret=0
+}
+
+(( $+functions[_factor_commands] )) ||
+_factor_commands() {
+    local commands; commands=()
+    _describe -t commands 'factor commands' commands "$@"
+}
+
+if [ "$funcstack[1]" = "_factor" ]; then
+    _factor "$@"
+else
+    compdef _factor factor
+fi

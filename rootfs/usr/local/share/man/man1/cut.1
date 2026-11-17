@@ -1,0 +1,73 @@
+.ie \n(.g .ds Aq \(aq
+.el .ds Aq '
+.TH CUT 1 "2026-11-15"
+.SH NAME
+cut \- Extract sections from each line of files.
+.SH SYNOPSIS
+\fBcut\fR OPTION... [FILE]...
+.SH DESCRIPTION
+Extract sections from each line of files.
+.SH OPTIONS
+.TP
+\fB\-b\fR, \fB\-\-bytes\fR \fI<LIST>\fR
+extract bytes listed in LIST
+.TP
+\fB\-c\fR, \fB\-\-characters\fR \fI<LIST>\fR
+extract characters listed in LIST
+.TP
+\fB\-d\fR, \fB\-\-delimiter\fR \fI<DELIM>\fR
+use DELIM as field separator (default: Tab)
+.TP
+\fB\-w\fR, \fB\-\-whitespace\-delimited\fR[=\fI<trimmed>\fR]
+use any run of blanks (Space/Tab, plus Unicode spaces in a UTF\-8 locale) as delimiter; ignore leading and trailing blanks with \*(Aqtrimmed\*(Aq
+
+\fIPossible values:\fR
+.RS 14
+.IP \(bu 2
+trimmed
+.RE
+.TP
+\fB\-f\fR, \fB\-\-fields\fR \fI<LIST>\fR
+extract fields listed in LIST
+.TP
+\fB\-F\fR \fI<LIST>\fR
+like \-f, but merge adjacent delimiters; the delimiter defaults to whitespace and the output delimiter to a space
+.TP
+\fB\-\-complement\fR
+invert selection: print all columns except the specified ones
+.TP
+\fB\-s\fR, \fB\-\-only\-delimited\fR
+suppress lines that do not contain the delimiter
+.TP
+\fB\-z\fR, \fB\-\-zero\-terminated\fR
+use NULL (\e0) instead of newline as line terminator
+.TP
+\fB\-O\fR, \fB\-\-output\-delimiter\fR \fI<NEW_DELIM>\fR
+replace input delimiter with NEW_DELIM in output
+.TP
+\fB\-n\fR, \fB\-\-no\-partial\fR
+with \-b, do not output partial multi\-byte characters
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Print help
+.TP
+\fB\-V\fR, \fB\-\-version\fR
+Print version
+.SH EXTRA
+If no FILE is specified, reads from stdin. Use \*(Aq\-\*(Aq as a FILE argument to include stdin.
+
+LIST is a comma\-separated list of numbers or ranges:
+
+  N           only column N
+  N\-          columns N through the end of the line
+  N\-M         columns N through M
+  \-M          columns 1 through M
+
+Examples:
+
+  cut \-f 2,5\-7 file.txt             extract fields 2, 5, 6, and 7
+  cut \-f 3\- file.txt                extract field 3 to the end of the line
+  cut \-\-complement \-f 4\-6 file.txt  extract all fields except 4, 5, and 6
+  cut \-d\*(Aq,\*(Aq \-f1 file.csv            extract first field from a CSV
+.SH VERSION
+v0.13.0

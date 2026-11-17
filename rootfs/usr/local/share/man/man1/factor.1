@@ -1,0 +1,26 @@
+.ie \n(.g .ds Aq \(aq
+.el .ds Aq '
+.TH FACTOR 1 "2026-11-15"
+.SH NAME
+factor \- Print the prime factors of the given NUMBER(s).
+If none are specified, read from standard input.
+.SH SYNOPSIS
+\fBfactor\fR [OPTION]... [NUMBER]...
+.SH DESCRIPTION
+Print the prime factors of the given NUMBER(s).
+If none are specified, read from standard input.
+.SH OPTIONS
+.TP
+\fB\-h\fR, \fB\-\-exponents\fR
+Print factors in the form p^e
+.TP
+\fB\-\-help\fR
+Print help information.
+.TP
+\fB\-V\fR, \fB\-\-version\fR
+Print version
+.TP
+[\fINUMBER\fR]
+
+.SH VERSION
+v0.13.0
