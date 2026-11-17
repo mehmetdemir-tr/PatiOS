@@ -8,7 +8,8 @@
 
 ---
 
-## Compile
+## Compiling Instructions
+* **Install the *Prerequisites* from your package manager or the internet**
 * **Obtain the fish-shell from https://github.com/fish-shell/fish-shell**
 * **Put in the same folder where the source code is located**
 * **Type `sudo make` and let the magic happen :)**
