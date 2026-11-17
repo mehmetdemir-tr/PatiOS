@@ -1,45 +1,43 @@
-# PatiOS - Linux Tabanlı ARM64 üzerine inşa edilen bir dağıtım.
+# PatiOS - A distribution built on Linux for ARM64.
 [![Language: C](https://img.shields.io/badge/Language-C-A8B9CC.svg)](https://ibm.com)
 [![AI Assisted](https://img.shields.io/badge/AI_Assisted-orange)](#)
 
-**PatiOS**, sistem yöneticisi, kabuk ve servis araçları gibi temel sistem bileşenleri %100 C ile yazılmış, Linux kernel'i üzerinde çalışan bir Linux From Scratch (LFS) dağıtımıdır.
+**PatiOS** is a Linux From Scratch (LFS) distribution that runs on the Linux kernel, with core system components—such as the system manager, shell, and service utilities—written entirely in C.
 
-* **Geliştirme Motoru:** Kendi özel Linux dağıtımınızı derlemek ve genişletmek için yardımcı ekosistem aracı olan **[KedyBox](https://github.com/mehmetdemir-tr/KedyBox)** reposunu kullanabilirsiniz.
-* **Kod Adı:** `watermelon-karpuz`
-
----
-
-## Teknik Mimari ve Öne Çıkan Özellikler
-
-PatiOS, Debian/Ubuntu gibi hazır dağıtım tabanlarını kullanmaz. Tamamen kendi rootfs ve user-space araçlarını kullanır:
-
-* **Standalone User-Space:** Sistem; Python gibi ağır yorumlayıcılara ihtiyaç duymadan, C ile derlenmiş minimal user-space ikili dosyalarıyla çalışır.
-* **Musl-libc Optimizasyonu:** `aarch64-linux-musl-gcc` zinciri hedeflenerek derlenmiştir. Bu sayede standart `glibc` kütüphanelerine kıyasla daha hafif binary boyutu sağlar.
+* **codename:** `watermelon-karpuz`
 
 ---
 
-## Proje İçeriği ve Dosya Yapısı
+## Technical Features
 
-* `shell.c` : İşletim sisteminin ana kabuğu.
-* `mauvyd.c` : Çekirdek başlangıcından sonra devreye giren temel sistem yönetim dosyası. (systemd tarzı)
-* `pati-services/` : `karabaş` gibi PatiOS-Core'a has olan servisler ve programlar.
+PatiOS doesn't uses any Debian / Ubuntu like rootfs. It has own rootfs and user-space tools.
+
+* **Standalone User-Space:** It doesn't needs any Python Interpreter or any heavy compiler. It uses binaries compiled in C
+* * **Musl-libc Optimization:** Compiled targeting the `aarch64-linux-musl-gcc` chain. This results in a smaller binary size compared to the standard `glibc` libraries.
 
 ---
 
-## Dağıtım Kurulumu ve Hedef Platformlar
+## Project Content and File Structure
 
-### Desteklenen / Hedeflenen platformlar
+* `mauvyd.c` : **systemd** like system manager
+* `pati-services/` : It's own services and programs.
+
+---
+
+## Installation and supported platforms
+
+### Supported Platforms
 * Raspberry Pi 3 / 4 / 5 (ARM64)
-* QEMU (Sanallaştırma ortamları)
-* WSL (Windows Subsystem for Linux) ve Yerel Linux Dağıtımları
+* QEMU (Virtualization)
+* WSL (Windows Subsystem for Linux) and native Linux Distros
 
-### Kurulum aşamaları (Raspberry Pi 3/4/5) 
-1. SD kartınızı **MBR** düzeniyle bölümlendirin ve minimum **512MB FAT32** alanı oluşturun.
-2. [Raspberry Pi Firmware](https://github.com/raspberrypi/firmware) reposundan `boot` klasör içeriğini bu bölüme taşıyın.
-3. KedyBox ile derlediğiniz `initramfs` dosyasının adını `initramfs.gz` yaparak FAT32 bölümüne yükleyin.
-4. `cmdline.txt` dosyasını oluşturup şu parametreleri ekleyin:  
+### Installation Steps (Raspberry Pi 3/4/5) 
+1. Partition your SD card using the **MBR** layout and create a partition with a minimum size of **512MB in FAT32**.
+2. Copy the contents of the `boot` folder from the [Raspberry Pi Firmware](https://github.com/raspberrypi/firmware) repository to this partition.
+3. Rename the `initramfs` file you compiled with KedyBox to `initramfs.gz` and upload it to the FAT32 partition.
+4. Create a `cmdline.txt` file and add the following parameters:
    `console=serial0,115200 console=tty1 rdinit=/init`
-5. `config.txt` dosyasını oluşturup sistemi şu örnek parametrelerle kaydedebilirsiniz:
+5. Create a `config.txt` file and save the system with the following example parameters:
    ```text
    display_auto_detect=1
    initramfs initramfs.gz followkernel
@@ -50,36 +48,35 @@ PatiOS, Debian/Ubuntu gibi hazır dağıtım tabanlarını kullanmaz. Tamamen ke
 
 ---
 
-## Sistem Ekran Görüntüleri
+## Screenshots from the system
 
 ![Shell](https://raw.githubusercontent.com/mehmetdemir-tr/Pati/main/screenshots/genel.jpeg)  
-*Shell.*
 
 ![Yardım](https://raw.githubusercontent.com/mehmetdemir-tr/Pati/main/screenshots/yardim.jpeg)  
-*`yardım` komutu.*
+*`help` command.*
 
 ![Patifetch](https://raw.githubusercontent.com/mehmetdemir-tr/Pati/main/screenshots/patifetch.jpeg)  
-*`patifetch` komutu.*
+*`patifetch` command.*
 
 ---
 
-## Lisans ve Katkıda Bulunma
+## License and Contributions
 
-Bu proje **MIT** lisansı ile yayınlanmaktadır. 
-* Projenin tüm telif hakları açık kalmak kaydıyla, ticari ve kurumsal projelerde kapatılarak veya entegre edilerek kullanılması tamamen serbesttir.
-* Projeye katkı sağlamak veya hata bildirmek için **Issues** sekmesinden istek açabilirsiniz.
+This project is released under the **MIT** license. 
+* Provided that all copyrights to the project remain intact, it is entirely free to use in commercial and institutional projects, whether as a standalone solution or integrated into other systems.
+* To contribute to the project or report a bug, you can open an issue via the **Issues** tab.
 
-**Geliştirme Notu:** Bu proje, araştırma ve derin mühendislik odaklı bir protokolle geliştirilmektedir. Yapay zeka yardımı alınırken doğrudan kod kopyalamak yerine, işletim sistemi teorisi, terim araştırması ve alt seviye mantık sorgulama yöntemi tercih edilmektedir.
+**Development Note:** This project is being developed using a protocol focused on research and in-depth engineering. Rather than directly copying code while using artificial intelligence, we are prioritizing operating system theory, terminology research, and low-level logical reasoning.
 
 
-## Timeline (Projenin zaman akışı):
-1. 27 Mart 2026 - Repo oluşturuldu (Pati adıyla)
-2. 11 Nisan 2026 - İlk resmi sürüm
-3. 9 Mayıs 2026 - 2.1 sürümüne ve Ananas kod adına geçiş
-4. 19 Mayıs 2026 - Özel 19 Mayıs Atatürk'ü anma gençlik ve spor bayramı sürümü yayınlandı
-5. 2 Temmuz 2026 - Projenin son sürümü yayınlandı (2.6)
-6. 16 Kasım 2026 - PatiOS-3.0 Yayınlandı
+## Timeline:
+1. March 27, 2026 - Repo created (under the name “Pati”)
+2. April 11, 2026 - First official release
+3. May 9, 2026 - Transition to version 2.1 and the “Ananas” codename
+4. May 19, 2026 - Special release commemorating the May 19 Atatürk Commemoration, Youth, and Sports Day
+5. July 2, 2026 - 2.6 Release
+6. November 16, 2026 - PatiOS-3.0 released
 
 ---
-*Geliştirici: [mehmetdemir-tr](https://github.com/mehmetdemir-tr)*
+*Developer: [mehmetdemir-tr](https://github.com/mehmetdemir-tr)*
 
