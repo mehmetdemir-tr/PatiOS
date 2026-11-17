@@ -2,6 +2,8 @@
 [![Language: C](https://img.shields.io/badge/Language-C-A8B9CC.svg)](https://ibm.com)
 [![AI Assisted](https://img.shields.io/badge/AI_Assisted-orange)](#)
 
+![Y](https://raw.githubusercontent.com/mehmetdemir-tr/PatiOS/master/assets/fastfetch.png) 
+
 **PatiOS** is a Linux From Scratch (LFS) distribution that runs on the Linux kernel, with core system components—such as the system manager and service utilities—written entirely in C.
 
 * **codename:** `şakir` (shakir)
@@ -68,13 +70,10 @@ PatiOS doesn't uses any Debian / Ubuntu like rootfs. It has own rootfs and user-
 
 ---
 
-## Screenshots from the system
+## Screenshot from the system
  
 ![Yardım](https://raw.githubusercontent.com/mehmetdemir-tr/Pati/main/screenshots/yardim.jpeg)  
 *`help` command.*
-
-![Patifetch](https://raw.githubusercontent.com/mehmetdemir-tr/Pati/main/screenshots/patifetch.jpeg)  
-*`patifetch` command.*
 
 ---
 
