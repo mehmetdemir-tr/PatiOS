@@ -8,6 +8,23 @@
 
 ---
 
+## Compile
+* **Obtain the fish-shell from https://github.com/fish-shell/fish-shell**
+* **Put in the same folder where the source code is located**
+* **Type `sudo make` and let the magic happen :)**
+
+## Prerequisites
+* **aarch64-linux-musl-gcc** [toolchain](https://musl.cc)
+* **qemu-system-aarch64** package (`qemu-system-arm`)
+* **unzip** package
+* **genext2fs** package
+* **sfdisk** package (`fdisk` / `util-linux`)
+* **e2fsprogs** package (`mkfs.ext4`, `debugfs`, `tune2fs`, `e2fsck`)
+* **cpio** package
+* **gzip** package
+* **findutils** package (`find`)
+* **file** package
+
 ## Technical Features
 
 PatiOS doesn't uses any Debian / Ubuntu like rootfs. It has own rootfs and user-space tools.
