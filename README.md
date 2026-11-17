@@ -4,7 +4,7 @@
 
 **PatiOS** is a Linux From Scratch (LFS) distribution that runs on the Linux kernel, with core system components—such as the system manager and service utilities—written entirely in C.
 
-* **codename:** `watermelon-karpuz`
+* **codename:** `şakir` (shakir)
 
 ---
 
