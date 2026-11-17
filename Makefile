@@ -3,6 +3,7 @@ SHELL       := /bin/bash
 .ONESHELL:
 .DEFAULT_GOAL := all
 .NOTPARALLEL:
+FAKEROOT := $(if $(FAKEROOTKEY),,fakeroot)
 .DELETE_ON_ERROR:
 
 R := \033[1;31m
@@ -23,7 +24,7 @@ BUILDDIR  := build
 
 PURGE_CMDS ?= 1
 
-CFLAGS := -static -Os -fstack-protector-strong -s -Wall
+CFLAGS := -static -Os -fstack-protector-strong -Wall
 
 SAVE_C := recovery.c mkfs.c tar.c
 
@@ -52,18 +53,45 @@ RECOVERY_MB    := 32
 
 REQUIRED_TOOLS := sfdisk dd mkfs.ext4 debugfs cpio gzip find file tune2fs e2fsck mknod
 
-.PHONY: all banner root-check tools disk extract compile fish nodes move \
-        system init recovery initramfs  clean distclean help
+USER_HOME := $(shell getent passwd $${SUDO_USER:-$$USER} | cut -d: -f6)
 
-all: banner $(DISK) extract compile fish nodes move system init recovery initramfs
-	@if [ ! -f "fish-shell/CMakeLists.txt" ]; then \
+
+.PHONY: all submodules banner extract compile fish coreutils nodes move system init recovery initramfs
+
+COREUTILS_APPLETS = arch base32 base64 basename basenc cat chgrp chmod chown chroot cksum comm cp csplit cut date dd df dir dircolors dirname du echo env expand expr factor false fmt fold groups hashsum head hostid hostname id install join kill link ln logname ls mkdir mkfifo mknod mktemp more mv nice nl nohup nproc numfmt od paste pathchk pr printenv printf ptx pwd readlink realpath rm rmdir seq shred shuf sleep sort split stat sum sync tac tail tee test timeout touch tr true truncate tsort tty uname unexpand uniq unlink vdir wc whoami yes
+
+coreutils:
+	PATH="$(USER_HOME)/.cargo/bin:$$PATH" \
+	RUSTUP_HOME="$(USER_HOME)/.rustup" \
+	CARGO_HOME="$(USER_HOME)/.cargo" \
+	CFLAGS_aarch64_unknown_linux_musl="-std=gnu17 -Wno-incompatible-pointer-types" \
+	CARGO_TARGET_AARCH64_UNKNOWN_LINUX_MUSL_LINKER=aarch64-linux-musl-gcc \
+	RUSTFLAGS="-C target-feature=+crt-static" \
+	cargo build --manifest-path coreutils/Cargo.toml --release --target aarch64-unknown-linux-musl --no-default-features --features "$(COREUTILS_APPLETS)"
+	mkdir -p rootfs/bin
+	cp -f coreutils/target/aarch64-unknown-linux-musl/release/coreutils rootfs/bin/coreutils
+	chmod +x rootfs/bin/coreutils
+	@for cmd in $(COREUTILS_APPLETS) md5sum sha1sum sha224sum sha256sum sha384sum sha512sum '['; do \
+		rm -f "rootfs/bin/$$cmd"; \
+		ln -sf coreutils "rootfs/bin/$$cmd"; \
+	done
+	@echo "[+] coreutils kuruldu."
+
+
+all: submodules banner $(DISK) extract compile fish nodes move coreutils system init recovery initramfs
+
+
+submodules:
+	@if [ ! -f "fish-shell/CMakeLists.txt" ] || [ ! -f "coreutils/Cargo.toml" ]; then \
+		echo "Downloading submodules.."; \
 		git submodule update --init --recursive; \
 	fi
+
 	@printf "  Disk  : $(DISK)\n  Initrd: $(INITRAMFS)\n"
 	@printf "  Çalıştır: ./run.sh   (recovery: ./run.sh -r, grafik: ./run.sh -g)\n"
 
 banner:
-	@printf "$(R)KedyBox - PatiOS ENV Builder by mehmetdemir-tr$(N)\n"
+	@printf "$(R)PatiOS ENV Builder by mehmetdemir-tr$(N)\n"
 
 root-check:
 	@if [ "$$EUID" -ne 0 ]; then \
@@ -135,6 +163,14 @@ disk: root-check tools
 		printf "$(G)[+]  %-12s seek=%-4s %3sMiB$(N)\n" "$$name" "$$seek" "$$mb"
 	done
 	@printf "$(G)[+] Disk hazır: $(DISK)$(N)\n"
+
+
+install-coreutils: coreutils
+	cp coreutils/target/aarch64-unknown-linux-musl/release/coreutils rootfs/bin/coreutils
+	for cmd in ls cp mv rm mkdir cat echo pwd chmod chown; do \
+		ln -sf coreutils rootfs/bin/$$cmd; \
+	done
+
 
 compile: $(BINS)
 	@basari=0; hata=0

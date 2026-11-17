@@ -32,7 +32,7 @@
 
 PatiOS doesn't uses any Debian / Ubuntu like rootfs. It has own rootfs and user-space tools.
 
-* **Standalone User-Space:** It doesn't needs any Python Interpreter or any heavy compiler. It uses binaries compiled in C
+* **Standalone User-Space:** It doesn't needs any Python Interpreter or any heavy translator in itself. It uses binaries compiled in C & Rust
 * * **Musl-libc Optimization:** Compiled targeting the `aarch64-linux-musl-gcc` chain. This results in a smaller binary size compared to the standard `glibc` libraries.
 
 ---
