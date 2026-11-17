@@ -1,6 +1,14 @@
 *.rs linguist-detectable=false
 *.rs linguist-vendored=true
 *.py linguist-detectable=false
+*.sh linguist-detectable=false
+*.sh linguist-vendored=true
+*.html linguist-vendored=true
+*.html linguist-detectable=false
+*.cmake linguist-vendored=true
+*.cmake linguist-detectable=false
+*.ts linguist-vendored=true
+*.ts linguist-detectable=false
 *.py linguist-vendored=true
 *.c linguist-detectable=true
 *.h linguist-detectable=true
