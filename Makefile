@@ -60,35 +60,34 @@ USER_HOME := $(shell getent passwd $${SUDO_USER:-$$USER} | cut -d: -f6)
 
 COREUTILS_APPLETS = arch base32 base64 basename basenc cat chgrp chmod chown chroot cksum comm cp csplit cut date dd df dir dircolors dirname du echo env expand expr factor false fmt fold groups hashsum head hostid hostname id install join kill link ln logname ls mkdir mkfifo mknod mktemp more mv nice nl nohup nproc numfmt od paste pathchk pr printenv printf ptx pwd readlink realpath rm rmdir seq shred shuf sleep sort split stat sum sync tac tail tee test timeout touch tr true truncate tsort tty uname unexpand uniq unlink vdir wc whoami yes
 
-coreutils:
-	PATH="$(USER_HOME)/.cargo/bin:$$PATH" \
-	RUSTUP_HOME="$(USER_HOME)/.rustup" \
-	CARGO_HOME="$(USER_HOME)/.cargo" \
+coreutils: root-check
+	PATH="/home/mehmetdemir-tr/.cargo/bin:$$PATH" \
+	RUSTUP_HOME="/home/mehmetdemir-tr/.rustup" \
+	CARGO_HOME="/home/mehmetdemir-tr/.cargo" \
 	CFLAGS_aarch64_unknown_linux_musl="-std=gnu17 -Wno-incompatible-pointer-types" \
 	CARGO_TARGET_AARCH64_UNKNOWN_LINUX_MUSL_LINKER=aarch64-linux-musl-gcc \
 	RUSTFLAGS="-C target-feature=+crt-static" \
-	cargo build --manifest-path coreutils/Cargo.toml --release --target aarch64-unknown-linux-musl --no-default-features --features "$(COREUTILS_APPLETS)"
+	cargo build --manifest-path thirdparty/coreutils/Cargo.toml --release --target aarch64-unknown-linux-musl --no-default-features --features "arch base32 base64 basename basenc cat chgrp chmod chown chroot cksum comm cp csplit cut date dd df dir dircolors dirname du echo env expand expr factor false fmt fold groups hashsum head hostid hostname id install join kill link ln logname ls mkdir mkfifo mknod mktemp more mv nice nl nohup nproc numfmt od paste pathchk pr printenv printf ptx pwd readlink realpath rm rmdir seq shred shuf sleep sort split stat sum sync tac tail tee test timeout touch tr true truncate tsort tty uname unexpand uniq unlink vdir wc whoami yes"
 	mkdir -p rootfs/bin
-	cp -f coreutils/target/aarch64-unknown-linux-musl/release/coreutils rootfs/bin/coreutils
+	cp -f thirdparty/coreutils/target/aarch64-unknown-linux-musl/release/coreutils rootfs/bin/coreutils
 	chmod +x rootfs/bin/coreutils
-	@for cmd in $(COREUTILS_APPLETS) md5sum sha1sum sha224sum sha256sum sha384sum sha512sum '['; do \
+	for cmd in arch base32 base64 basename basenc cat chgrp chmod chown chroot cksum comm cp csplit cut date dd df dir dircolors dirname du echo env expand expr factor false fmt fold groups hashsum head hostid hostname id install join kill link ln logname ls mkdir mkfifo mknod mktemp more mv nice nl nohup nproc numfmt od paste pathchk pr printenv printf ptx pwd readlink realpath rm rmdir seq shred shuf sleep sort split stat sum sync tac tail tee test timeout touch tr true truncate tsort tty uname unexpand uniq unlink vdir wc whoami yes md5sum sha1sum sha224sum sha256sum sha384sum sha512sum '['; do \
 		rm -f "rootfs/bin/$$cmd"; \
 		ln -sf coreutils "rootfs/bin/$$cmd"; \
 	done
-	@echo "[+] coreutils kuruldu."
+	@printf "$(G)[+] Initialized coreutils.$(N)\n"
+
 
 
 all: submodules banner $(DISK) extract compile fish nodes move coreutils system init recovery initramfs
 
 
 submodules:
-	@if [ ! -f "fish-shell/CMakeLists.txt" ] || [ ! -f "coreutils/Cargo.toml" ]; then \
+	@if [ ! -f "thirdparty/fish-shell/CMakeLists.txt" ] || [ ! -f "thirdparty/coreutils/Cargo.toml" ]; then \
 		echo "Downloading submodules.."; \
-		git submodule update --init --recursive; \
+		sudo -u $${SUDO_USER:-$$(whoami)} git submodule update --init --recursive; \
 	fi
 
-	@printf "  Disk  : $(DISK)\n  Initrd: $(INITRAMFS)\n"
-	@printf "  Çalıştır: ./run.sh   (recovery: ./run.sh -r, grafik: ./run.sh -g)\n"
 
 banner:
 	@printf "$(R)PatiOS ENV Builder by mehmetdemir-tr$(N)\n"
@@ -200,16 +199,16 @@ $(BINS): $(CMDDIR)/%: $(CMDDIR)/%.c
 	fi
 
 fish: root-check
-	@printf "$(G)[*] Shell fish-shell'den alınıyor...$(N)\n"
-	src="$$(find fish-shell -type f -name fish -printf '%T@ %p\n' 2>/dev/null | sort -n | tail -n1 | cut -d' ' -f2-)"
-	if [ -z "$$src" ]; then
-		printf "$(Y)[!] fish-shell/ içinde 'fish' bulunamadı — filesystem.zip içindeki shell kullanılacak.$(N)\n" >&2
-		exit 0
-	fi
-	cp -f "$$src" "$(CMDDIR)/shell"
-	chmod 755 "$(CMDDIR)/shell"
-	@printf "$(G)[+] Shell alındı: %s -> %s$(N)\n" "$$src" "$(CMDDIR)/shell"
-	@printf "$(C)    (%s)$(N)\n" "$$(file --brief "$$src")"
+	@printf "$(G)[*] Copying shell..$(N)\n"
+	@src="$$(find thirdparty/fish-shell -type f -name fish -printf '%T@ %p\n' 2>/dev/null | sort -n | tail -n1 | cut -d' ' -f2-)"; \
+	if [ -z "$$src" ]; then \
+		printf "$(Y)[!] thirdparty/fish-shell/ içinde 'fish' bulunamadı, atlanıyor..$(N)\n" >&2; \
+		exit 0; \
+	fi; \
+	cp -f "$$src" "$(CMDDIR)/shell"; \
+	chmod 755 "$(CMDDIR)/shell"; \
+	printf "$(G)[+] Shell alındı: %s -> %s$(N)\n" "$$src" "$(CMDDIR)/shell"; \
+	printf "$(C)    (%s)$(N)\n" "$$(file --brief "$$src")"
 
 nodes: root-check
 	@printf "$(G)[*] Device nodes oluşturuluyor...$(N)\n"
