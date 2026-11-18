@@ -4,3 +4,6 @@
 [submodule "coreutils"]
 	path = coreutils
 	url = https://github.com/uutils/coreutils
+[submodule "curl"]
+	path = curl
+	url = https://github.com/curl/curl.git
