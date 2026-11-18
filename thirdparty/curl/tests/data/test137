@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<testcase>
+<info>
+<keywords>
+FTP
+RETR
+--data-binary
+</keywords>
+</info>
+<reply>
+<data>
+this is file contents
+</data>
+<servercmd>
+RETRNOSIZE
+</servercmd>
+</reply>
+
+<client>
+<server>
+ftp
+</server>
+<name>
+FTP download without size in RETR string
+</name>
+<command>
+ftp://%HOSTIP:%FTPPORT/blalbla/lululul/%TESTNUMBER
+</command>
+</client>
+
+<verify>
+<protocol crlf="yes">
+USER anonymous
+PASS ftp@example.com
+PWD
+CWD blalbla
+CWD lululul
+EPSV
+TYPE I
+SIZE %TESTNUMBER
+RETR %TESTNUMBER
+</protocol>
+</verify>
+</testcase>

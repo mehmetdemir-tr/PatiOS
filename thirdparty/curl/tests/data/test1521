@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<testcase>
+<info>
+<keywords>
+curl_easy_setopt
+libtest
+</keywords>
+</info>
+
+<client>
+
+<name>
+Test all curl_easy_setopt and curl_easy_getinfo options
+</name>
+</client>
+
+<verify>
+<stdout>
+ok
+</stdout>
+</verify>
+</testcase>

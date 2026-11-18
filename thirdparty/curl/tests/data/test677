@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<testcase>
+<info>
+<keywords>
+IMAP
+CONNECT_ONLY
+libtest
+</keywords>
+</info>
+
+<reply>
+<data>
+</data>
+</reply>
+
+<client>
+<server>
+imap
+</server>
+<name>
+IMAP with CONNECT_ONLY, custom command then exit
+</name>
+
+<command>
+imap://%HOSTIP:%IMAPPORT/%TESTNUMBER
+</command>
+
+</client>
+
+<verify>
+<protocol crlf="yes">
+A001 CAPABILITY
+A1 IDLE
+</protocol>
+</verify>
+</testcase>

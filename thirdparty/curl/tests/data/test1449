@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<testcase>
+# initially based on test110
+<info>
+<keywords>
+FTP
+PASV
+RETR
+Resume
+</keywords>
+</info>
+<reply>
+</reply>
+
+<client>
+<server>
+ftp
+</server>
+<name>
+FTP download range with integer overflow
+</name>
+<command>
+ftp://%HOSTIP:%FTPPORT/%TESTNUMBER -r 36893488147419103232-
+</command>
+</client>
+
+<verify>
+<errorcode>
+33
+</errorcode>
+<protocol crlf="yes">
+USER anonymous
+PASS ftp@example.com
+PWD
+EPSV
+</protocol>
+</verify>
+</testcase>

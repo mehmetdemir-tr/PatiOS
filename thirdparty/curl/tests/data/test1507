@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<testcase>
+<info>
+<keywords>
+SMTP
+multi
+libtest
+</keywords>
+</info>
+
+<reply>
+</reply>
+
+<client>
+<server>
+smtp
+</server>
+
+# based on bug report #1184
+<name>
+SMTP with multi interface and CURLE_ABORTED_BY_CALLBACK
+</name>
+<stdin>
+From: different
+To: another
+
+body
+</stdin>
+<command>
+smtp://%HOSTIP:%SMTPPORT/%TESTNUMBER
+</command>
+</client>
+
+<verify>
+<protocol crlf="yes">
+EHLO %TESTNUMBER
+MAIL FROM:%LT%TESTNUMBER-realuser@example.com%GT
+RCPT TO:%LT%TESTNUMBER-recipient@example.com%GT
+DATA
+</protocol>
+<upload>
+</upload>
+</verify>
+</testcase>

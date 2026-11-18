@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<testcase>
+<info>
+<keywords>
+HTTP
+HTTP GET
+</keywords>
+</info>
+
+<reply>
+</reply>
+
+<client>
+<features>
+http
+</features>
+<name>
+HTTP URL with space in hostname
+</name>
+<command>
+-g "http://127.0.0.1 www.example.com/we/want/%TESTNUMBER"
+</command>
+</client>
+
+<verify>
+# CURLE_URL_MALFORMAT == 3
+<errorcode>
+3
+</errorcode>
+</verify>
+</testcase>

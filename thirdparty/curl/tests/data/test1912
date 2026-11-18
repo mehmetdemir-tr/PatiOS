@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<testcase>
+<info>
+<keywords>
+curl_easy_option
+typecheck
+libtest
+</keywords>
+</info>
+
+<reply>
+</reply>
+
+<client>
+<name>
+Cross validate that gcc-typecheck macros match the option types.
+</name>
+
+</client>
+
+<verify>
+</verify>
+</testcase>

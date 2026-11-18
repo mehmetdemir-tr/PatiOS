@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<testcase>
+<info>
+<keywords>
+DICT
+</keywords>
+</info>
+
+<reply>
+</reply>
+
+<client>
+<server>
+dict
+</server>
+<features>
+dict
+python
+</features>
+<name>
+Basic DICT lookup
+</name>
+<command>
+dict://%HOSTIP:%DICTPORT/d:basic
+</command>
+</client>
+
+<verify>
+</verify>
+</testcase>

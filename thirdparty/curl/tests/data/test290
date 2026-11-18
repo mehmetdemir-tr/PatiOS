@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<testcase>
+<info>
+<keywords>
+FTP
+--max-filesize
+</keywords>
+</info>
+<reply>
+<size>
+85
+</size>
+</reply>
+
+<client>
+<server>
+ftp
+</server>
+<name>
+FTP download maximum filesize exceeded
+</name>
+<command>
+ftp://%HOSTIP:%FTPPORT/%TESTNUMBER --max-filesize 30
+</command>
+</client>
+
+<verify>
+<errorcode>
+63
+</errorcode>
+<protocol crlf="yes">
+USER anonymous
+PASS ftp@example.com
+PWD
+EPSV
+TYPE I
+SIZE %TESTNUMBER
+</protocol>
+</verify>
+</testcase>

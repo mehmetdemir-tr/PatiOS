@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<testcase>
+<info>
+<keywords>
+FTP
+CONNECT_ONLY
+libtest
+</keywords>
+</info>
+
+<client>
+<server>
+ftp
+</server>
+<name>
+FTP connect only option
+</name>
+
+<command>
+ftp://%HOSTIP:%FTPPORT
+</command>
+
+</client>
+
+<verify>
+<protocol crlf="yes">
+USER anonymous
+PASS ftp@example.com
+PWD
+</protocol>
+</verify>
+</testcase>

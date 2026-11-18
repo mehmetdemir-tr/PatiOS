@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<testcase>
+<info>
+<keywords>
+FILE
+--help
+</keywords>
+</info>
+
+<reply>
+</reply>
+
+<client>
+<features>
+file
+</features>
+<name>
+curl file category --help
+</name>
+<command>
+--help file
+</command>
+</client>
+
+<verify>
+<errorcode>
+0
+</errorcode>
+<stdout mode="text">
+%includetext %SRCDIR/data/data%TESTNUMBER.txt%
+</stdout>
+</verify>
+</testcase>

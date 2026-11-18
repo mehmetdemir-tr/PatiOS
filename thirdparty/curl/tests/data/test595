@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<testcase>
+# This test is like 585 but uses passive FTP instead of HTTP
+<info>
+<keywords>
+FTP
+libtest
+</keywords>
+</info>
+<reply>
+<data>
+moo
+</data>
+<datacheck>
+[OPEN] counter: 1
+[OPEN] counter: 2
+moo
+[CLOSE] counter: 2
+[CLOSE] counter: 1
+</datacheck>
+</reply>
+
+<client>
+<server>
+ftp
+</server>
+<tool>
+lib500
+</tool>
+
+<name>
+verify close callbacks with passive FTP
+</name>
+<command>
+ftp://%HOSTIP:%FTPPORT/%TESTNUMBER %LOGDIR/ip%TESTNUMBER
+</command>
+</client>
+
+<verify>
+<protocol crlf="yes">
+USER anonymous
+PASS ftp@example.com
+PWD
+EPSV
+TYPE I
+SIZE %TESTNUMBER
+RETR %TESTNUMBER
+</protocol>
+</verify>
+</testcase>

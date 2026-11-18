@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<testcase>
+<info>
+<keywords>
+curl_msnprintf
+libtest
+</keywords>
+</info>
+
+<client>
+<name>
+curl_msnprintf tests
+</name>
+</client>
+
+</testcase>

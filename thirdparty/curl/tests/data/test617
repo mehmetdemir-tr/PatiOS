@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<testcase>
+<info>
+<keywords>
+SCP
+zero-length
+</keywords>
+</info>
+
+<reply>
+<data sendzero="yes">
+</data>
+</reply>
+
+<client>
+<server>
+scp
+</server>
+<name>
+SCP retrieval of empty file
+</name>
+<command>
+--key %LOGDIR/server/curl_client_key --pubkey %LOGDIR/server/curl_client_key.pub -u %USER: scp://%HOSTIP:%SSHPORT%SCP_PWD/%LOGDIR/file%TESTNUMBER.txt --insecure
+</command>
+<file name="%LOGDIR/file%TESTNUMBER.txt">
+</file>
+</client>
+
+<verify>
+</verify>
+</testcase>

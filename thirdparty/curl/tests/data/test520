@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<testcase>
+<info>
+<keywords>
+FTP
+libtest
+</keywords>
+</info>
+
+<reply>
+<data>
+contents of file
+</data>
+<servercmd>
+REPLY MDTM 213 20030405060708
+</servercmd>
+</reply>
+
+<client>
+<server>
+ftp
+</server>
+
+<name>
+FTP RETR with FILETIME
+</name>
+<command>
+ftp://%HOSTIP:%FTPPORT/%TESTNUMBER
+</command>
+</client>
+
+<verify>
+
+<protocol crlf="yes">
+USER anonymous
+PASS ftp@example.com
+PWD
+MDTM %TESTNUMBER
+EPSV
+TYPE I
+SIZE %TESTNUMBER
+RETR %TESTNUMBER
+</protocol>
+</verify>
+</testcase>

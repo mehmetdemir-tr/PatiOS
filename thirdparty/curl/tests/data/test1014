@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<testcase>
+<info>
+<keywords>
+curl-config
+</keywords>
+</info>
+
+<reply>
+</reply>
+
+<client>
+<name>
+Compare curl --version with curl-config --features
+</name>
+<command>
+--version
+</command>
+</client>
+
+<verify>
+<postcheck>
+%PERL %SRCDIR/test1013.pl ../curl-config %LOGDIR/stdout%TESTNUMBER features > %LOGDIR/result%TESTNUMBER
+</postcheck>
+<errorcode>
+0
+</errorcode>
+</verify>
+</testcase>

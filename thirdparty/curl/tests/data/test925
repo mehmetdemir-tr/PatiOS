@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<testcase>
+<info>
+<keywords>
+SMTP
+VRFY
+</keywords>
+</info>
+
+<reply>
+<data crlf="yes">
+252 Send some mail and I'll try my best
+</data>
+</reply>
+
+<client>
+<server>
+smtp
+</server>
+<name>
+SMTP external VRFY
+</name>
+<command>
+smtp://%HOSTIP:%SMTPPORT/%TESTNUMBER --mail-rcpt user@example.net
+</command>
+</client>
+
+<verify>
+<protocol crlf="yes">
+EHLO %TESTNUMBER
+VRFY user@example.net
+QUIT
+</protocol>
+</verify>
+</testcase>

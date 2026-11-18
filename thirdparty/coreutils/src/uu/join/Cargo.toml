@@ -1,0 +1,24 @@
+[package]
+name = "uu_join"
+version = "0.0.27"
+authors = ["uutils developers"]
+license = "MIT"
+description = "join ~ (uutils) merge lines from inputs with matching join fields"
+
+homepage = "https://github.com/uutils/coreutils"
+repository = "https://github.com/uutils/coreutils/tree/main/src/uu/join"
+keywords = ["coreutils", "uutils", "cross-platform", "cli", "utility"]
+categories = ["command-line-utilities"]
+edition = "2021"
+
+[lib]
+path = "src/join.rs"
+
+[dependencies]
+clap = { workspace = true }
+uucore = { workspace = true }
+memchr = { workspace = true }
+
+[[bin]]
+name = "join"
+path = "src/main.rs"

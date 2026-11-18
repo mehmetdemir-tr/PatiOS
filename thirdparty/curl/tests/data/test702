@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<testcase>
+#based off  19
+<info>
+<keywords>
+HTTP
+SOCKS4
+connect to non-listen
+</keywords>
+</info>
+<reply>
+<data>
+</data>
+# 91 is socks4 failure
+<servercmd>
+response 91
+</servercmd>
+</reply>
+
+<client>
+<features>
+http
+proxy
+</features>
+<server>
+socks4
+</server>
+<name>
+Attempt connect to non-listening HTTP server via SOCKS4 proxy
+</name>
+<command>
+--socks4 %HOSTIP:%SOCKSPORT http://%HOSTIP:%NOLISTENPORT
+</command>
+</client>
+
+<verify>
+<errorcode>
+97
+</errorcode>
+</verify>
+</testcase>

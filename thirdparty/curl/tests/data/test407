@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<testcase>
+<info>
+<keywords>
+FTP
+FTPS
+PASV
+RETR
+</keywords>
+</info>
+
+<reply>
+<data>
+data blobb
+</data>
+
+# data is sent to stdout
+</reply>
+
+<client>
+<features>
+SSL
+</features>
+<server>
+ftps
+</server>
+<name>
+Get two FTPS files from the same remote dir: no second CWD
+</name>
+<command>
+--insecure --ftp-ssl-control ftps://%HOSTIP:%FTPSPORT/a/path/%TESTNUMBER ftps://%HOSTIP:%FTPSPORT/a/path/%TESTNUMBER
+</command>
+<stdout>
+data blobb
+data blobb
+</stdout>
+</client>
+
+<verify>
+<protocol crlf="yes">
+USER anonymous
+PASS ftp@example.com
+PBSZ 0
+PROT C
+PWD
+CWD a
+CWD path
+EPSV
+TYPE I
+SIZE %TESTNUMBER
+RETR %TESTNUMBER
+EPSV
+SIZE %TESTNUMBER
+RETR %TESTNUMBER
+</protocol>
+</verify>
+</testcase>

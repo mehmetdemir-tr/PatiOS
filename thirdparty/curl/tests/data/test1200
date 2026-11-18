@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<testcase>
+<info>
+<keywords>
+GOPHER
+INDEX
+</keywords>
+</info>
+
+<reply>
+<data crlf="yes">
+iMenu results		error.host	1
+0Selector 	/bar	bar.foo.invalid	70
+.
+</data>
+</reply>
+
+<client>
+<server>
+gopher
+</server>
+<name>
+Gopher index
+</name>
+<command>
+gopher://%HOSTIP:%GOPHERPORT/1/%TESTNUMBER
+</command>
+</client>
+
+<verify>
+<protocol crlf="yes">
+/%TESTNUMBER
+</protocol>
+</verify>
+</testcase>

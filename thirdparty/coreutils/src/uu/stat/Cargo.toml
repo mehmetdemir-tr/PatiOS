@@ -1,0 +1,24 @@
+[package]
+name = "uu_stat"
+version = "0.0.27"
+authors = ["uutils developers"]
+license = "MIT"
+description = "stat ~ (uutils) display FILE status"
+
+homepage = "https://github.com/uutils/coreutils"
+repository = "https://github.com/uutils/coreutils/tree/main/src/uu/stat"
+keywords = ["coreutils", "uutils", "cross-platform", "cli", "utility"]
+categories = ["command-line-utilities"]
+edition = "2021"
+
+[lib]
+path = "src/stat.rs"
+
+[dependencies]
+clap = { workspace = true }
+uucore = { workspace = true, features = ["entries", "libc", "fs", "fsext"] }
+chrono = { workspace = true }
+
+[[bin]]
+name = "stat"
+path = "src/main.rs"

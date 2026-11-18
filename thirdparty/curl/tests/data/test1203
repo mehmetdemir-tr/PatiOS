@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<testcase>
+<info>
+<keywords>
+GOPHER-ipv6
+IPv6
+INDEX
+</keywords>
+</info>
+
+<reply>
+<data crlf="yes">
+iMenu results		error.host	1
+0Selector 	/bar	bar.foo.invalid	70
+.
+</data>
+</reply>
+
+<client>
+<features>
+IPv6
+</features>
+<server>
+gopher-ipv6
+</server>
+<name>
+Gopher IPv6 index
+</name>
+<command>
+-g gopher://%HOST6IP:%GOPHER6PORT/1/moo/%TESTNUMBER
+</command>
+</client>
+
+<verify>
+<protocol crlf="yes">
+/moo/%TESTNUMBER
+</protocol>
+</verify>
+</testcase>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<testcase>
+<info>
+<keywords>
+HTTPS
+HTTP GET
+</keywords>
+</info>
+
+<client>
+<features>
+Schannel
+</features>
+<name>
+Disable certificate revocation checks
+</name>
+<command>
+--ssl-no-revoke -I https://revoked.badssl.com/
+</command>
+</client>
+
+<verify>
+<errorcode>
+0
+</errorcode>
+</verify>
+</testcase>

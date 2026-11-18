@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<testcase>
+<info>
+<keywords>
+memory callbacks
+libtest
+</keywords>
+</info>
+<reply>
+</reply>
+
+<client>
+<features>
+http
+</features>
+
+<name>
+initialization with memory callbacks and actual usage
+</name>
+</client>
+
+<verify>
+<stdout>
+Callbacks were invoked!
+</stdout>
+</verify>
+
+</testcase>

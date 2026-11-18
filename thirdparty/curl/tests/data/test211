@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<testcase>
+<info>
+<keywords>
+FTP
+</keywords>
+</info>
+
+<reply>
+<data>
+data blobb
+</data>
+<servercmd>
+REPLY EPSV 500 no such command
+</servercmd>
+</reply>
+
+<client>
+<server>
+ftp
+</server>
+<name>
+Get two FTP files with no remote EPSV support
+</name>
+<command>
+ftp://%HOSTIP:%FTPPORT/a/path/%TESTNUMBER ftp://%HOSTIP:%FTPPORT/a/path/%TESTNUMBER
+</command>
+<stdout>
+data blobb
+data blobb
+</stdout>
+</client>
+
+<verify>
+<protocol crlf="yes">
+USER anonymous
+PASS ftp@example.com
+PWD
+CWD a
+CWD path
+EPSV
+PASV
+TYPE I
+SIZE %TESTNUMBER
+RETR %TESTNUMBER
+PASV
+SIZE %TESTNUMBER
+RETR %TESTNUMBER
+</protocol>
+</verify>
+</testcase>

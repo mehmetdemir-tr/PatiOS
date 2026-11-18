@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<testcase>
+<info>
+<keywords>
+POP3
+Clear Text
+LIST
+</keywords>
+</info>
+
+<reply>
+<servercmd>
+REPLY LIST -ERR no such message
+</servercmd>
+</reply>
+
+<client>
+<server>
+pop3
+</server>
+<name>
+POP3 LIST invalid message
+</name>
+<command>
+pop3://%HOSTIP:%POP3PORT/%TESTNUMBER -l -u user:secret
+</command>
+</client>
+
+<verify>
+<errorcode>
+8
+</errorcode>
+<protocol crlf="yes">
+CAPA
+USER user
+PASS secret
+LIST %TESTNUMBER
+QUIT
+</protocol>
+</verify>
+</testcase>

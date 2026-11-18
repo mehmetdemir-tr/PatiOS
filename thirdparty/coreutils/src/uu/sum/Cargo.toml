@@ -1,0 +1,23 @@
+[package]
+name = "uu_sum"
+version = "0.0.27"
+authors = ["uutils developers"]
+license = "MIT"
+description = "sum ~ (uutils) display checksum and block counts for input"
+
+homepage = "https://github.com/uutils/coreutils"
+repository = "https://github.com/uutils/coreutils/tree/main/src/uu/sum"
+keywords = ["coreutils", "uutils", "cross-platform", "cli", "utility"]
+categories = ["command-line-utilities"]
+edition = "2021"
+
+[lib]
+path = "src/sum.rs"
+
+[dependencies]
+clap = { workspace = true }
+uucore = { workspace = true }
+
+[[bin]]
+name = "sum"
+path = "src/main.rs"

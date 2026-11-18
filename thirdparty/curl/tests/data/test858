@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<testcase>
+<info>
+<keywords>
+POP3
+Clear Text
+DELE
+CUSTOMREQUEST
+</keywords>
+</info>
+
+<reply>
+</reply>
+
+<client>
+<server>
+pop3
+</server>
+<name>
+POP3 DELE message (CUSTOMREQUEST)
+</name>
+<command>
+pop3://%HOSTIP:%POP3PORT/%TESTNUMBER -u user:secret -X DELE -I
+</command>
+</client>
+
+<verify>
+<protocol crlf="yes">
+CAPA
+USER user
+PASS secret
+DELE %TESTNUMBER
+QUIT
+</protocol>
+</verify>
+</testcase>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<testcase>
+<info>
+<keywords>
+FTP
+EPSV
+Resume
+</keywords>
+</info>
+<reply>
+</reply>
+
+<client>
+<server>
+ftp
+</server>
+<name>
+FTP upload resume with whole file already downloaded
+</name>
+<command>
+ftp://%HOSTIP:%FTPPORT/%TESTNUMBER -T %LOGDIR/upload%TESTNUMBER -C 51
+</command>
+<file name="%LOGDIR/upload%TESTNUMBER">
+--------------------------------------------------
+</file>
+</client>
+
+<verify>
+<protocol crlf="yes">
+USER anonymous
+PASS ftp@example.com
+PWD
+EPSV
+TYPE I
+</protocol>
+</verify>
+</testcase>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<testcase>
+<info>
+<keywords>
+FTP
+timeout
+DELAY
+killserver
+</keywords>
+</info>
+
+<reply>
+<servercmd>
+DELAY CWD 60
+</servercmd>
+</reply>
+
+<client>
+<server>
+ftp
+</server>
+<killserver>
+ftp
+</killserver>
+<name>
+FTP download with strict timeout and slow CWD
+</name>
+<command>
+ftp://%HOSTIP:%FTPPORT/path/to/file/%TESTNUMBER -m 10
+</command>
+</client>
+
+<verify>
+# 28 is CURLE_OPERATION_TIMEDOUT
+<errorcode>
+28
+</errorcode>
+<protocol crlf="yes">
+USER anonymous
+PASS ftp@example.com
+PWD
+CWD path
+</protocol>
+</verify>
+</testcase>

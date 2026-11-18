@@ -1,0 +1,24 @@
+[package]
+name = "uu_uname"
+version = "0.0.27"
+authors = ["uutils developers"]
+license = "MIT"
+description = "uname ~ (uutils) display system information"
+
+homepage = "https://github.com/uutils/coreutils"
+repository = "https://github.com/uutils/coreutils/tree/main/src/uu/uname"
+keywords = ["coreutils", "uutils", "cross-platform", "cli", "utility"]
+categories = ["command-line-utilities"]
+edition = "2021"
+
+[lib]
+path = "src/uname.rs"
+
+[dependencies]
+platform-info = { workspace = true }
+clap = { workspace = true }
+uucore = { workspace = true }
+
+[[bin]]
+name = "uname"
+path = "src/main.rs"

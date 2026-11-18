@@ -1,0 +1,97 @@
+/***************************************************************************
+ *                                  _   _ ____  _
+ *  Project                     ___| | | |  _ \| |
+ *                             / __| | | | |_) | |
+ *                            | (__| |_| |  _ <| |___
+ *                             \___|\___/|_| \_\_____|
+ *
+ * Copyright (C) Daniel Stenberg, <daniel@haxx.se>, et al.
+ *
+ * This software is licensed as described in the file COPYING, which
+ * you should have received as part of this distribution. The terms
+ * are also available at https://curl.se/docs/copyright.html.
+ *
+ * You may opt to use, copy, modify, merge, publish, distribute and/or sell
+ * copies of the Software, and permit persons to whom the Software is
+ * furnished to do so, under the terms of the COPYING file.
+ *
+ * This software is distributed on an "AS IS" basis, WITHOUT WARRANTY OF ANY
+ * KIND, either express or implied.
+ *
+ * SPDX-License-Identifier: curl
+ *
+ * RFC2195 CRAM-MD5 authentication
+ *
+ ***************************************************************************/
+#include "curl_setup.h"
+
+#ifndef CURL_DISABLE_DIGEST_AUTH
+
+#include "vauth/vauth.h"
+#include "curl_md5.h"
+
+/*
+ * Curl_auth_create_cram_md5_message()
+ *
+ * This is used to generate a CRAM-MD5 response message ready for sending to
+ * the recipient.
+ *
+ * Parameters:
+ *
+ * chlg    [in]     - The challenge.
+ * userp   [in]     - The username.
+ * passwdp [in]     - The user's password.
+ * out     [out]    - The result storage.
+ *
+ * Returns CURLE_OK on success.
+ */
+CURLcode Curl_auth_create_cram_md5_message(const struct bufref *chlg,
+                                           struct Curl_creds *creds,
+                                           struct bufref *out)
+{
+#ifndef CURL_HAVE_MD5
+  (void)chlg;
+  (void)creds;
+  (void)out;
+  return CURLE_NOT_BUILT_IN;
+#else
+  struct HMAC_context *ctxt;
+  uint8_t digest[CURL_MD5_DIGEST_LEN];
+  char *response;
+  const char *user = Curl_creds_user(creds);
+  const char *passwd = Curl_creds_passwd(creds);
+  CURLcode hok;
+
+  /* Compute the digest using the password as the key */
+  ctxt = Curl_HMAC_init(&Curl_HMAC_MD5, passwd, strlen(passwd));
+  if(!ctxt)
+    return CURLE_OUT_OF_MEMORY;
+
+  hok = CURLE_OK;
+
+  /* Update the digest with the given challenge */
+  if(Curl_bufref_len(chlg))
+    hok |= Curl_HMAC_update(ctxt,
+    Curl_bufref_uptr(chlg), Curl_bufref_len(chlg));
+
+  /* Finalise the digest */
+  hok |= Curl_HMAC_final(ctxt, digest);
+
+  if(hok)
+    return CURLE_BAD_FUNCTION_ARGUMENT;
+
+  /* Generate the response */
+  response = curl_maprintf(
+    "%s %02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",
+    user, digest[0], digest[1], digest[2], digest[3], digest[4],
+    digest[5], digest[6], digest[7], digest[8], digest[9], digest[10],
+    digest[11], digest[12], digest[13], digest[14], digest[15]);
+  if(!response)
+    return CURLE_OUT_OF_MEMORY;
+
+  Curl_bufref_set(out, response, strlen(response), curl_free);
+  return CURLE_OK;
+#endif
+}
+
+#endif /* !CURL_DISABLE_DIGEST_AUTH */

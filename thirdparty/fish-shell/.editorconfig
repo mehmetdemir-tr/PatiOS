@@ -1,0 +1,28 @@
+root = true
+
+[*]
+indent_size = 4
+indent_style = space
+end_of_line = lf
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+max_line_length = 100
+
+[{Makefile,*.in}]
+indent_style = tab
+
+[*.{md,rst}]
+trim_trailing_whitespace = false
+
+[*.{sh,ac}]
+indent_size = 2
+
+[Dockerfile]
+indent_size = 2
+
+[share/{completions,functions}/**.fish]
+max_line_length = none
+
+[{COMMIT_EDITMSG,git-revise-todo}]
+max_line_length = 80

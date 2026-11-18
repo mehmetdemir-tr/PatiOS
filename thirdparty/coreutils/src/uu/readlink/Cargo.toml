@@ -1,0 +1,23 @@
+[package]
+name = "uu_readlink"
+version = "0.0.27"
+authors = ["uutils developers"]
+license = "MIT"
+description = "readlink ~ (uutils) display resolved path of PATHNAME"
+
+homepage = "https://github.com/uutils/coreutils"
+repository = "https://github.com/uutils/coreutils/tree/main/src/uu/readlink"
+keywords = ["coreutils", "uutils", "cross-platform", "cli", "utility"]
+categories = ["command-line-utilities"]
+edition = "2021"
+
+[lib]
+path = "src/readlink.rs"
+
+[dependencies]
+clap = { workspace = true }
+uucore = { workspace = true, features = ["fs"] }
+
+[[bin]]
+name = "readlink"
+path = "src/main.rs"

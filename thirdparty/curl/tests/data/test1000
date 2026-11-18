@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<testcase>
+<info>
+<keywords>
+FTP
+PASV
+LIST
+NOBODY
+</keywords>
+</info>
+<reply>
+<datacheck>
+</datacheck>
+</reply>
+
+<client>
+<server>
+ftp
+</server>
+<name>
+FTP dir list PASV with -I
+</name>
+<command>
+ftp://%HOSTIP:%FTPPORT/%TESTNUMBER/ -I
+</command>
+</client>
+
+<verify>
+<protocol crlf="yes">
+USER anonymous
+PASS ftp@example.com
+PWD
+CWD %TESTNUMBER
+</protocol>
+</verify>
+</testcase>

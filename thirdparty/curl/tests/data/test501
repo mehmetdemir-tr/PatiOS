@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<testcase>
+<info>
+<keywords>
+missing URL
+libtest
+</keywords>
+</info>
+<reply>
+</reply>
+
+<client>
+<features>
+http
+</features>
+
+<name>
+simple libcurl attempt operation without URL set
+</name>
+</client>
+
+<verify>
+<errorcode>
+3
+</errorcode>
+</verify>
+</testcase>

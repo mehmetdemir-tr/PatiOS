@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<testcase>
+<info>
+<keywords>
+FTP
+PASV
+CWD
+--ftp-method
+nocwd
+</keywords>
+</info>
+<reply>
+<data>
+bla bla bla
+</data>
+</reply>
+
+<client>
+<server>
+ftp
+</server>
+<name>
+FTP CWD with --ftp-method nocwd
+</name>
+<command>
+--ftp-method nocwd ftp://%HOSTIP:%FTPPORT/first/second/th%69rd/%TESTNUMBER
+</command>
+</client>
+
+<verify>
+<protocol crlf="yes">
+USER anonymous
+PASS ftp@example.com
+PWD
+EPSV
+TYPE I
+SIZE first/second/third/%TESTNUMBER
+RETR first/second/third/%TESTNUMBER
+</protocol>
+</verify>
+</testcase>

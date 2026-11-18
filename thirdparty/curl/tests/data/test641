@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<testcase>
+<info>
+<keywords>
+SCP
+NOBODY
+</keywords>
+</info>
+
+<reply>
+<data>
+</data>
+</reply>
+
+<client>
+<server>
+scp
+</server>
+<name>
+SCP --head retrieval
+</name>
+<command>
+--key %LOGDIR/server/curl_client_key --pubkey %LOGDIR/server/curl_client_key.pub -u %USER: scp://%HOSTIP:%SSHPORT%SCP_PWD/%LOGDIR/file%TESTNUMBER.txt --insecure --head
+</command>
+<file name="%LOGDIR/file%TESTNUMBER.txt">
+Test data
+for ssh test
+</file>
+</client>
+
+<verify>
+</verify>
+</testcase>

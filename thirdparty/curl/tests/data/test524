@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<testcase>
+<info>
+<keywords>
+FTP
+UPLOAD
+libtest
+</keywords>
+</info>
+
+<reply>
+</reply>
+
+<client>
+<server>
+ftp
+</server>
+<name>
+FTP upload with target URL ending with slash
+</name>
+# first URL then proxy
+<command>
+ftp://%HOSTIP:%FTPPORT/path/to/
+</command>
+</client>
+
+<verify>
+<protocol crlf="yes">
+USER anonymous
+PASS ftp@example.com
+PWD
+</protocol>
+
+# 3 is CURLE_URL_MALFORMAT
+<errorcode>
+3
+</errorcode>
+</verify>
+</testcase>

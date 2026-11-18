@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<testcase>
+<info>
+<keywords>
+FTP
+PASV
+RETR
+</keywords>
+</info>
+<reply>
+<mdtm>
+213 20040101121212
+</mdtm>
+</reply>
+
+<client>
+<server>
+ftp
+</server>
+<name>
+FTP timed conditioned get file with identical time stamp
+</name>
+<command>
+ftp://%HOSTIP:%FTPPORT/%TESTNUMBER -z "2004 jan 1 12:12:12 UTC"
+</command>
+
+</client>
+
+<verify>
+<protocol crlf="yes">
+USER anonymous
+PASS ftp@example.com
+PWD
+MDTM %TESTNUMBER
+</protocol>
+</verify>
+</testcase>

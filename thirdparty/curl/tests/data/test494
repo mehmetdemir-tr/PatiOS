@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<testcase>
+<info>
+<keywords>
+FTP
+EPSV
+netrc
+macdef
+</keywords>
+</info>
+<reply>
+<data>
+blipp
+</data>
+</reply>
+
+<client>
+<server>
+ftp
+</server>
+<name>
+skip 'macdef' when parsing netrc
+</name>
+<command>
+--netrc --netrc-file %LOGDIR/netrc%TESTNUMBER ftp://%HOSTIP:%FTPPORT/%TESTNUMBER
+</command>
+<file name="%LOGDIR/netrc%TESTNUMBER" >
+
+macdef testmacro
+	bin
+	cd default
+	cd login
+	put login.bin
+	cd ..
+	cd password
+	put password.bin
+	quit
+
+machine %HOSTIP login user1 password passwd1
+</file>
+</client>
+
+<verify>
+<protocol crlf="yes">
+USER user1
+PASS passwd1
+PWD
+EPSV
+TYPE I
+SIZE %TESTNUMBER
+RETR %TESTNUMBER
+</protocol>
+</verify>
+</testcase>

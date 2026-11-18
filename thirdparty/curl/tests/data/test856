@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<testcase>
+<info>
+<keywords>
+POP3
+Clear Text
+</keywords>
+</info>
+
+<reply>
+<servercmd>
+REPLY PASS -ERR Login failure
+</servercmd>
+</reply>
+
+<client>
+<server>
+pop3
+</server>
+<name>
+POP3 invalid login
+</name>
+<command>
+pop3://%HOSTIP:%POP3PORT/%TESTNUMBER -u user:wrong
+</command>
+</client>
+
+<verify>
+# 67 - CURLE_LOGIN_DENIED
+<errorcode>
+67
+</errorcode>
+# The multi interface considers a broken "CONNECT" as a prematurely broken
+# transfer and such a connection does not get a "QUIT"
+<protocol crlf="yes">
+CAPA
+USER user
+PASS wrong
+</protocol>
+</verify>
+</testcase>

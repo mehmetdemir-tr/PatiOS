@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<testcase>
+<info>
+<keywords>
+unittest
+curl_fopen
+</keywords>
+</info>
+
+<client>
+<features>
+unittest
+</features>
+<name>
+dirslash unit tests
+</name>
+<command>
+%LOGDIR/unit%TESTNUMBER-state
+</command>
+</client>
+</testcase>

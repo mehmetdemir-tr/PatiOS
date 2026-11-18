@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<testcase>
+<info>
+<keywords>
+FTP
+EPSV
+APPE
+</keywords>
+</info>
+<reply>
+<data>
+</data>
+</reply>
+
+<client>
+<server>
+ftp
+</server>
+<name>
+FTP PASV upload append
+</name>
+<command>
+ftp://%HOSTIP:%FTPPORT/%TESTNUMBER -T %LOGDIR/upload%TESTNUMBER --append
+</command>
+<file name="%LOGDIR/upload%TESTNUMBER">
+Moooooooooooo
+ upload this
+</file>
+</client>
+
+<verify>
+<protocol crlf="yes">
+USER anonymous
+PASS ftp@example.com
+PWD
+EPSV
+TYPE I
+APPE %TESTNUMBER
+</protocol>
+<upload>
+Moooooooooooo
+ upload this
+</upload>
+</verify>
+</testcase>

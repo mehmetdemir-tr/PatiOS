@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<testcase>
+<info>
+<keywords>
+FTP
+</keywords>
+</info>
+<reply>
+<servercmd>
+REPLY CWD 314 bluah you f00l!
+</servercmd>
+</reply>
+
+<client>
+<server>
+ftp
+</server>
+<name>
+FTP download, failed CWD
+</name>
+<command>
+ftp://%HOSTIP:%FTPPORT/path/to/file/%TESTNUMBER
+</command>
+</client>
+
+<verify>
+<errorcode>
+9
+</errorcode>
+<protocol crlf="yes">
+USER anonymous
+PASS ftp@example.com
+PWD
+CWD path
+</protocol>
+</verify>
+</testcase>

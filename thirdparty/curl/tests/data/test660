@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<testcase>
+<info>
+<keywords>
+IMAP
+CONNECT_ONLY
+libtest
+</keywords>
+</info>
+
+<client>
+<server>
+imap
+</server>
+<tool>
+lib597
+</tool>
+<name>
+IMAP CONNECT_ONLY option
+</name>
+
+<command>
+imap://%HOSTIP:%IMAPPORT/%TESTNUMBER
+</command>
+
+</client>
+
+<verify>
+<protocol crlf="yes">
+A001 CAPABILITY
+</protocol>
+</verify>
+</testcase>

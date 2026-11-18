@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<testcase>
+<info>
+<keywords>
+Too long tftp filename
+</keywords>
+</info>
+<reply>
+</reply>
+
+<client>
+<features>
+tftp
+</features>
+<name>
+Too long tftp filename
+</name>
+<command>
+tftp://%HOSTIP:%NOLISTENPORT/%repeat[503 x a]%z
+</command>
+</client>
+
+<verify>
+# TFTP filename too long
+<errorcode>
+71
+</errorcode>
+</verify>
+</testcase>

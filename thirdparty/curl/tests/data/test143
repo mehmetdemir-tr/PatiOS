@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<testcase>
+<info>
+<keywords>
+FTP
+RETR
+type=
+</keywords>
+</info>
+<reply>
+<data>
+bla bla bla
+</data>
+</reply>
+
+<client>
+<server>
+ftp
+</server>
+<name>
+FTP URL with type=a
+</name>
+<command>
+"ftp://%HOSTIP:%FTPPORT/%2ftmp/moo/%TESTNUMBER;type=a"
+</command>
+</client>
+
+<verify>
+<protocol crlf="yes">
+USER anonymous
+PASS ftp@example.com
+PWD
+CWD /
+CWD tmp
+CWD moo
+EPSV
+TYPE A
+RETR %TESTNUMBER
+</protocol>
+</verify>
+</testcase>

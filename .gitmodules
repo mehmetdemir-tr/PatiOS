@@ -1,9 +1,9 @@
 [submodule "fish-shell"]
-	path = fish-shell
+	path = thirdparty/fish-shell
 	url = https://github.com/fish-shell/fish-shell
 [submodule "coreutils"]
-	path = coreutils
+	path = thirdparty/coreutils
 	url = https://github.com/uutils/coreutils
 [submodule "curl"]
-	path = curl
+	path = thirdparty/curl
 	url = https://github.com/curl/curl.git

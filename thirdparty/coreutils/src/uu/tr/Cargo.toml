@@ -1,0 +1,24 @@
+[package]
+name = "uu_tr"
+version = "0.0.27"
+authors = ["uutils developers"]
+license = "MIT"
+description = "tr ~ (uutils) translate characters within input and display"
+
+homepage = "https://github.com/uutils/coreutils"
+repository = "https://github.com/uutils/coreutils/tree/main/src/uu/tr"
+keywords = ["coreutils", "uutils", "cross-platform", "cli", "utility"]
+categories = ["command-line-utilities"]
+edition = "2021"
+
+[lib]
+path = "src/tr.rs"
+
+[dependencies]
+nom = { workspace = true }
+clap = { workspace = true }
+uucore = { workspace = true }
+
+[[bin]]
+name = "tr"
+path = "src/main.rs"

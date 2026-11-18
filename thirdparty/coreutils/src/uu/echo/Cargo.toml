@@ -1,0 +1,23 @@
+[package]
+name = "uu_echo"
+version = "0.0.27"
+authors = ["uutils developers"]
+license = "MIT"
+description = "echo ~ (uutils) display TEXT"
+
+homepage = "https://github.com/uutils/coreutils"
+repository = "https://github.com/uutils/coreutils/tree/main/src/uu/echo"
+keywords = ["coreutils", "uutils", "cross-platform", "cli", "utility"]
+categories = ["command-line-utilities"]
+edition = "2021"
+
+[lib]
+path = "src/echo.rs"
+
+[dependencies]
+clap = { workspace = true }
+uucore = { workspace = true }
+
+[[bin]]
+name = "echo"
+path = "src/main.rs"

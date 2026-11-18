@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<testcase>
+<info>
+<keywords>
+SMTP
+VRFY
+</keywords>
+</info>
+
+<reply>
+</reply>
+
+<client>
+<server>
+smtp
+</server>
+<name>
+SMTP VRFY
+</name>
+<command>
+smtp://%HOSTIP:%SMTPPORT/%TESTNUMBER --mail-rcpt recipient
+</command>
+</client>
+
+<verify>
+<protocol crlf="yes">
+EHLO %TESTNUMBER
+VRFY recipient
+QUIT
+</protocol>
+</verify>
+</testcase>

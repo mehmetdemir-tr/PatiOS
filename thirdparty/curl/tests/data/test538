@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<testcase>
+<info>
+<keywords>
+FTP
+multi
+libtest
+</keywords>
+</info>
+
+<reply>
+<servercmd>
+REPLY PASS 314 bluah you f00l!
+</servercmd>
+</reply>
+
+<client>
+<server>
+ftp
+</server>
+# NOTE that we use the 504 tool for this case
+<tool>
+lib504
+</tool>
+<name>
+FTP multi-interface download, failed login: PASS not valid
+</name>
+<command>
+ftp://%HOSTIP:%FTPPORT/%TESTNUMBER
+</command>
+</client>
+
+# TEST_ERR_SUCCESS is errorcode 41
+<verify>
+<errorcode>
+41
+</errorcode>
+<protocol crlf="yes">
+USER anonymous
+PASS ftp@example.com
+</protocol>
+</verify>
+</testcase>

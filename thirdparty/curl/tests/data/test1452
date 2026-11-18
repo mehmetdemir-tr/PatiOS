@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<testcase>
+<info>
+<keywords>
+TELNET
+UPLOAD
+</keywords>
+</info>
+
+<reply>
+<data>
+</data>
+</reply>
+
+<client>
+<server>
+telnet
+</server>
+<features>
+telnet
+python
+</features>
+<name>
+Basic TELNET negotiation
+</name>
+<stdin>
+test%TESTNUMBER
+</stdin>
+<command>
+telnet://%HOSTIP:%TELNETPORT --upload-file -
+</command>
+</client>
+
+<verify>
+<stdout nonewline="yes">
+test%TESTNUMBER
+</stdout>
+</verify>
+</testcase>

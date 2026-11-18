@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<testcase>
+<info>
+<keywords>
+POP3
+SASL
+SASL AUTH PLAIN
+RFC1734
+RFC4616
+RFC5034
+</keywords>
+</info>
+
+<reply>
+<servercmd>
+AUTH PLAIN
+REPLY AUTH +
+REPLY %b64[ursel%00kurt%00xipj3plmq]b64% -ERR Not authorized
+</servercmd>
+</reply>
+
+<client>
+<server>
+pop3
+</server>
+<name>
+POP3 plain auth with alt authorization identity (Not authorized)
+</name>
+<command>
+pop3://%HOSTIP:%POP3PORT/%TESTNUMBER -u kurt:xipj3plmq --sasl-authzid ursel
+</command>
+</client>
+
+<verify>
+# 67 - CURLE_LOGIN_DENIED
+<errorcode>
+67
+</errorcode>
+# The multi interface considers a broken "CONNECT" as a prematurely broken
+# transfer and such a connection does not get a "QUIT"
+<protocol crlf="yes">
+CAPA
+AUTH PLAIN
+%b64[ursel%00kurt%00xipj3plmq]b64%
+</protocol>
+</verify>
+</testcase>

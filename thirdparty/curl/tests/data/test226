@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<testcase>
+<info>
+<keywords>
+FTP
+</keywords>
+</info>
+
+<client>
+<server>
+ftp
+</server>
+<name>
+FTP %0d-code in URL's CWD part
+</name>
+<command>
+ftp://%HOSTIP:%FTPPORT/%TESTNUMBER%0d
+</command>
+</client>
+
+<verify>
+# 3 == CURLE_URL_MALFORMAT
+<errorcode>
+3
+</errorcode>
+</verify>
+</testcase>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<testcase>
+<info>
+<keywords>
+FTP
+RETR
+-z
+</keywords>
+</info>
+<reply>
+<data>
+this is file contents
+</data>
+<mdtm>
+213 20030409102659
+</mdtm>
+</reply>
+
+<client>
+<server>
+ftp
+</server>
+<name>
+FTP download a newer file with -z
+</name>
+<command>
+ftp://%HOSTIP:%FTPPORT/blalbla/%TESTNUMBER -z "1 jan 1989"
+</command>
+</client>
+
+<verify>
+<protocol crlf="yes">
+USER anonymous
+PASS ftp@example.com
+PWD
+CWD blalbla
+MDTM %TESTNUMBER
+EPSV
+TYPE I
+SIZE %TESTNUMBER
+RETR %TESTNUMBER
+</protocol>
+</verify>
+</testcase>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<testcase>
+<info>
+<keywords>
+proxy
+unsupported scheme
+</keywords>
+</info>
+
+<reply>
+</reply>
+
+<client>
+<features>
+http
+proxy
+</features>
+<name>
+try using proxy with unsupported scheme
+</name>
+<command>
+-x foo://%HOSTIP:%NOLISTENPORT/%TESTNUMBER http://%HOSTIP:%NOLISTENPORT/%TESTNUMBER
+</command>
+</client>
+
+<verify>
+<errorcode>
+7
+</errorcode>
+</verify>
+</testcase>

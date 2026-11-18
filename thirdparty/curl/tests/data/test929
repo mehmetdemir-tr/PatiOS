@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<testcase>
+<info>
+<keywords>
+SMTP
+NOOP
+CUSTOMREQUEST
+</keywords>
+</info>
+
+<reply>
+</reply>
+
+<client>
+<server>
+smtp
+</server>
+<name>
+SMTP NOOP (CUSTOMREQUEST)
+</name>
+<command>
+smtp://%HOSTIP:%SMTPPORT/%TESTNUMBER -X NOOP -I
+</command>
+</client>
+
+<verify>
+<protocol crlf="yes">
+EHLO %TESTNUMBER
+NOOP
+QUIT
+</protocol>
+</verify>
+</testcase>

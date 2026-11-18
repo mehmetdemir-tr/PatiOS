@@ -1,0 +1,30 @@
+[package]
+name = "uu_yes"
+version = "0.0.27"
+authors = ["uutils developers"]
+license = "MIT"
+description = "yes ~ (uutils) repeatedly display a line with STRING (or 'y')"
+
+homepage = "https://github.com/uutils/coreutils"
+repository = "https://github.com/uutils/coreutils/tree/main/src/uu/yes"
+keywords = ["coreutils", "uutils", "cross-platform", "cli", "utility"]
+categories = ["command-line-utilities"]
+edition = "2021"
+
+[lib]
+path = "src/yes.rs"
+
+[dependencies]
+clap = { workspace = true }
+itertools = { workspace = true }
+
+[target.'cfg(unix)'.dependencies]
+uucore = { workspace = true, features = ["pipes", "signals"] }
+nix = { workspace = true }
+
+[target.'cfg(not(unix))'.dependencies]
+uucore = { workspace = true, features = ["pipes"] }
+
+[[bin]]
+name = "yes"
+path = "src/main.rs"

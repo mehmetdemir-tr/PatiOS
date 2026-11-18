@@ -1,0 +1,27 @@
+[package]
+name = "uu_df"
+version = "0.0.27"
+authors = ["uutils developers"]
+license = "MIT"
+description = "df ~ (uutils) display file system information"
+
+homepage = "https://github.com/uutils/coreutils"
+repository = "https://github.com/uutils/coreutils/tree/main/src/uu/df"
+keywords = ["coreutils", "uutils", "cross-platform", "cli", "utility"]
+categories = ["command-line-utilities"]
+edition = "2021"
+
+[lib]
+path = "src/df.rs"
+
+[dependencies]
+clap = { workspace = true }
+uucore = { workspace = true, features = ["libc", "fsext"] }
+unicode-width = { workspace = true }
+
+[dev-dependencies]
+tempfile = "3.10.1"
+
+[[bin]]
+name = "df"
+path = "src/main.rs"
