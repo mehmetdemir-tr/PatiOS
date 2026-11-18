@@ -1,6 +1,0 @@
-// !note: file contains significant whitespace
-// * indentation uses <SPACE> characters
-int foo() {
-    // with spaces
-    return 0;
-}

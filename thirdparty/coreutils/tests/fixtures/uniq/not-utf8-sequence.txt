@@ -1,2 +1,0 @@
-Next line contains two bytes - 0xCC and 0xCD - which are not a valid utf-8 sequence
-ÌÍ

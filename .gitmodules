@@ -7,3 +7,6 @@
 [submodule "curl"]
 	path = thirdparty/curl
 	url = https://github.com/curl/curl.git
+[submodule "thirdparty/fastfetch"]
+	path = thirdparty/fastfetch
+	url = https://github.com/fastfetch/fastfetch
