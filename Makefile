@@ -33,7 +33,7 @@ CFLAGS := -static -Os -fstack-protector-strong -Wall
 
 SAVE_C := recovery.c mkfs.c tar.c
 
-SKIP_C := init.c recovery.c shell.c initramfs_init.c
+SKIP_C := init.c recovery.c shell.c bakkal_amca.c
 
 SRCS := $(sort $(wildcard $(CMDDIR)/*.c))
 CMDS := $(filter-out $(addprefix $(CMDDIR)/,$(SKIP_C)),$(SRCS))
@@ -221,6 +221,9 @@ fish-build: root-check
 		-DCMAKE_CXX_COMPILER=$(CROSS_CXX) \
 		-DCMAKE_C_FLAGS="-B$(TOOLCHAIN_DIR)/libexec/gcc/aarch64-buildroot-linux-musl/15.3.0" \
 		-DCMAKE_CXX_FLAGS="-B$(TOOLCHAIN_DIR)/libexec/gcc/aarch64-buildroot-linux-musl/15.3.0 -fpermissive" \
+		-DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_INSTALL_SYSCONFDIR=/etc \
+		-DCMAKE_INSTALL_DATADIR=share \
 		-DCMAKE_SYSROOT=$(TOOLCHAIN_DIR)/aarch64-buildroot-linux-musl/sysroot \
 		-DCMAKE_FIND_ROOT_PATH=$(TOOLCHAIN_DIR)/aarch64-buildroot-linux-musl/sysroot \
 		-DCMAKE_FIND_ROOT_PATH_MODE_PROGRAM=NEVER \
@@ -244,6 +247,17 @@ fish: fish-build
 	$(STRIP) "$(CMDDIR)/shell" 2>/dev/null || true
 	mkdir -p $(ROOTFS)/usr/share/fish
 	cp -rf thirdparty/fish-shell/share/* $(ROOTFS)/usr/share/fish/
+	mkdir -p $(ROOTFS)/lib
+	cp -f $(TOOLCHAIN_DIR)/aarch64-buildroot-linux-musl/sysroot/lib/ld-musl-aarch64.so.1 $(ROOTFS)/lib/ 2>/dev/null || true
+	cp -f $(TOOLCHAIN_DIR)/aarch64-buildroot-linux-musl/sysroot/lib/libc.musl-aarch64.so.1 $(ROOTFS)/lib/ 2>/dev/null || true
+	cp -f $(TOOLCHAIN_DIR)/aarch64-buildroot-linux-musl/sysroot/usr/lib/libstdc++.so.6 $(ROOTFS)/lib/ 2>/dev/null || true
+	cp -f $(TOOLCHAIN_DIR)/aarch64-buildroot-linux-musl/sysroot/lib/libgcc_s.so.1 $(ROOTFS)/lib/ 2>/dev/null || true
+	cp -f $(TOOLCHAIN_DIR)/aarch64-buildroot-linux-musl/sysroot/usr/lib/libncurses.so.6 $(ROOTFS)/lib/ 2>/dev/null || true
+	cp -f $(TOOLCHAIN_DIR)/aarch64-buildroot-linux-musl/sysroot/usr/lib/libtinfo.so.6 $(ROOTFS)/lib/ 2>/dev/null || true
+	if [ -d $(TOOLCHAIN_DIR)/aarch64-buildroot-linux-musl/sysroot/usr/share/terminfo ]; then \
+		mkdir -p $(ROOTFS)/usr/share/terminfo; \
+		cp -rf $(TOOLCHAIN_DIR)/aarch64-buildroot-linux-musl/sysroot/usr/share/terminfo/. $(ROOTFS)/usr/share/terminfo/; \
+	fi
 	@printf "$(G)[+] Shell hazır: $(CMDDIR)/shell$(N)\n"
 
 curl: root-check
@@ -314,7 +328,8 @@ nodes: root-check
 
 move: root-check
 	@printf "$(G)[*] Moving to $(ROOTFS).. $(N)\n"
-	mkdir -p $(ROOTFS)/lib/paticommands $(ROOTFS)/bin $(ROOTFS)/sbin $(ROOTFS)/etc/mauvyd
+	mkdir -p $(ROOTFS)/lib/paticommands $(ROOTFS)/bin $(ROOTFS)/sbin $(ROOTFS)/etc/mauvyd $(ROOTFS)/tmp $(ROOTFS)/etc $(ROOTFS)/root $(ROOTFS)/etc/fish
+	chmod 1777 $(ROOTFS)/tmp
 	if [ -f "$(CMDDIR)/mauvyd" ]; then
 		cp -f "$(CMDDIR)/mauvyd" "$(ROOTFS)/sbin/init"
 		rm -f "$(CMDDIR)/mauvyd"
@@ -338,6 +353,9 @@ move: root-check
 	if [ -d "$(ROOTFS)/dev/pcgconfigs" ]; then
 		cp -f $(ROOTFS)/dev/pcgconfigs/*.pcg $(ROOTFS)/etc/mauvyd/ 2>/dev/null || true
 	fi
+	printf 'export TERM=xterm-256color\nexport HOME=/root\n' > $(ROOTFS)/etc/profile
+	printf 'root:x:0:0:root:/root:/bin/shell\n' > $(ROOTFS)/etc/passwd
+	cp -f pati-config/config.fish $(ROOTFS)/etc/fish/config.fish
 	chmod -R +x $(ROOTFS)/pcg-startup $(ROOTFS)/bin $(ROOTFS)/lib/paticommands $(ROOTFS)/sbin
 
 system: root-check tools $(DISK)

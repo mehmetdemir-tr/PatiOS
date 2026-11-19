@@ -100,7 +100,8 @@ static void boot_screen(void) {
     log_status("Mounting EFS backup storage (ro)", r_efs2 == 0 || e_efs2 == EBUSY);
     printf("\n");
 
-    putenv("TERM=linux");
+    putenv("TERM=xterm-256color");
+    putenv("HOME=/root");
     sethostname(HOSTNAME, strlen(HOSTNAME));
 
     printf("PatiOS-3.0 by Mehmet Demir. Kod adı: Watermelon (Karpuz)\n");
