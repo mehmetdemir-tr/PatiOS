@@ -55,7 +55,7 @@ PatiOS doesn't uses any Debian / Ubuntu like rootfs. It has own rootfs and user-
 ### Installation Steps (Raspberry Pi 3/4/5) 
 1. Partition your SD card using the **MBR** layout and create a partition with a minimum size of **512MB in FAT32**.
 2. Copy the contents of the `boot` folder from the [Raspberry Pi Firmware](https://github.com/raspberrypi/firmware) repository to this partition.
-3. Rename the `initramfs` file you compiled with KedyBox to `initramfs.gz` and upload it to the FAT32 partition.
+3. Rename the `initramfs` file you compiled to `initramfs.gz` and upload it to the FAT32 partition.
 4. Create a `cmdline.txt` file and add the following parameters:
    `console=serial0,115200 console=tty1 rdinit=/init`
 5. Create a `config.txt` file and save the system with the following example parameters:
