@@ -26,6 +26,8 @@
 * **gzip** package
 * **findutils** package (`find`)
 * **file** package
+* **cargo** package
+* **rustc** package
 
 ## Technical Features
 
