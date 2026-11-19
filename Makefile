@@ -86,8 +86,9 @@ all: toolchain submodules banner $(DISK) compile fish coreutils curl fastfetch n
 
 toolchain:
 	@print"$(C)[?] Initializing toolchain..$(N)\n"
-	wget https://toolchains.bootlin.com/downloads/releases/toolchains/aarch64/tarballs/aarch64--musl--stable-2026.08-1.tar.xz
-	tar -xf aarch64--musl--stable-2026.08-1.tar.xz
+	wget https://toolchains.bootlin.com/downloads/releases/toolchains/aarch64/tarballs/aarch64--musl--stable-2026.08-1.tar.xz -o aarch64-musl.tar.xz
+	tar -xf aarch64-musl.tar.xz
+	rm aarch64-musl.tar.xz
 
 submodules:
 	@if [ ! -f "thirdparty/fish-shell/CMakeLists.txt" ] || [ ! -f "thirdparty/coreutils/Cargo.toml" ]; then \
