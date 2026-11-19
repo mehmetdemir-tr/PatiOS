@@ -85,7 +85,7 @@ coreutils: root-check
 all: toolchain submodules banner $(DISK) compile fish coreutils curl fastfetch nodes move system init recovery initramfs
 
 toolchain:
-	@print"$(C)[?] Initializing toolchain..$(N)\n"
+	@printf "$(C)[?] Initializing toolchain..$(N)\n"
 	wget https://toolchains.bootlin.com/downloads/releases/toolchains/aarch64/tarballs/aarch64--musl--stable-2026.08-1.tar.xz -o aarch64-musl.tar.xz
 	tar -xf aarch64-musl.tar.xz
 	rm aarch64-musl.tar.xz
