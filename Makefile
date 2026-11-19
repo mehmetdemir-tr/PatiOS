@@ -63,7 +63,7 @@ USER_HOME := $(shell getent passwd $${SUDO_USER:-$$USER} | cut -d: -f6)
 
 .PHONY: all submodules banner compile fish fish-build coreutils curl fastfetch nodes move system init recovery initramfs toolchain
 
-COREUTILS_APPLETS = arch base32 base64 basename basenc cat chgrp chmod chown chroot cksum comm cp csplit cut date dd df dir dircolors dirname du echo env expand expr factor false fmt fold groups hashsum head hostid hostname id install join kill link ln logname ls mkdir mkfifo mknod mktemp more mv nice nl nohup nproc numfmt od paste pathchk pr printenv printf ptx pwd readlink realpath rm rmdir seq shred shuf sleep sort split stat sum sync tac tail tee test timeout touch tr true truncate tsort tty uname unexpand uniq unlink vdir wc whoami yes
+COREUTILS_APPLETS = arch base32 base64 basename basenc cat chgrp chmod chown chroot cksum comm cp csplit cut date dd df dir dircolors dirname du echo env expand expr factor false fmt fold groups head hostid hostname id install join kill link ln logname ls mkdir mkfifo mknod mktemp more mv nice nl nohup nproc numfmt od paste pathchk pr printenv printf ptx pwd readlink realpath rm rmdir seq shred shuf sleep sort split stat sum sync tac tail tee test timeout touch tr true truncate tsort tty uname unexpand uniq unlink vdir wc whoami yes
 
 coreutils: root-check
 	$(CARGO_ENV) \
@@ -86,7 +86,7 @@ all: toolchain submodules banner $(DISK) compile fish coreutils curl fastfetch n
 
 toolchain:
 	@printf "$(C)[?] Initializing toolchain..$(N)\n"
-	wget https://toolchains.bootlin.com/downloads/releases/toolchains/aarch64/tarballs/aarch64--musl--stable-2026.08-1.tar.xz -o aarch64-musl.tar.xz
+	wget https://toolchains.bootlin.com/downloads/releases/toolchains/aarch64/tarballs/aarch64--musl--stable-2026.08-1.tar.xz -O aarch64-musl.tar.xz
 	tar -xf aarch64-musl.tar.xz
 	rm aarch64-musl.tar.xz
 
@@ -207,10 +207,13 @@ $(BINS): $(CMDDIR)/%: $(CMDDIR)/%.c
 	fi
 
 fish-build: root-check
-	@printf "$(G)[*] Fish-shell derleniyor...$(N)\n"
+	@printf "$(G)[*] Compiling fish-shell..$(N)\n"
 	rm -rf thirdparty/fish-shell/build-arm64
 	sed -i 's/cmake_policy(SET CMP0037 OLD)/# cmake_policy(SET CMP0037 OLD)/' thirdparty/fish-shell/cmake/Tests.cmake 2>/dev/null || true
 	sed -i 's/add_custom_target(test DEPENDS fish_run_tests)/# add_custom_target(test DEPENDS fish_run_tests)/' thirdparty/fish-shell/cmake/Tests.cmake 2>/dev/null || true
+	$(CARGO_ENV) \
+	CARGO_TARGET_AARCH64_UNKNOWN_LINUX_MUSL_LINKER=$(CROSS) \
+	RUSTFLAGS="-C target-feature=+crt-static" \
 	cmake -S thirdparty/fish-shell -B thirdparty/fish-shell/build-arm64 \
 		-DCMAKE_SYSTEM_NAME=Linux \
 		-DCMAKE_SYSTEM_PROCESSOR=aarch64 \
@@ -224,10 +227,14 @@ fish-build: root-check
 		-DCMAKE_FIND_ROOT_PATH_MODE_LIBRARY=ONLY \
 		-DCMAKE_FIND_ROOT_PATH_MODE_INCLUDE=ONLY \
 		-DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
+		-DRust_CARGO_TARGET=aarch64-unknown-linux-musl \
 		-DBUILD_TESTING=OFF \
 		-DBUILD_TESTS=OFF \
-		-DBUILD_DOCS=OFF \
-		-DWITH_GETTEXT=OFF
+		-DWITH_DOCS=OFF \
+		-DWITH_MESSAGE_LOCALIZATION=OFF
+	$(CARGO_ENV) \
+	CARGO_TARGET_AARCH64_UNKNOWN_LINUX_MUSL_LINKER=$(CROSS) \
+	RUSTFLAGS="-C target-feature=+crt-static" \
 	cmake --build thirdparty/fish-shell/build-arm64 --parallel $$(nproc)
 
 fish: fish-build

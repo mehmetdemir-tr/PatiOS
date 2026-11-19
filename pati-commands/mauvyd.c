@@ -103,7 +103,7 @@ static void boot_screen(void) {
     putenv("TERM=linux");
     sethostname(HOSTNAME, strlen(HOSTNAME));
 
-    printf("PatiOS-2.6 by Mehmet Demir. Kod adı: Watermelon (Karpuz)\n");
+    printf("PatiOS-3.0 by Mehmet Demir. Kod adı: Watermelon (Karpuz)\n");
     printf("----------------------------------------\n");
     printf("----- MAUVYD Configuration System -----\n");
     printf("----------------------------------------\n\n");
