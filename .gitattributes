@@ -10,6 +10,8 @@
 *.ts linguist-vendored=true
 *.ts linguist-detectable=false
 *.bash linguist-detectable=false
+*.fish linguist-detectable=false
+*.fish linguist-vendored=true
 *.bash linguist-vendored=true
 *.ftl linguist-vendored=true
 *.ftl linguist-detectable=false
