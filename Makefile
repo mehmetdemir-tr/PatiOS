@@ -61,7 +61,7 @@ REQUIRED_TOOLS := sfdisk dd mkfs.ext4 debugfs cpio gzip find file tune2fs e2fsck
 USER_HOME := $(shell getent passwd $${SUDO_USER:-$$USER} | cut -d: -f6)
 
 
-.PHONY: all submodules banner extract compile fish fish-build coreutils curl fastfetch nodes move system init recovery initramfs
+.PHONY: all submodules banner compile fish fish-build coreutils curl fastfetch nodes move system init recovery initramfs toolchain
 
 COREUTILS_APPLETS = arch base32 base64 basename basenc cat chgrp chmod chown chroot cksum comm cp csplit cut date dd df dir dircolors dirname du echo env expand expr factor false fmt fold groups hashsum head hostid hostname id install join kill link ln logname ls mkdir mkfifo mknod mktemp more mv nice nl nohup nproc numfmt od paste pathchk pr printenv printf ptx pwd readlink realpath rm rmdir seq shred shuf sleep sort split stat sum sync tac tail tee test timeout touch tr true truncate tsort tty uname unexpand uniq unlink vdir wc whoami yes
 
@@ -82,8 +82,12 @@ coreutils: root-check
 
 
 
-all: submodules banner $(DISK) extract compile fish coreutils curl fastfetch nodes move system init recovery initramfs
+all: toolchain submodules banner $(DISK) compile fish coreutils curl fastfetch nodes move system init recovery initramfs
 
+toolchain:
+	@print"$(C)[?] Initializing toolchain..$(N)\n"
+	wget https://toolchains.bootlin.com/downloads/releases/toolchains/aarch64/tarballs/aarch64--musl--stable-2026.08-1.tar.xz
+	tar -xf aarch64--musl--stable-2026.08-1.tar.xz
 
 submodules:
 	@if [ ! -f "thirdparty/fish-shell/CMakeLists.txt" ] || [ ! -f "thirdparty/coreutils/Cargo.toml" ]; then \
@@ -391,26 +395,26 @@ distclean: clean
 	rm -f "$(DISK)" "$(INITRAMFS)"
 
 help:
-	@printf "$(C)KedyBox — PatiOS ENV Builder$(N)\n\n"
-	@printf "$(C)Hedefler:$(N)\n"
-	@printf "  $(G)%-12s$(N) tam derleme (disk varsa yeniden oluşturulmaz)\n"  "all"
-	@printf "  $(G)%-12s$(N) pati_disk.img'yi sıfırdan oluştur\n"                "disk"
-	@printf "  $(G)%-12s$(N) filesystem.zip -> rootfs/\n"                        "extract"
-	@printf "  $(G)%-12s$(N) pati-commands/*.c derle\n"                          "compile"
-	@printf "  $(G)%-12s$(N) fish binary'sini al\n"                               "fish"
-	@printf "  $(G)%-12s$(N) fish-shell'ı derle (cmake)\n"                        "fish-build"
-	@printf "  $(G)%-12s$(N) cURL'ı derle\n"                                    "curl"
-	@printf "  $(G)%-12s$(N) fastfetch'ı derle\n"                             "fastfetch"
-	@printf "  $(G)%-12s$(N) /dev node'larını oluştur\n"                         "nodes"
-	@printf "  $(G)%-12s$(N) binaları rootfs'e taşı\n"                           "move"
+	@printf "$(C)PatiOS ENV Builder$(N)\n\n"
+	@printf "$(C)Main Commands:$(N)\n"
+	@printf "  $(G)%-12s$(N) full compile\n"  "all"
+	@printf "  $(G)%-12s$(N) downloads toolchain\n"								 "toolchain"
+	@printf "  $(G)%-12s$(N) create pati_disk.img\n"                "disk"
+	@printf "  $(G)%-12s$(N) compile pati-commands/*\n"                          "compile"
+	@printf "  $(G)%-12s$(N) take fish shell's binary\n"                               "fish"
+	@printf "  $(G)%-12s$(N) compile fish-shell\n"                        "fish-build"
+	@printf "  $(G)%-12s$(N) compile cURL\n"                                    "curl"
+	@printf "  $(G)%-12s$(N) compile fastfetch\n"                             "fastfetch"
+	@printf "  $(G)%-12s$(N) create /dev nodes\n"                         		"nodes"
+	@printf "  $(G)%-12s$(N) move binaries to rootfs\n"                           "move"
 	@printf "  $(G)%-12s$(N) system partition (vda5)\n"                          "system"
-	@printf "  $(G)%-12s$(N) rootfs/init derle\n"                                 "init"
+	@printf "  $(G)%-12s$(N) compile init\n"                                 "init"
 	@printf "  $(G)%-12s$(N) recovery partition (vda6)\n"                        "recovery"
-	@printf "  $(G)%-12s$(N) initramfs.cpio.gz üret\n"                           "initramfs"
-	@printf "  $(G)%-12s$(N) ara çıktıları sil\n"                                "clean"
-	@printf "  $(G)%-12s$(N) disk + initramfs + rootfs dahil her şeyi sil\n"      "distclean"
-	@printf "\n$(C)Değişkenler:$(N)\n"
-	@printf "  $(G)%-12s$(N) = %s   (1=taşındıktan sonra sil, 0=koru)\n" "PURGE_CMDS" "$(PURGE_CMDS)"
+	@printf "  $(G)%-12s$(N) create initramfs.cpio.gz file\n"                           "initramfs"
+	@printf "  $(G)%-12s$(N) Clean the rootfs (aka. Mr. Cleaner)\n"                                "clean"
+	@printf "  $(G)%-12s$(N) delete initramfs image and disk\n"      "distclean"
+	@printf "\n$(C)Variables:$(N)\n"
+	@printf "  $(G)%-12s$(N) = %s   (1=delete after moving, 0=do not delete after moving)\n" "PURGE_CMDS" "$(PURGE_CMDS)"
 	@printf "  $(G)%-12s$(N) = %s\n" "DISK" "$(DISK)"
 	@printf "  $(G)%-12s$(N) = %s\n" "CROSS" "$(CROSS)"
-	@printf "\n$(Y)Örnek:  sudo make   |   sudo make disk   |   sudo make PURGE_CMDS=0 all$(N)\n"
+	@printf "\n$(Y)f.e:  sudo make   |   sudo make disk   |   sudo make PURGE_CMDS=0 all$(N)\n"
