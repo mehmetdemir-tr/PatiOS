@@ -1,0 +1,7 @@
+NAME="PatiOS"
+VERSION="3.0"
+ID=patios
+PRETTY_NAME="PatiOS 3.0 (Shakir)"
+HOME_URL="https://github.com/mehmetdemir-tr/PatiOS"
+LOGO="patios"
+CPE_NAME="cpe:/o:patios:patios:3.0"

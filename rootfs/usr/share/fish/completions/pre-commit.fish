@@ -1,0 +1,110 @@
+# Based on version 4.7.0.
+
+set -l commands autoupdate clean gc hazmat init-templatedir install install-hooks migrate-config run sample-config try-repo uninstall validate-config validate-manifest
+set -l commands_with_config autoupdate init-templatedir install install-hooks migrate-config run try-repo uninstall
+set -l hook_stages commit-msg post-checkout post-commit post-merge post-rewrite pre-commit pre-merge-commit pre-push pre-rebase prepare-commit-msg manual
+set -l hook_types commit-msg post-checkout post-commit post-merge post-rewrite pre-commit pre-merge-commit pre-push pre-rebase prepare-commit-msg
+
+functions -q __fish_git || complete -C"git " &>/dev/null
+
+function __fish_pre_commit_config_print -a key
+    set -l config (__fish_git rev-parse --show-toplevel 2>/dev/null)/.pre-commit-config.yaml
+    test -r "$config" && string match -rg "\s+$key:\s+(\S+)" <$config | string unescape
+end
+
+# Global options
+complete pre-commit -f
+complete pre-commit -n __fish_use_subcommand -s h -l help -d "Show help message and exit"
+complete pre-commit -n __fish_use_subcommand -s V -l version -d "Show version number and exit"
+complete pre-commit -n "__fish_seen_subcommand_from $commands" -l color -xa "auto always never" -d "Whether to use color in output"
+complete pre-commit -n "__fish_seen_subcommand_from $commands_with_config" -s c -l config -r -d "Path to alternate config file"
+complete pre-commit -n "__fish_seen_subcommand_from $commands" -s h -l help -d "Show help message and exit"
+
+# autoupdate
+complete pre-commit -n __fish_use_subcommand -a autoupdate -d "Auto-update config"
+complete pre-commit -n "__fish_seen_subcommand_from autoupdate" -l bleeding-edge -d "Update to the bleeding edge of `HEAD`"
+complete pre-commit -n "__fish_seen_subcommand_from autoupdate" -l freeze -d "Store frozen hashes in `rev`"
+complete pre-commit -n "__fish_seen_subcommand_from autoupdate" -l repo -xa "(__fish_pre_commit_config_print repo)" -d "Only update this repository"
+complete pre-commit -n "__fish_seen_subcommand_from autoupdate" -s j -l jobs -x -d "Number of threads to use"
+
+# clean
+complete pre-commit -n __fish_use_subcommand -a clean -d "Clean out files"
+
+# gc
+complete pre-commit -n __fish_use_subcommand -a gc -d "Clean unused cached repos"
+
+# hazmat
+# Args after hazmat tool name belong are passed to the tool.
+# Only the tool names are completed, not their arguments, since they are rarely used interactively.
+complete pre-commit -n __fish_use_subcommand -a hazmat -d "Composable tools for rare use in hook `entry`"
+complete pre-commit -n "__fish_seen_subcommand_from hazmat; and __fish_is_nth_token 2" -a cd -d "cd to a subdir and run the command"
+complete pre-commit -n "__fish_seen_subcommand_from hazmat; and __fish_is_nth_token 2" -a ignore-exit-code -d "Run the command but ignore the exit code"
+complete pre-commit -n "__fish_seen_subcommand_from hazmat; and __fish_is_nth_token 2" -a n1 -d "Run the command once per filename"
+
+# help
+complete pre-commit -n __fish_use_subcommand -a help -d "Show help for a specific command"
+complete pre-commit -n "__fish_seen_subcommand_from help" -a "$commands" -d Command
+
+# init-templatedir
+complete pre-commit -n __fish_use_subcommand -a init-templatedir -d "Install hook script in a directory"
+complete pre-commit -n "__fish_seen_subcommand_from init-templatedir" -l no-allow-missing-config -d "Assume cloned repos should have a config"
+complete pre-commit -n "__fish_seen_subcommand_from init-templatedir" -s t -l hook-type -xa "$hook_types" -d "Type of hook to install"
+complete pre-commit -n "__fish_seen_subcommand_from init-templatedir" -a "(__fish_complete_directories)" -d "Directory to write scripts"
+
+# install
+complete pre-commit -n __fish_use_subcommand -a install -d "Install the pre-commit script"
+complete pre-commit -n "__fish_seen_subcommand_from install" -l allow-missing-config -d "Allow missing config file"
+complete pre-commit -n "__fish_seen_subcommand_from install" -l install-hooks -d "Install hook environments"
+complete pre-commit -n "__fish_seen_subcommand_from install" -s t -l hook-type -xa "$hook_types" -d "Type of hook to install"
+complete pre-commit -n "__fish_seen_subcommand_from install" -s f -l overwrite -d "Overwrite existing hooks"
+
+# install-hooks
+complete pre-commit -n __fish_use_subcommand -a install-hooks -d "Install all hook environments"
+
+# migrate-config
+complete pre-commit -n __fish_use_subcommand -a migrate-config -d "Migrate to newer config"
+
+# run / try-repo
+complete pre-commit -n __fish_use_subcommand -a run -d "Run hooks"
+complete pre-commit -n __fish_use_subcommand -a try-repo -d "Try the hooks in a repository"
+complete pre-commit -n "__fish_seen_subcommand_from run try-repo" -l checkout-type -xa "0 1" -d "Indicate either branch or file checkout"
+complete pre-commit -n "__fish_seen_subcommand_from run try-repo" -l commit-msg-filename -r -d "Filename to check when running during `commit-msg`"
+complete pre-commit -n "__fish_seen_subcommand_from run try-repo" -l commit-object-name -d "Commit object name"
+complete pre-commit -n "__fish_seen_subcommand_from run try-repo" -l fail-fast -d "Stop after the first failing hook"
+complete pre-commit -n "__fish_seen_subcommand_from run try-repo" -l files -r -d "Filenames to run hooks on"
+complete pre-commit -n "__fish_seen_subcommand_from run try-repo" -l hook-stage -xa "$hook_stages" -d "The stage during which the hook is fired"
+complete pre-commit -n "__fish_seen_subcommand_from run try-repo" -l is-squash-merge -d "Whether the merge was a squash merge"
+complete pre-commit -n "__fish_seen_subcommand_from run try-repo" -l local-branch -d "Local branch ref used by `git push`"
+complete pre-commit -n "__fish_seen_subcommand_from run try-repo" -l pre-rebase-branch -xa "(__fish_git_branches)" -d "The branch being rebased"
+complete pre-commit -n "__fish_seen_subcommand_from run try-repo" -l pre-rebase-upstream -xa "(__fish_git_refs)" -d "The upstream from which the series was forked"
+complete pre-commit -n "__fish_seen_subcommand_from run try-repo" -l prepare-commit-message-source -d "Source of the commit message"
+complete pre-commit -n "__fish_seen_subcommand_from run try-repo" -l remote-branch -d "Remote branch ref used by `git push`"
+complete pre-commit -n "__fish_seen_subcommand_from run try-repo" -l remote-name -d "Remote name used by `git push`"
+complete pre-commit -n "__fish_seen_subcommand_from run try-repo" -l remote-url -d "Remote url used by `git push`"
+complete pre-commit -n "__fish_seen_subcommand_from run try-repo" -l rewrite-command -d "The command that invoked the rewrite"
+complete pre-commit -n "__fish_seen_subcommand_from run try-repo" -l show-diff-on-failure -d "Show `git diff` on hook failure"
+complete pre-commit -n "__fish_seen_subcommand_from run try-repo" -s a -l all-files -d "Run on all the files in the repo"
+complete pre-commit -n "__fish_seen_subcommand_from run try-repo" -s s -l source -l from-ref -xa '(__fish_git_refs)' -d "Original ref"
+complete pre-commit -n "__fish_seen_subcommand_from run try-repo" -s o -l origin -l to-ref -xa '(__fish_git_refs)' -d "Destination ref"
+complete pre-commit -n "__fish_seen_subcommand_from run try-repo" -s v -l verbose -d Verbose
+complete pre-commit -n "__fish_seen_subcommand_from run" -a "(__fish_pre_commit_config_print id)" -d "Hook id"
+# `try-repo` has second pos argument `hook`, but it's different targetting `<repo>` from first pos argument,
+# instead of the current repo - so it's not the same as `__fish_pre_commit_config_print id`.
+# Skipping it as it's rarely used interactively.
+complete pre-commit -n "__fish_seen_subcommand_from try-repo; and __fish_is_nth_token 2" -fa "(__fish_complete_directories)"
+complete pre-commit -n "__fish_seen_subcommand_from try-repo" -l ref -l rev -xa '(__fish_git_refs)' -d "Ref to run against"
+
+# sample-config
+complete pre-commit -n __fish_use_subcommand -a sample-config -d "Produce sample config file"
+
+# uninstall
+complete pre-commit -n __fish_use_subcommand -a uninstall -d "Uninstall the pre-commit script"
+complete pre-commit -n "__fish_seen_subcommand_from uninstall" -s t -l hook-type -xa "$hook_types" -d "Type of hook to uninstall"
+
+# validate-config
+complete pre-commit -n __fish_use_subcommand -a validate-config -d "Validate .pre-commit-config.yaml files"
+complete pre-commit -n "__fish_seen_subcommand_from validate-config" --force-files
+
+# validate-manifest
+complete pre-commit -n __fish_use_subcommand -a validate-manifest -d "Validate .pre-commit-hooks.yaml files"
+complete pre-commit -n "__fish_seen_subcommand_from validate-manifest" --force-files

@@ -1,0 +1,1 @@
+__fish_complete_firefox firefox-developer-edition
