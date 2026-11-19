@@ -10,3 +10,6 @@
 [submodule "thirdparty/fastfetch"]
 	path = thirdparty/fastfetch
 	url = https://github.com/fastfetch-cli/fastfetch
+[submodule "thirdparty/mbedtls"]
+	path = thirdparty/mbedtls
+	url = https://github.com/Mbed-TLS/mbedtls

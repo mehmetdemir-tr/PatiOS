@@ -66,13 +66,17 @@ void sync_paticommands(void);
 static void boot_screen(void) {
     printf("\e[H\e[J");
 
+    mkdir("/proc", 0755);
+    mkdir("/sys", 0755);
     int r_proc = mount("proc", "/proc", "proc", 0, NULL);
     int e_proc = errno;
-    log_status("Mounting procfs", r_proc == 0 || e_proc == EBUSY);
+    int proc_ok = (r_proc == 0 || e_proc == EBUSY || access("/proc/self/stat", R_OK) == 0);
+    log_status("Mounting procfs", proc_ok);
 
     int r_sys = mount("sysfs", "/sys", "sysfs", 0, NULL);
     int e_sys = errno;
-    log_status("Mounting sysfs", r_sys == 0 || e_sys == EBUSY);
+    int sys_ok = (r_sys == 0 || e_sys == EBUSY || access("/sys/class", R_OK) == 0);
+    log_status("Mounting sysfs", sys_ok);
     printf("\n");
 
     mkdir("/tmp", 01777);
@@ -122,7 +126,7 @@ static void boot_screen(void) {
 
     FILE *iss = fopen("/etc/issue", "w");
     if (iss) {
-        fprintf(iss, "PatiOS 3.0 (Shakir)\\n \\l\n");
+        fprintf(iss, "PatiOS 3.0 (Watermelon)\n");
         fclose(iss);
     }
 

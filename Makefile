@@ -61,7 +61,7 @@ REQUIRED_TOOLS := sfdisk dd mkfs.ext4 debugfs cpio gzip find file tune2fs e2fsck
 USER_HOME := $(shell getent passwd $${SUDO_USER:-$$USER} | cut -d: -f6)
 
 
-.PHONY: all submodules banner compile fish fish-build coreutils curl fastfetch nodes move system init recovery initramfs toolchain
+.PHONY: all submodules banner compile fish fish-build mbedtls coreutils curl fastfetch nodes move system init recovery initramfs toolchain
 
 COREUTILS_APPLETS = arch base32 base64 basename basenc cat chgrp chmod chown chroot cksum comm cp csplit cut date dd df dir dircolors dirname du echo env expand expr factor false fmt fold groups head hostid hostname id install join kill link ln logname ls mkdir mkfifo mknod mktemp more mv nice nl nohup nproc numfmt od paste pathchk pr printenv printf ptx pwd readlink realpath rm rmdir seq shred shuf sleep sort split stat sum sync tac tail tee test timeout touch tr true truncate tsort tty uname unexpand uniq unlink vdir wc whoami yes
 
@@ -82,7 +82,7 @@ coreutils: root-check
 
 
 
-all: toolchain submodules banner $(DISK) compile fish coreutils curl fastfetch nodes move system init recovery initramfs
+all: toolchain submodules banner $(DISK) compile fish mbedtls coreutils curl fastfetch nodes move system init recovery initramfs
 
 toolchain:
 	@printf "$(C)[?] Initializing toolchain..$(N)\n"
@@ -260,8 +260,35 @@ fish: fish-build
 	fi
 	@printf "$(G)[+] Shell hazır: $(CMDDIR)/shell$(N)\n"
 
-curl: root-check
+mbedtls: root-check
+	@printf "$(G)[*] MbedTLS derleniyor...$(N)\n"
+	rm -rf thirdparty/mbedtls/build-arm64 thirdparty/mbedtls/install
+	cmake -S thirdparty/mbedtls -B thirdparty/mbedtls/build-arm64 \
+		-DCMAKE_SYSTEM_NAME=Linux \
+		-DCMAKE_SYSTEM_PROCESSOR=aarch64 \
+		-DCMAKE_C_COMPILER=$(CROSS) \
+		-DCMAKE_C_FLAGS="-Os -static" \
+		-DCMAKE_EXE_LINKER_FLAGS="-static" \
+		-DCMAKE_SYSROOT=$(TOOLCHAIN_DIR)/aarch64-buildroot-linux-musl/sysroot \
+		-DCMAKE_FIND_ROOT_PATH=$(TOOLCHAIN_DIR)/aarch64-buildroot-linux-musl/sysroot \
+		-DCMAKE_FIND_ROOT_PATH_MODE_PROGRAM=NEVER \
+		-DCMAKE_FIND_ROOT_PATH_MODE_LIBRARY=ONLY \
+		-DCMAKE_FIND_ROOT_PATH_MODE_INCLUDE=ONLY \
+		-DENABLE_PROGRAMS=OFF \
+		-DENABLE_TESTING=OFF \
+		-DUSE_STATIC_MBEDTLS_LIBRARY=ON \
+		-DUSE_SHARED_MBEDTLS_LIBRARY=OFF \
+		-DDISABLE_PACKAGE_CONFIG_AND_INSTALL=ON \
+		-DCMAKE_INSTALL_PREFIX=$(CURDIR)/thirdparty/mbedtls/install
+	cmake --build thirdparty/mbedtls/build-arm64 --parallel $$(nproc)
+	cmake --install thirdparty/mbedtls/build-arm64
+	@printf "$(G)[+] MbedTLS hazır.$(N)\n"
+
+curl: root-check mbedtls
 	@printf "$(G)[*] cURL derleniyor...$(N)\n"
+	PKG_CONFIG_PATH="$(CURDIR)/thirdparty/mbedtls/install/lib/pkgconfig" \
+	PKG_CONFIG_LIBDIR="$(CURDIR)/thirdparty/mbedtls/install/lib/pkgconfig" \
+	PKG_CONFIG_SYSROOT_DIR="" \
 	cmake -S thirdparty/curl -B thirdparty/curl/build-arm64 \
 		-DCMAKE_SYSTEM_NAME=Linux \
 		-DCMAKE_SYSTEM_PROCESSOR=aarch64 \
@@ -271,13 +298,18 @@ curl: root-check
 		-DBUILD_SHARED_LIBS=OFF \
 		-DBUILD_CURL_EXE=ON \
 		-DBUILD_STATIC_CURL=ON \
+		-DCURL_USE_MBEDTLS=ON \
+		-DMBEDTLS_ROOT_DIR=$(CURDIR)/thirdparty/mbedtls/install \
 		-DCURL_USE_OPENSSL=OFF \
 		-DCURL_USE_LIBPSL=OFF \
 		-DUSE_LIBIDN2=OFF \
 		-DUSE_NGHTTP2=OFF \
 		-DCURL_ZLIB=OFF \
 		-DCURL_BROTLI=OFF \
-		-DCURL_ZSTD=OFF
+		-DCURL_ZSTD=OFF \
+		-DCURL_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt \
+		-DCURL_CA_PATH=/etc/ssl/certs \
+		-DCMAKE_PREFIX_PATH=$(CURDIR)/thirdparty/mbedtls/install
 	cmake --build thirdparty/curl/build-arm64 --parallel $$(nproc)
 	mkdir -p $(ROOTFS)/bin
 	cp -f thirdparty/curl/build-arm64/src/curl $(ROOTFS)/bin/curl
@@ -328,7 +360,7 @@ nodes: root-check
 
 move: root-check
 	@printf "$(G)[*] Moving to $(ROOTFS).. $(N)\n"
-	mkdir -p $(ROOTFS)/lib/paticommands $(ROOTFS)/bin $(ROOTFS)/sbin $(ROOTFS)/etc/mauvyd $(ROOTFS)/tmp $(ROOTFS)/etc $(ROOTFS)/root $(ROOTFS)/etc/fish
+	mkdir -p $(ROOTFS)/lib/paticommands $(ROOTFS)/bin $(ROOTFS)/sbin $(ROOTFS)/etc/mauvyd $(ROOTFS)/tmp $(ROOTFS)/etc $(ROOTFS)/root $(ROOTFS)/etc/fish $(ROOTFS)/proc $(ROOTFS)/sys
 	chmod 1777 $(ROOTFS)/tmp
 	if [ -f "$(CMDDIR)/mauvyd" ]; then
 		cp -f "$(CMDDIR)/mauvyd" "$(ROOTFS)/sbin/init"
@@ -357,8 +389,10 @@ move: root-check
 	printf 'root:x:0:0:root:/root:/bin/shell\n' > $(ROOTFS)/etc/passwd
 	printf 'pati\n' > $(ROOTFS)/etc/hostname
 	printf 'NAME="PatiOS"\nVERSION="3.0 (Watermelon)"\nID=patios\nID_LIKE=linux\nVERSION_ID="3.0"\nPRETTY_NAME="PatiOS 3.0 (Watermelon)"\nVARIANT="IoT"\nVARIANT_ID=iot\nHOME_URL="https://github.com/mehmetdemir-tr/PatiOS"\nSUPPORT_URL="https://github.com/mehmetdemir-tr/PatiOS/issues"\nBUG_REPORT_URL="https://github.com/mehmetdemir-tr/PatiOS/issues"\nCPE_NAME="cpe:/o:patios:patios:3.0"\nLOGO=patios\n' > $(ROOTFS)/etc/os-release
-	printf 'PatiOS 3.0 (Watermelon) \\n \\l\n' > $(ROOTFS)/etc/issue
+	printf 'PatiOS 3.0 (Watermelon)\n' > $(ROOTFS)/etc/issue
 	printf '127.0.0.1\tlocalhost pati\n::1\tlocalhost\n' > $(ROOTFS)/etc/hosts
+	mkdir -p $(ROOTFS)/etc/ssl/certs
+	cp -f /etc/ssl/certs/ca-certificates.crt $(ROOTFS)/etc/ssl/certs/ca-certificates.crt 2>/dev/null || wget -q -O $(ROOTFS)/etc/ssl/certs/ca-certificates.crt https://curl.se/ca/cacert.pem
 	printf 'BUILD_ID="$(shell date +%Y%m%d)"\n' >> $(ROOTFS)/etc/os-release
 	cp -f pati-config/config.fish $(ROOTFS)/etc/fish/config.fish
 	chmod -R +x $(ROOTFS)/pcg-startup $(ROOTFS)/bin $(ROOTFS)/lib/paticommands $(ROOTFS)/sbin
