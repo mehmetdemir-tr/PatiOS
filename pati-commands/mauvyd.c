@@ -48,7 +48,6 @@ static void log_status(const char *msg, int ok) {
 
 #define CONFIG_DIR "/etc/mauvyd"
 #define DEFAULT_PATH "/bin:/sbin:/usr/bin:/usr/sbin:/pcg-startup:/lib/paticommands"
-#define HOSTNAME "pati@mobile"
 #define OS_NAME "PatiOS"
 
 Service service_table[MAX_SERVICES];
@@ -76,6 +75,9 @@ static void boot_screen(void) {
     log_status("Mounting sysfs", r_sys == 0 || e_sys == EBUSY);
     printf("\n");
 
+    mkdir("/tmp", 01777);
+    mount("tmpfs", "/tmp", "tmpfs", 0, "size=16M,mode=1777");
+
     mkdir("/data", 0755);
     mkdir("/data/paticommands", 0755);
     int ret = mount("/dev/vda1", "/data", "ext4", 0, NULL);
@@ -87,6 +89,15 @@ static void boot_screen(void) {
     } else {
         log_status("Mounting persistent storage", 0);
     }
+    char hostname_buf[256] = "sakir";
+    FILE *hf = fopen("/etc/hostname", "r");
+    if (hf) {
+        if (fgets(hostname_buf, sizeof(hostname_buf), hf)) {
+            hostname_buf[strcspn(hostname_buf, "\n")] = '\0';
+        }
+        fclose(hf);
+    }
+    sethostname(hostname_buf, strlen(hostname_buf));
     putenv("PATH=" DEFAULT_PATH);
 
     mkdir("/dev/imeidata/efs_current", 0755);
@@ -100,11 +111,22 @@ static void boot_screen(void) {
     log_status("Mounting EFS backup storage (ro)", r_efs2 == 0 || e_efs2 == EBUSY);
     printf("\n");
 
+    FILE *rf = fopen("/etc/resolv.conf", "w");
+    if (rf) {
+        fprintf(rf, "nameserver 8.8.8.8\nnameserver 1.1.1.1\n");
+        fclose(rf);
+    }
+
     putenv("TERM=xterm-256color");
     putenv("HOME=/root");
-    sethostname(HOSTNAME, strlen(HOSTNAME));
 
-    printf("PatiOS-3.0 by Mehmet Demir. Kod adı: Watermelon (Karpuz)\n");
+    FILE *iss = fopen("/etc/issue", "w");
+    if (iss) {
+        fprintf(iss, "PatiOS 3.0 (Shakir)\\n \\l\n");
+        fclose(iss);
+    }
+
+    printf("PatiOS-3.0 by Mehmet Uğur Demir. Codename: Shakir\n");
     printf("----------------------------------------\n");
     printf("----- MAUVYD Configuration System -----\n");
     printf("----------------------------------------\n\n");

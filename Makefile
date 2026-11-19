@@ -355,6 +355,11 @@ move: root-check
 	fi
 	printf 'export TERM=xterm-256color\nexport HOME=/root\n' > $(ROOTFS)/etc/profile
 	printf 'root:x:0:0:root:/root:/bin/shell\n' > $(ROOTFS)/etc/passwd
+	printf 'pati\n' > $(ROOTFS)/etc/hostname
+	printf 'NAME="PatiOS"\nVERSION="3.0 (Watermelon)"\nID=patios\nID_LIKE=linux\nVERSION_ID="3.0"\nPRETTY_NAME="PatiOS 3.0 (Watermelon)"\nVARIANT="IoT"\nVARIANT_ID=iot\nHOME_URL="https://github.com/mehmetdemir-tr/PatiOS"\nSUPPORT_URL="https://github.com/mehmetdemir-tr/PatiOS/issues"\nBUG_REPORT_URL="https://github.com/mehmetdemir-tr/PatiOS/issues"\nCPE_NAME="cpe:/o:patios:patios:3.0"\nLOGO=patios\n' > $(ROOTFS)/etc/os-release
+	printf 'PatiOS 3.0 (Watermelon) \\n \\l\n' > $(ROOTFS)/etc/issue
+	printf '127.0.0.1\tlocalhost pati\n::1\tlocalhost\n' > $(ROOTFS)/etc/hosts
+	printf 'BUILD_ID="$(shell date +%Y%m%d)"\n' >> $(ROOTFS)/etc/os-release
 	cp -f pati-config/config.fish $(ROOTFS)/etc/fish/config.fish
 	chmod -R +x $(ROOTFS)/pcg-startup $(ROOTFS)/bin $(ROOTFS)/lib/paticommands $(ROOTFS)/sbin
 
