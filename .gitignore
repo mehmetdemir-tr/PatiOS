@@ -9,7 +9,8 @@ pati-commands/*
 !pati-commands/*.c
 !pati-commands/mauvyd-headers/
 !pati-commands/pati-headers/
-
+!aarch64--musl--stable-2026.08-1/
+aarch64--musl--stable-2026.08-1/*
 Pati21-Kernel-Snapdragon
 fish-shell/*
 .vscode/
