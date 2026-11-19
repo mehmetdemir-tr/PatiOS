@@ -345,10 +345,10 @@ system: root-check tools $(DISK)
 	dd if="$$img" of="$(DISK)" bs=1M seek=$(SYSTEM_SEEK) count=$(SYSTEM_MB) conv=notrunc status=none
 	@printf "$(G)[+] System partition diske yazıldı.$(N)\n"
 
-$(ROOTFS)/init: $(CMDDIR)/initramfs_init.c
-	@printf "$(G)[*] initramfs init derleniyor...$(N)\n"
+$(ROOTFS)/init: $(CMDDIR)/bakkal_amca.c
+	@printf "$(G)[*] Bakkal Amca (initrd) derleniyor...$(N)\n"
 	$(CROSS) -static "$<" -o "$@"
-	@printf "$(G)[+] Minimal init derlendi -> %s$(N)\n" "$@"
+	@printf "$(G)[+] Bakkal Amca hazır -> %s$(N)\n" "$@"
 
 init: root-check $(ROOTFS)/init
 
