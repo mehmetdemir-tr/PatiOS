@@ -22,6 +22,7 @@ USER_HOME := $(shell getent passwd $${SUDO_USER:-$$USER} | cut -d: -f6)
 CARGO_ENV := PATH="$(USER_HOME)/.cargo/bin:$$PATH" RUSTUP_HOME="$(USER_HOME)/.rustup" CARGO_HOME="$(USER_HOME)/.cargo"
 
 DISK      := pati_disk.img
+SQUASHFS_IMG := rootfs.squashfs
 INITRAMFS := initramfs.cpio.gz
 ROOTFS    := rootfs
 CMDDIR    := pati-commands
@@ -61,7 +62,7 @@ REQUIRED_TOOLS := sfdisk dd mkfs.ext4 debugfs cpio gzip find file tune2fs e2fsck
 USER_HOME := $(shell getent passwd $${SUDO_USER:-$$USER} | cut -d: -f6)
 
 
-.PHONY: all submodules banner compile fish fish-build mbedtls coreutils curl fastfetch nodes move system init recovery initramfs toolchain
+.PHONY: all submodules banner compile fish fish-build mbedtls coreutils curl fastfetch nodes move system init initramfs recovery rootfs.squashfs toolchain
 
 COREUTILS_APPLETS = arch base32 base64 basename basenc cat chgrp chmod chown chroot cksum comm cp csplit cut date dd df dir dircolors dirname du echo env expand expr factor false fmt fold groups head hostid hostname id install join kill link ln logname ls mkdir mkfifo mknod mktemp more mv nice nl nohup nproc numfmt od paste pathchk pr printenv printf ptx pwd readlink realpath rm rmdir seq shred shuf sleep sort split stat sum sync tac tail tee test timeout touch tr true truncate tsort tty uname unexpand uniq unlink vdir wc whoami yes
 
@@ -82,7 +83,7 @@ coreutils: root-check
 
 
 
-all: toolchain submodules banner $(DISK) compile fish mbedtls coreutils curl fastfetch nodes move system init recovery initramfs
+all: toolchain submodules banner $(DISK) compile fish mbedtls coreutils curl fastfetch nodes move system init initramfs recovery rootfs.squashfs
 
 toolchain:
 	@printf "$(C)[?] Initializing toolchain..$(N)\n"
@@ -445,8 +446,18 @@ recovery: root-check tools $(DISK)
 
 initramfs: root-check $(ROOTFS)/init
 	@printf "$(G)[*] initramfs oluşturuluyor...$(N)\n"
-	cd $(ROOTFS) && find . | cpio -o -H newc | gzip -9 > ../$(INITRAMFS)
+	rm -rf $(BUILDDIR)/initramfs-root
+	mkdir -p $(BUILDDIR)/initramfs-root
+	cp -f $(ROOTFS)/init $(BUILDDIR)/initramfs-root/init
+	chmod +x $(BUILDDIR)/initramfs-root/init
+	cd $(BUILDDIR)/initramfs-root && find . | cpio -o -H newc | gzip > ../../$(INITRAMFS)
 	@printf "$(G)[+] %s hazır.$(N)\n" "$(INITRAMFS)"
+
+rootfs.squashfs: root-check move $(ROOTFS)/init
+	@printf "$(G)[*] SquashFS kök dosya sistemi oluşturuluyor...$(N)\n"
+	mkdir -p $(ROOTFS)/oldroot
+	mksquashfs $(ROOTFS) $(SQUASHFS_IMG) -comp gzip -b 1M -all-root -noappend -no-duplicates
+	@printf "$(G)[+] %s hazır.$(N)\n" "$(SQUASHFS_IMG)"
 
 
 clean: root-check

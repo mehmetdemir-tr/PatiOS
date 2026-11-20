@@ -122,7 +122,7 @@ static void boot_screen(void) {
     }
 
     putenv("TERM=xterm-256color");
-    putenv("HOME=/root");
+    putenv("HOME=/tmp");
 
     FILE *iss = fopen("/etc/issue", "w");
     if (iss) {
