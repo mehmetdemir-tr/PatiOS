@@ -86,11 +86,14 @@ coreutils: root-check
 all: toolchain submodules banner $(DISK) compile fish mbedtls coreutils curl fastfetch nodes move system init initramfs recovery rootfs.squashfs
 
 toolchain:
-	@printf "$(C)[?] Initializing toolchain..$(N)\n"
-	wget https://toolchains.bootlin.com/downloads/releases/toolchains/aarch64/tarballs/aarch64--musl--stable-2026.08-1.tar.xz -O aarch64-musl.tar.xz
-	tar -xf aarch64-musl.tar.xz
-	rm aarch64-musl.tar.xz
-
+	@if [ -d "$(TOOLCHAIN_DIR)/bin" ]; then \
+		printf "$(G)[+] Toolchain already initialized in ./$(TOOLCHAIN_DIR)$(N)\n"; \
+	else \
+		@printf "$(C)[?] Initializing toolchain..$(N)\n"
+		wget https://toolchains.bootlin.com/downloads/releases/toolchains/aarch64/tarballs/aarch64--musl--stable-2026.08-1.tar.xz -O aarch64-musl.tar.xz
+		tar -xf aarch64-musl.tar.xz
+		rm aarch64-musl.tar.xz
+	fi
 submodules:
 	@if [ ! -f "thirdparty/fish-shell/CMakeLists.txt" ] || [ ! -f "thirdparty/coreutils/Cargo.toml" ]; then \
 		echo "Downloading submodules.."; \
