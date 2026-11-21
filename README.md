@@ -86,6 +86,10 @@ This project is released under the **GPL v3** license.
 
 **Development Note:** This project is being developed using a protocol focused on research and in-depth engineering. Rather than directly copying code while using artificial intelligence, we are prioritizing operating system theory, terminology research, and low-level logical reasoning.
 
+## Things will be added soon:
+- LTE 4G Modem /dev/pts/X (Python)
+- AT Command Manager (Rust)
+- Things that users want =)
 
 ## Timeline:
 1. March 27, 2026 - Repo created (under the name “Pati”)
@@ -97,4 +101,3 @@ This project is released under the **GPL v3** license.
 
 ---
 *Developer: [mehmetdemir-tr](https://github.com/mehmetdemir-tr)*
-
