@@ -1,0 +1,15 @@
+[package]
+name = "launcher"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+slint = { version = "1.9", default-features = false, features = [
+    "compat-1-2",
+    "std",
+    "backend-winit",
+    "renderer-software"
+] }
+
+[build-dependencies]
+slint-build = "1.9"
