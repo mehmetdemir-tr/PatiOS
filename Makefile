@@ -6,30 +6,6 @@ SHELL       := /bin/bash
 FAKEROOT := $(if $(FAKEROOTKEY),,fakeroot)
 .DELETE_ON_ERROR:
 
-define NOUVEAU_PATCH
-#include <stdint.h>
-#ifndef NOUVEAU_GETPARAM_FB_SIZE
-#define NOUVEAU_GETPARAM_FB_SIZE 4
-#define NOUVEAU_GETPARAM_AGP_SIZE 5
-#define NOUVEAU_GETPARAM_GRAPH_UNITS 13
-#ifndef DRM_NOUVEAU_GETPARAM
-#define DRM_NOUVEAU_GETPARAM 0x00
-#endif
-struct drm_nouveau_getparam {
-    uint64_t param;
-    uint64_t value;
-};
-#endif
-endef
-export NOUVEAU_PATCH
-
-define patch_nouveau
-	@if ! grep -q "struct drm_nouveau_getparam {" $(1); then \
-		echo "Patching $(1)..."; \
-		printf "%s\n" "$$NOUVEAU_PATCH" | cat - $(1) > $(1).tmp && mv $(1).tmp $(1); \
-	fi
-endef
-
 R := \033[1;31m
 G := \033[1;32m
 Y := \033[1;33m
@@ -86,7 +62,7 @@ REQUIRED_TOOLS := sfdisk dd mkfs.ext4 debugfs cpio gzip find file tune2fs e2fsck
 USER_HOME := $(shell getent passwd $${SUDO_USER:-$$USER} | cut -d: -f6)
 
 
-.PHONY: all submodules banner compile fish fish-build mbedtls coreutils curl fastfetch nodes move system init initramfs recovery rootfs.squashfs toolchain
+.PHONY: all submodules banner compile fish fish-build mbedtls coreutils curl nodes move system init initramfs recovery rootfs.squashfs toolchain
 
 COREUTILS_APPLETS = arch base32 base64 basename basenc cat chgrp chmod chown chroot cksum comm cp csplit cut date dd df dir dircolors dirname du echo env expand expr factor false fmt fold groups head hostid hostname id install join kill link ln logname ls mkdir mkfifo mknod mktemp more mv nice nl nohup nproc numfmt od paste pathchk pr printenv printf ptx pwd readlink realpath rm rmdir seq shred shuf sleep sort split stat sum sync tac tail tee test timeout touch tr true truncate tsort tty uname unexpand uniq unlink vdir wc whoami yes
 
@@ -107,7 +83,7 @@ coreutils: root-check
 
 
 
-all: toolchain submodules banner $(DISK) compile fish mbedtls coreutils curl fastfetch nodes move system init initramfs recovery rootfs.squashfs
+all: toolchain submodules banner $(DISK) compile fish mbedtls coreutils curl nodes move system init initramfs recovery rootfs.squashfs
 
 toolchain:
 	@if [ -d "$(TOOLCHAIN_DIR)/bin" ]; then \
@@ -123,7 +99,6 @@ submodules:
 	@if [ ! -f "thirdparty/fish-shell/CMakeLists.txt" ] || \
 	    [ ! -f "thirdparty/coreutils/Cargo.toml" ] || \
 	    [ ! -f "thirdparty/curl/CMakeLists.txt" ] || \
-	    [ ! -f "thirdparty/fastfetch/CMakeLists.txt" ] || \
 	    [ ! -f "thirdparty/mbedtls/CMakeLists.txt" ]; then \
 		echo "Downloading submodules.."; \
 		sudo -u $${SUDO_USER:-$$(whoami)} git submodule update --init --recursive --depth 1 || ( \
@@ -361,32 +336,6 @@ curl: root-check mbedtls
 	$(STRIP) $(ROOTFS)/bin/curl 2>/dev/null || true
 	@printf "$(G)[+] Initialized curl.$(N)\n"
 
-fastfetch: root-check
-	@printf "$(G)[*] Compiling fastfetch..$(N)\n"
-	$(call patch_nouveau,thirdparty/fastfetch/src/detection/gpu/gpu_drm.c)
-	@printf "$(G)[+] Patch Complete.$(N)\n"
-	rm -rf thirdparty/fastfetch/build-arm64
-	cmake -S thirdparty/fastfetch -B thirdparty/fastfetch/build-arm64 \
-		-DCMAKE_SYSTEM_NAME=Linux \
-		-DCMAKE_SYSTEM_PROCESSOR=aarch64 \
-		-DCMAKE_C_COMPILER=$(CROSS) \
-		-DCMAKE_C_FLAGS="-Os -static -B$(TOOLCHAIN_DIR)/libexec/gcc/aarch64-buildroot-linux-musl/15.3.0" \
-		-DCMAKE_EXE_LINKER_FLAGS="-static" \
-		-DCMAKE_SYSROOT=$(TOOLCHAIN_DIR)/aarch64-buildroot-linux-musl/sysroot \
-		-DCMAKE_FIND_ROOT_PATH=$(TOOLCHAIN_DIR)/aarch64-buildroot-linux-musl/sysroot \
-		-DCMAKE_FIND_ROOT_PATH_MODE_PROGRAM=NEVER \
-		-DCMAKE_FIND_ROOT_PATH_MODE_LIBRARY=ONLY \
-		-DCMAKE_FIND_ROOT_PATH_MODE_INCLUDE=ONLY \
-		-DBUILD_TESTS=OFF \
-		-DENABLE_SYSTEM_YYJSON=OFF \
-		-DENABLE_ZLIB=OFF \
-		-DENABLE_BUNDLED_ZLIB=OFF \
-		-DENABLE_ELF=OFF
-	cmake --build thirdparty/fastfetch/build-arm64 --parallel $$(nproc)
-	mkdir -p $(ROOTFS)/bin
-	cp -f thirdparty/fastfetch/build-arm64/fastfetch $(ROOTFS)/bin/fastfetch
-	$(STRIP) $(ROOTFS)/bin/fastfetch 2>/dev/null || true
-	@printf "$(G)[+] Initialized fastfetch.$(N)\n"
 
 nodes: root-check
 	@printf "$(G)[*] Device nodes oluşturuluyor...$(N)\n"
@@ -526,7 +475,6 @@ help:
 	@printf "  $(G)%-12s$(N) take fish shell's binary\n"                               "fish"
 	@printf "  $(G)%-12s$(N) compile fish-shell\n"                        "fish-build"
 	@printf "  $(G)%-12s$(N) compile cURL\n"                                    "curl"
-	@printf "  $(G)%-12s$(N) compile fastfetch\n"                             "fastfetch"
 	@printf "  $(G)%-12s$(N) create /dev nodes\n"                         		"nodes"
 	@printf "  $(G)%-12s$(N) move binaries to rootfs\n"                           "move"
 	@printf "  $(G)%-12s$(N) system partition (vda5)\n"                          "system"
