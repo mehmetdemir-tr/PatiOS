@@ -89,15 +89,17 @@ toolchain:
 	@if [ -d "$(TOOLCHAIN_DIR)/bin" ]; then \
 		printf "$(G)[+] Toolchain already initialized in ./$(TOOLCHAIN_DIR)$(N)\n"; \
 	else \
-		@printf "$(C)[?] Initializing toolchain..$(N)\n"
-		wget https://toolchains.bootlin.com/downloads/releases/toolchains/aarch64/tarballs/aarch64--musl--stable-2026.08-1.tar.xz -O aarch64-musl.tar.xz
-		tar -xf aarch64-musl.tar.xz
-		rm aarch64-musl.tar.xz
+		printf "$(C)[?] Initializing toolchain..$(N)\n"; \
+		wget https://toolchains.bootlin.com/downloads/releases/toolchains/aarch64/tarballs/aarch64--musl--stable-2026.08-1.tar.xz -O aarch64-musl.tar.xz && \
+		tar -xf aarch64-musl.tar.xz && \
+		rm aarch64-musl.tar.xz;
 	fi
 submodules:
-	@if [ ! -f "thirdparty/fish-shell/CMakeLists.txt" ] || [ ! -f "thirdparty/coreutils/Cargo.toml" ]; then \
+	@if [ ! -f "thirdparty/fish-shell/CMakeLists.txt" ] || [ ! -f "thirdparty/coreutils/Cargo.toml" ] || [ ! -f "thirdparty/curl/CMakeLists.txt" ] || [ ! -f "thirdparty/fastfetch/CMakeLists.txt" ] || [ ! -f "thirdparty/mbedtls/CMakeLists.txt" ]; then \
 		echo "Downloading submodules.."; \
-		sudo -u $${SUDO_USER:-$$(whoami)} git submodule update --init --recursive; \
+		sudo -u $${SUDO_USER:-$$(whoami)} git submodule sync --recursive; \
+		sudo -u $${SUDO_USER:-$$(whoami)} git submodule update --init --recursive || \
+		sudo -u $${SUDO_USER:-$$(whoami)} git submodule update --init --recursive --remote --depth 1; \
 	fi
 
 
