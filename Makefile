@@ -6,6 +6,30 @@ SHELL       := /bin/bash
 FAKEROOT := $(if $(FAKEROOTKEY),,fakeroot)
 .DELETE_ON_ERROR:
 
+define NOUVEAU_PATCH
+#include <stdint.h>
+#ifndef NOUVEAU_GETPARAM_FB_SIZE
+#define NOUVEAU_GETPARAM_FB_SIZE 4
+#define NOUVEAU_GETPARAM_AGP_SIZE 5
+#define NOUVEAU_GETPARAM_GRAPH_UNITS 13
+#ifndef DRM_NOUVEAU_GETPARAM
+#define DRM_NOUVEAU_GETPARAM 0x00
+#endif
+struct drm_nouveau_getparam {
+    uint64_t param;
+    uint64_t value;
+};
+#endif
+endef
+export NOUVEAU_PATCH
+
+define patch_nouveau
+	@if ! grep -q "struct drm_nouveau_getparam {" $(1); then \
+		echo "Patching $(1)..."; \
+		printf "%s\n" "$$NOUVEAU_PATCH" | cat - $(1) > $(1).tmp && mv $(1).tmp $(1); \
+	fi
+endef
+
 R := \033[1;31m
 G := \033[1;32m
 Y := \033[1;33m
@@ -338,7 +362,9 @@ curl: root-check mbedtls
 	@printf "$(G)[+] Initialized curl.$(N)\n"
 
 fastfetch: root-check
-	@printf "$(G)[*] Fastfetch derleniyor...$(N)\n"
+	@printf "$(G)[*] Compiling fastfetch..$(N)\n"
+	$(call patch_nouveau,thirdparty/fastfetch/src/detection/gpu/gpu_drm.c)
+	@printf "$(G)[+] Patch Complete.$(N)\n"
 	rm -rf thirdparty/fastfetch/build-arm64
 	cmake -S thirdparty/fastfetch -B thirdparty/fastfetch/build-arm64 \
 		-DCMAKE_SYSTEM_NAME=Linux \
