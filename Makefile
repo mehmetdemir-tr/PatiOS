@@ -94,14 +94,29 @@ toolchain:
 		tar -xf aarch64-musl.tar.xz && \
 		rm aarch64-musl.tar.xz;
 	fi
-submodules:
-	@if [ ! -f "thirdparty/fish-shell/CMakeLists.txt" ] || [ ! -f "thirdparty/coreutils/Cargo.toml" ] || [ ! -f "thirdparty/curl/CMakeLists.txt" ] || [ ! -f "thirdparty/fastfetch/CMakeLists.txt" ] || [ ! -f "thirdparty/mbedtls/CMakeLists.txt" ]; then \
-		echo "Downloading submodules.."; \
-		sudo -u $${SUDO_USER:-$$(whoami)} git submodule sync --recursive; \
-		sudo -u $${SUDO_USER:-$$(whoami)} git submodule update --init --recursive || \
-		sudo -u $${SUDO_USER:-$$(whoami)} git submodule update --init --recursive --remote --depth 1; \
-	fi
 
+submodules:
+	@if [ ! -f "thirdparty/fish-shell/CMakeLists.txt" ] || \
+	    [ ! -f "thirdparty/coreutils/Cargo.toml" ] || \
+	    [ ! -f "thirdparty/curl/CMakeLists.txt" ] || \
+	    [ ! -f "thirdparty/fastfetch/CMakeLists.txt" ] || \
+	    [ ! -f "thirdparty/mbedtls/CMakeLists.txt" ]; then \
+		echo "Downloading submodules.."; \
+		sudo -u $${SUDO_USER:-$$(whoami)} git submodule update --init --recursive --depth 1 || ( \
+			rm -rf .git/modules/* thirdparty/* && \
+			sudo -u $${SUDO_USER:-$$(whoami)} git checkout -- thirdparty && \
+			git config -f .gitmodules --get-regexp '^submodule\..*\.path$$' | while read key path; do \
+				name=$$(echo "$$key" | sed 's/^submodule\.\(.*\)\.path$$/\1/'); \
+				url=$$(git config -f .gitmodules "submodule.$$name.url"); \
+				echo "Cloning $$name -> $$path..."; \
+				rm -rf "$$path" && \
+				sudo -u $${SUDO_USER:-$$(whoami)} git clone --depth 1 --recursive "$$url" "$$path"; \
+			done \
+		); \
+	fi
+	@USER_HOME=$$(getent passwd $${SUDO_USER:-$$(whoami)} | cut -d: -f6); \
+	sudo -u $${SUDO_USER:-$$(whoami)} "$$USER_HOME/.cargo/bin/rustup" target add aarch64-unknown-linux-musl
+	@sudo -u $${SUDO_USER:-$$(whoami)} rustup target add aarch64-unknown-linux-musl
 
 banner:
 	@printf "$(R)PatiOS ENV Builder by mehmetdemir-tr$(N)\n"

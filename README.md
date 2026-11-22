@@ -16,7 +16,7 @@
 * **Type `sudo make` and let the magic happen :)**
 
 ## Prerequisites
-* **aarch64-linux-musl-gcc** [toolchain](https://musl.cc)
+* **aarch64-linux-musl-gcc** (Makefile already installs it)
 * **qemu-system-aarch64** package (`qemu-system-arm`)
 * **unzip** package
 * **genext2fs** package
@@ -28,6 +28,8 @@
 * **file** package
 * **cargo** package
 * **rustc** package
+* **jsonschema** package (must be installed with `pip`)
+* **jinja2** package (must be installed with `pip`)
 
 ## Technical Features
 
@@ -43,7 +45,8 @@ PatiOS doesn't uses any Debian / Ubuntu like rootfs. It has own rootfs and user-
 * `Makefile` : Compiler for PatiOS
 * `pati-commands/` : It's own services and programs.
 * `rootfs/` : It's own rootfs
-* `fish-shell/` : fish-shell for PatiOS
+* `thirdparty/` : Third-party software (like coreutils)
+* `assets/` : screenshots, other files etc.
 
 ---
 
