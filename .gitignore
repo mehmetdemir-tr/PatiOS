@@ -4,7 +4,8 @@ build/
 *.img
 initramfs.cpio.gz
 *.zip
-
+PatiKernel
+rootfs/*
 pati-commands/*
 !pati-commands/*.c
 !pati-commands/mauvyd-headers/
